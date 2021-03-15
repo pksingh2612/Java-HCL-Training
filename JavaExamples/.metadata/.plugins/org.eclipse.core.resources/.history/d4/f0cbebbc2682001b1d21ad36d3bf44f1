@@ -1,0 +1,18 @@
+package com.handon3;
+
+class Venue{
+	String name;
+	String city;
+}
+public class Problem1 {
+
+	public static void main(String[] args) {
+		Venue venue= new Venue();
+		venue.name = args[0];
+		venue.city = args[1];
+		System.out.println("Venue Details :");
+		
+		System.out.println("Venue Name : "+venue.name);
+		System.out.println("City Name : "+venue.city); 
+	}
+}

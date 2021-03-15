@@ -1,0 +1,20 @@
+package com.handon3;
+import java.util.*;  
+class Venue{
+	String name;
+	String city;
+}
+public class Problem1 {
+
+	public static void main(String[] args) {
+		Venue venue= new Venue();
+		Scanner sc= new Scanner(System.in);
+		System.out.print("Enter the venue name : ");
+		venue.name= sc.nextLine();
+		System.out.print("Enter the city name : ");
+		venue.city= sc.nextLine();
+		System.out.println("Venue Details :");
+		System.out.println("Venue Name : "+venue.name);
+		System.out.println("City Name : "+venue.city); 
+	}
+}

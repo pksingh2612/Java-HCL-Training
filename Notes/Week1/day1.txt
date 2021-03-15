@@ -1,0 +1,976 @@
+1. Type of Application we can make
+---------------------------------
+
+1. System/network oriented appl - run in intranet - chat room
+
+2. Web oriented appl - run in internet - online appl
+
+3.Java Invented by
+-------------------
+Java - Sun Microsystem - Oracle
+
+Java was developed by Sun Microsystems (which is now the subsidiary of Oracle) in the year 1995.
+James Gosling is known as the father of Java. Before Java, its name was Oak.
+Since Oak was already a registered company, so James Gosling and his team changed the Oak name to Java.
+
+
+3 Categories
+
+1. J2SE - Java 2 Standard Editon - Core Java - to develop system oriented appl
+
+2. J2EE - Java 2 Enterprise Edition - To develop web oriented appl
+
+3. J2ME - Java 2 Micro/Mobile Edition - To develop mobile based appl
+
+
+C
+
+1. Procedural oriented language
+
+2. Header files
+
+   #include<stdio.h>
+
+3. 32 keywords
+
+4. primitive data types and user defined datatype
+
+5. #define A 40 - Macros used to define global variable
+
+6. Pointers used to access the address of variables and function
+
+
+Java
+
+1. Partially object oriented language
+
+  SmallTalk - Purely object oriented
+
+2. No header files instead we use Packages
+
+Packages - a folder which contains collection of classes
+
+import java.io.*;  - use any file operation
+
+import java.util.*; - use any Collection framework
+
+import java.net.*; - use any networking concept
+
+import java.lang.*; - language info (optional)
+
+import java.applet.*; - used to develop basic GUI
+
+ import javax.swing.*; - used to develop advanced GUI eg: dialog box, password field
+
+3. 49 keywords, eg: not present in sizeof, extern, register, signed, unsigned
+
+4. Only primitive data type
+
+5. No global declaration -
+
+6. No pointers then the address can be accessed by creating the object
+
+
+C++
+
+1. Partially OOP
+
+a. Object - real world entity which contains states and behaviour
+
+      Object will hold memory reference or address
+
+b. Class - collection of objects/instance of object/ template or blueprint of object
+
+    class will contains methods,variables, constructor. You will access the class by creating the object
+
+c. Encapsulation - wrapping of data into single unit
+
+   Data hiding
+
+   private variables and public methods
+
+d. Abstraction - without knowing the implemention details we use the class
+
+e. Inheritance - accessing the properties of one class into another class
+
+    advantage - code reusability
+
+    Types - Single, multiple,multilevel, hybrid, hiearchical
+
+f. Polymorphism - one class takes many forms
+
+    2 types
+
+  1. static/compile time - Method Overloading, constructor overloading, operator overloading
+
+  2. Dynamic/runtime - Method Overriding
+
+
+2. Constructor
+
+     - whenever u create an object for a class, a memory will be allocated so the allocation of memory is called as constructor
+
+     - whenever u create an object for a class, the constructor will be invoked
+
+     - Used to initialize the values to the variables at the time of object creation
+
+     - By default all class contains one default constructor(constructor without arguments), apart from that we can create our own constructor where the class name and the constructor name should be same at that time it will destroy the already present default constructor
+
+     - Constructor can have access specifiers mostly public, whenever the constructor declared as private we cant create object for that particular class
+
+     - Constructor should not have return value
+
+
+class Box{
+
+   Box(){
+
+   }
+
+   ~Box(){
+
+   }
+
+   void Box(){
+
+   }
+
+}  
+
+ 
+
+3. Destructor - deallocating the memory - ~(tilde)
+
+4. String is a datatype
+
+ 
+
+Java
+
+1. Partially OOP
+
+2. We dont have multiple inheritance instead we have Interfaces
+
+3. We cannot overload operators (or) operator overloading is not possible in Java
+
+4. Constructor
+
+5. We dont have destructor instead we have
+
+     1. Automatic Garbage collection
+
+           - whenever the program termintes whatever the memory is allocated it will be deallocated
+
+     2. Explicit garbage collection
+
+           - we can call System.gc() or Runtime.gc(), where this method will automatically call another method called finalize() which contains the resources to be deallocated and it will invoked only once in the lifecycle of the program
+
+ 
+
+6. String is a class or literal
+
+ 
+
+Java - Sun Microsystem - Oracle
+
+   late 1980 - Oak
+
+   early 1990 - Java by James Gosling, Patrick Naughton, Chris Wirth
+
+ 
+
+latest version - 14.0
+
+ 
+
+JDK 1.O - Oak
+
+JDK 2.0 - Playground
+
+JDK 3.0 - Kestrel
+
+JDK 4.0 - Merlin
+
+JDK 5.0 - Tiger
+
+JDK 6.0 - Mustang
+
+JDK 7.0 - Dolphin
+
+JDK 8.0 - Spyder
+
+ 
+
+Installation
+
+1. we have install jdk8
+
+2. we have to set the path
+
+JAVA_HOME - C:/prg files/java/jdk1.8
+
+Path - C:/prg files/java/jdk1.8/bin
+
+ 
+
+JDK - Java Development Kit - JRE + extra tools that u need develop Java prg eg: Javac (java compiler)
+
+JVM - Java Virtual Machine - it is the software that reads and execute Java byte code  and each OS will have different different JVM - JVM is like motor
+
+Platform independent - it can run in any type of OS
+
+JIT - Just In Time Compiler - The JVM contains JIT compiler, which translates the Java bytecode to machine code for the CPU at the time of running
+
+JRE - Java Runtime Environment - It is JVM and everything that surrounds which is needed to run Java prg. JRE is something like a Car
+
+ 
+
+ 
+
+1. Javac - Java Compiler - convert source code to byte code
+
+2. Java - Java Interpreter - used to execute the java program
+
+3. javap - Java disassembler - used to display all methods, variables and constructor of the class in command prompt
+
+>javap java.lang.String
+
+4. javadoc - Java Documentation - used to display all methods, variables and constructor of the class in webpage (ie) html 
+
+ 
+
+Fundamentals of Java
+
+1. Identifiers
+
+      - names provided to methods, variables and class
+
+      - it should start with alphabets, it can contains digits and 2 special char _ and $
+
+ 
+
+2. Keywords
+
+     - 49 keywords, certain keywords like sizeof, extern, register, signed and unsigned
+
+     - goto and const - but if we use this in program it leads to compilation error. So instead of goto use continue and instead of const use final
+
+     - 3 reserved words - true,false,null
+
+ 
+
+3. Datatype
+
+     - type of value assigned to a variable
+
+     - only primitive data types
+
+                     bits           byte            min              max
+
+1. byte                8              1              -2^7          (2^7)-1
+
+2. short               16             2              -2^15         (2^15)-1
+
+3. int                 32             4              -2^31         (2^31)-1
+
+4. long                64             8              -2^63         (2^63)-1
+
+5. float               32             4                -              -
+
+6. double              64             8                -              -
+
+7. boolean             8              1               true           false
+
+8. char                16 bit         2                 0           65535
+
+                  unsigned integer
+
+ 
+
+ 
+
+4. Variables
+
+      - identifier used to store the value
+
+      - 2 types
+
+1. class/instance variable
+
+       - any variable that is declared outside the method and inside the class
+
+       - no need to initialize class variable, it will take default value depends on its datatype
+
+          int,short,long,byte - 0
+
+          float,double - 0.0
+
+          boolean - false
+
+          char - \u0000
+
+          Object - null
+
+    
+
+2. Local variable
+
+       - any variable that is declared inside the method and it should be initialized
+
+      
+
+5. Literals
+
+      - how to represent the value to a variable
+
+ 
+
+1. Integer liternal - 3 ways
+
+      a. Decimal literal
+
+              int a = 34;
+
+              int b = 2095;
+
+      b. Octal literal - base 8 - any int value preceeded with 0
+
+              int c = 01;
+
+                    = 02;
+
+                    = 03; 04; 05; 06; 07;
+
+              int d = 010;  0*8^0+1*8^1+0*8^2=8
+
+              int e = 011;
+
+      c. Hexadecimal literal - base 16
+
+              int f = 0X10;
+
+              int g = 0xff;
+
+By defualt all number are int
+
+ 
+
+2. Float literal
+
+      float a = 3.14;  - wrong
+
+      float b = 3.14f; - correct
+
+      float c = 3.14F; - correct
+
+ 
+
+3. Double literal
+
+       double d1 = 3.14;  - correct
+
+       double d2 = 3.14d; - correct
+
+       double d3 = 3.14D; - correct
+
+By default all decimal values are double
+
+ 
+
+4. Long literal
+
+       long l1 = 10;   - correct
+
+       long l2 = 10l;  - correct
+
+       long l3 = 10L;  - correct
+
+ 
+
+5. short literal
+
+       short s1 = 10;  - correct
+
+       short s2 = 10s; - wrong
+
+       short s3 = 10S; - wrong
+
+ 
+
+6. Byte literal
+
+       byte b = 23;  - correct
+
+ 
+
+7. boolean literal
+
+      boolean b1 = true;
+
+      boolean b2 = false;
+
+ 
+
+8. char literal - contains only single char in single quotes
+
+      char c1 = 'a'; - correct
+
+      char c2 = "a";  - wrong
+
+      char c3 = "ab"; - wrong
+
+      char c4 = 'ab'; - wrong
+
+      char c5 = 24;  - correct ascii char
+
+      char c6 =  1234; - correct ascii char
+
+      char c7 = (char)70000; - correct
+
+      char c8 =  -25; - wrong
+
+     
+
+In case of Java, char can also be represented as unicode character (ie) \u0000. Unicode char will be understand only at compile time
+
+       char c9 = '\u0019';
+
+ 
+
+\n,\b,\\,\?,\",\'
+
+    - Escape sequence can also be represent in unicode char, will be understand at runtime
+
+    \n - \u000A
+
+ 
+
+System.out.println("Hello\u000AWorld");- compilation error Hello000AWorld
+
+ 
+
+9. String literal - group of char in double quotes
+
+      String s = "hello"; - correct
+
+      String s1 = "a"; -correct
+
+ 
+
+10. null literal - can applied only for object
+
+       Sample s1 = null;
+
+ 
+
+ 
+
+5. Access Specifiers/Access Modifiers
+
+      - public, private, protected, default(default access specifier)
+
+ 
+
+                 default              private                  protected            public
+
+1. same class      yes            yes             yes             yes
+
+within same
+
+package
+
+ 
+
+2.Different class  yes             no             no              yes
+
+within same
+
+package 
+
+ 
+
+3. Different class no              no             no              yes
+
+within difff
+
+package(non sub
+
+class)
+
+ 
+
+4. Diff class       no             no             yes             yes
+
+within diff package
+
+(subclass)
+
+ 
+
+ 
+
+6. Operators
+
+1. Arthimetic Operator +,-,*,/
+
+2. Modulus operator - %
+
+3. Assignment operator =
+
+4. Arthimetic Assignment operator +=,-=,*=,/=
+
+     a+=2;   a=a+2;
+
+5. Ternary operator ?:
+
+      z = a>b ? a:b;
+
+6. Increment and Decrement operator ++, --
+
+7. Relational operator >,>=,<,<=
+
+8. Equality and Inequality operator ==,!=
+
+9. Bitwise operator
+
+     & - Bitwise AND
+
+     | - Bitwise OR
+
+     ^ - Bitwise XOR
+
+     ~ - 1's Complement
+
+     >> - left shift - n * 2^s
+
+     << - right shift- n/2^s
+
+ 
+
+a=5, b=6
+
+ 
+
+a              b    a&b=4  a|b=7  a^b=3   ~a
+
+0              0     0      0      0      1
+
+1              1     1      1      0      0
+
+0              1     0      1      1      1
+
+1              0     0      1      1      0
+
+ 
+
+a=8, b=2
+
+  a>>b = 8 * 2^2 = 32
+
+  a<<b = 8/2^2 = 2
+
+ 
+
+10. Logical operator
+
+    & - Logical AND
+
+    | - Logical OR
+
+    ^ - Logical XOR
+
+    ! - Logical NOT
+
+a=true, b=false
+
+   a&b = false
+
+ 
+
+11. Shortcircuit logical operator
+
+     && - logical AND
+
+     || - Logical OR
+
+ 
+
+if(a>b && a==5){
+
+ 
+
+}
+
+a=5, b=6
+
+if(a>b & a==5){
+
+}
+
+ 
+
+12. new operator - used to create an object and it allocates the memory
+
+    1. Sample s1=new Sample(); - we create an object called s1 and we allocate the memory and invoke the default constructor
+
+    2. Sample s1;      //object declaration contains null reference
+
+       s1=new Sample(); 
+
+    3.  new Sample(); -  directly allocated the memory and invoke default constructor
+
+        Sample s1=new Sample();
+
+            s1.add();
+
+        new Sample().add();
+
+ 
+
+13. dot operator - used to access methods and variables using objects
+
+     
+
+class Sample{
+
+   void add(){
+
+   }
+
+}
+
+ 
+
+Sample s1=new Sample();
+
+s1.add();
+
+ 
+
+ 
+
+7. Control statements in Java - 3 types
+
+ 
+
+1. Conditional statement - 3types
+
+a. if else - used to check single condition
+
+      if(condition){
+
+        //statement
+
+      }
+
+      else {
+
+        //statement
+
+      }
+
+a=5,b=6
+
+if(a>b)
+
+sop("hello");            -- correct
+
+else{
+
+ 
+
+}
+
+ 
+
+if(a==5){
+
+ 
+
+}             -- correct
+
+else{
+
+ 
+
+}
+
+ 
+
+if(a=7){
+
+ 
+
+}
+
+else{          -- compilation error
+
+ 
+
+}
+
+b. switch case - used to check multiple condition
+
+      switch(expression){
+
+         case 1:
+
+             //statemennt
+
+             break;
+
+         case 2:
+
+         ---
+
+         default:
+
+             //statement
+
+             break;
+
+      }
+
+1. expression can be int, byte, short, char, enum, String(1.7)
+
+2. arg should be final
+
+3. Dont use continue inside switch, if u r using it leads to error
+
+4. default can be present anywhere
+
+int a=1;
+
+switch(a){
+
+    case 1:
+
+        Sop("1");
+
+        //break;   
+
+    case 10:
+
+        sop("10");
+
+        //break;
+
+}
+
+Output: 2110
+
+ 
+
+c. ternary operator z=a>b?a:b;
+
+ 
+
+2. Looping statement - 3types
+
+ 
+
+1. for loop
+
+       int i;
+
+      for(i=0;i<10;i++){
+
+      }
+
+      
+
+2. while
+
+     while(condition);
+
+3. do while
+
+     do{
+
+       //statement
+
+     }
+
+     while(condition);
+
+ 
+
+3. Flow breaking statement - 3 types
+
+1. break - stops the entire iteration
+
+2. continue - stops only the current iteration
+
+3. return - transfer the control back to the calling program
+
+ 
+
+ 
+
+1. Package declaration
+
+2. Importing the packages
+
+3. class declaration
+
+ 
+
+Two types of classes
+
+1. Base class
+
+     - contains all ur logic inside the methods
+
+     - You can have any number of base class
+
+     - It is accessed by creating the object in main class
+
+ 
+
+2. Main class
+
+     - only one main class and it will be the starting point of the program
+
+     - public static void main(String[] args) then it is the main class
+
+     - used to access the base class methods and variables by creating the object
+
+ 
+
+class A{
+
+}
+
+class B{
+
+}
+
+class C{
+
+}
+
+class D{
+
+   PSVM
+
+}
+
+ 
+
+>javac E.java
+
+    - it creates class files A.class, B.class, C.class, D.class
+
+ 
+
+>java D
+
+ 
+
+A.java - yes
+
+B.java - Yes
+
+C.java - yes
+
+D.java - yes
+
+E.java - yes
+
+You can save the program in anyname but at the time of execution u have to execute only in the name of main class
+
+ 
+
+If a class is declaraed to be public, then it should be saved in the name of public class
+
+ 
+
+class A{
+
+}
+
+public class B{
+
+}
+
+class C{
+
+}
+
+class D{
+
+   PSVM
+
+}
+
+ 
+
+>javac B.java
+
+>java D
+
+ 
+
+ 
+
+Single Java program can have only one public class
+
+public class A{
+
+}
+
+ 
+
+>javac A.java
+
+ 
+
+public class B{
+
+}
+
+ 
+
+>javac B.java
+
+ 
+
+public class C{
+
+}
+
+ 
+
+ 
+
+>javac C.java
+
+ 
+
+public class D{
+
+   PSVM
+
+}
+
+ 
+
+>javac D.java
+
+>java D
+
+ 
+
+Java coding standard
+
+   1. Class name should be camel case (Each word starting letter should be capital)
+
+        class JavaExampleDemo{
+
+ 
+
+        }
+
+   2. method name should be always from Second word onwards the starting letter  is capital
+
+      getAge(), getMySalaryInfo(), setAddress()

@@ -1,0 +1,44 @@
+//Problem Statement:
+//
+//Given, the following program:
+//
+//1. class Programmer {
+//
+//2.     Programmer debug() { return this; }   
+//
+//3. }
+//
+//4. class SCJP extends Programmer {
+//
+//5.     // insert code here
+//
+//6.}
+//
+// 
+//
+//Which method at line 5, will compile? (Choose all that apply.)
+//
+//A. Programmer debug() { return this; }
+//B. SCJP debug()  { return this; }
+//C. Object debug() { return this; }
+//D. int debug() { return 1; }
+//E. int debug(int x) { return 1; }
+//F. Object debug(int x) { return this; }
+package com.handon4;
+
+
+ class Programmer {
+
+     Programmer debug() { return this; }   
+
+}
+
+public class SCJP extends Programmer{
+
+	public static void main(String[] args) {
+		// insert code here
+		Object debug(int x) { return this; }
+
+	}
+
+}

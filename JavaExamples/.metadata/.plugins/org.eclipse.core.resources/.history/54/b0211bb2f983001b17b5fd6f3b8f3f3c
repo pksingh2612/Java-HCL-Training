@@ -1,0 +1,58 @@
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Clidders {
+//
+//    public final void flipper() {
+//
+//        System.out.println("Clidder");
+//
+//    }
+//
+//}
+//
+// 
+//
+//public class Clidlets  extends Clidders {
+//
+//    public void flipper() {
+//
+//        System.out.println("Flip a Clidlet");
+//
+//        super.flipper();
+//
+//    }   
+//
+//    public static void main(String[] args) {
+//
+//        new Clidlets().flipper();
+//
+//    }   
+//
+//}
+//
+// 
+//
+//Flip a Clidlet
+//Flip  a Clidder
+//Flip a Clidder
+//Flip a Clidlet
+//
+//Flip a Clidlet
+//Flip a Clidder
+//
+//Compilation fails.
+
+package com.handon4;
+
+public class Clidlets {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

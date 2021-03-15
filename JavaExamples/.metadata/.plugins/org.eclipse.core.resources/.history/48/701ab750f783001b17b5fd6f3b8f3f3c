@@ -1,0 +1,56 @@
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Alien {
+//
+//    String invade(short ships) {
+//
+//        return " a few";
+//
+//    }
+//
+//}
+//
+// 
+//
+//class Defender {   
+//
+//    public static void main(String[] args) {
+//
+//        System.out.println(new Alien().invade(7));
+//
+//    }
+//
+//}
+//
+// 
+//
+//many
+//a few
+//Compilation fails
+//The output is not predictable
+//An exception is thrown at runtime
+
+package com.handon4;
+
+class Alien {
+
+  String invade(short ships) {
+
+      return " a few";
+
+  }
+
+}
+
+public class Defender {
+
+	public static void main(String[] args) {
+		System.out.println(new Alien().invade(7));
+
+	}
+
+}

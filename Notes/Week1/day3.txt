@@ -1,0 +1,881 @@
+super keyword
+
+   - used to access base class constructor, base class method and base class variable
+
+   - used only if we perform inheritance
+
+   - only if u access base class contructor, super should be present in first line
+
+   - dont use super() and this() simultaneously
+
+ 
+
+package com.day3;
+
+ 
+
+class Box{
+
+                private double width;
+
+                private double height;
+
+                private double depth;
+
+               
+
+                Box(){
+
+                                width=-1;
+
+                                height=-1;
+
+                                depth=-1;
+
+                }
+
+                Box(double w,double h,double d){
+
+                                width=w;
+
+                                height=h;
+
+                                depth=d;
+
+                }
+
+                Box(int len){
+
+                                width=height=depth=len;
+
+                }
+
+                Box(Box ob){
+
+                                width=ob.width;
+
+                                height=ob.height;
+
+                                depth=ob.depth;
+
+                }
+
+               
+
+                double volume() {
+
+                                return width*height*depth;
+
+                }
+
+}
+
+ 
+
+class BoxWeight extends Box{
+
+                double weight;
+
+               
+
+                BoxWeight(){
+
+                                super();
+
+                                weight=-1;
+
+                }
+
+                BoxWeight(double w,double h,double d,double we){
+
+                                super(w,h,d);
+
+                                weight=we;
+
+                }
+
+                BoxWeight(int len,double we){
+
+                                super(len);
+
+                                weight=we;
+
+                }
+
+                BoxWeight(BoxWeight ob){
+
+                                super(ob);
+
+                                weight=ob.weight;
+
+                }
+
+               
+
+}
+
+ 
+
+class Shipment extends BoxWeight{
+
+                double cost;
+
+               
+
+                Shipment(){
+
+                                super();
+
+                                cost=-1;
+
+                }
+
+                Shipment(double w,double h,double d,double we,double c){
+
+                                super(w,h,d,we);
+
+                                cost=c;
+
+                }
+
+                Shipment(int len,double we,double c){
+
+                                super(len,we);
+
+                                cost=c;
+
+                }
+
+                Shipment(Shipment ob){
+
+                                super(ob);
+
+                                cost=ob.cost;
+
+                }
+
+}
+
+public class Example1 {
+
+ 
+
+                public static void main(String[] args) {
+
+      Shipment s1=new Shipment();
+
+      Shipment s2=new Shipment(1,2,3,4,5);
+
+      Shipment s3=new Shipment(3,6,9);
+
+      Shipment s4=new Shipment(s2);
+
+      double vol;
+
+      vol=s1.volume();
+
+      System.out.println("Volume is "+vol);
+
+      System.out.println("Weight is "+s1.weight);
+
+      System.out.println("Cost is "+s1.cost);
+
+      vol=s2.volume();
+
+      System.out.println("Volume is "+vol);
+
+      System.out.println("Weight is "+s2.weight);
+
+      System.out.println("Cost is "+s2.cost);
+
+      vol=s3.volume();
+
+      System.out.println("Volume is "+vol);
+
+      System.out.println("Weight is "+s3.weight);
+
+      System.out.println("Cost is "+s3.cost);
+
+      vol=s4.volume();
+
+      System.out.println("Volume is "+vol);
+
+      System.out.println("Weight is "+s4.weight);
+
+      System.out.println("Cost is "+s4.cost);
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+class A{
+
+                int i;
+
+}
+
+class B extends A{
+
+                int i;
+
+                B(int a,int b){
+
+                                i=a;
+
+                                super.i=b;
+
+                }
+
+               
+
+                void show() {
+
+                                System.out.println("i in A class "+super.i);
+
+                                System.out.println("i in B class "+i);
+
+                }
+
+}
+
+public class Example2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                B b=new B(1,2);
+
+                                b.show();
+
+                }
+
+ 
+
+}
+
+ 
+
+Method Overriding - used only in inheritance
+
+   - same method name, same return type of method, same number, order and datatype of the argument but present in different class and the class should be inherited
+
+ 
+
+Dynamic Method dispatch
+
+   - In order to have effective method overriding
+
+   - We have to create an object of Base class but we store the reference inside derived class but not vice versa. So at the time of compilation, the compiler thinks the object is created for base class but only at runtime it will come to know the object is created for derived class, in this way we achieve runtime polymorphism
+
+ 
+
+class A1{
+
+                void callMe() {
+
+                                System.out.println("Inside A1's callMe method");
+
+                }
+
+}
+
+class B1 extends A1{
+
+                void callMe() {
+
+                                System.out.println("Inside B1's callMe method");
+
+                }
+
+}
+
+class C1 extends A1{
+
+                void callMe() {
+
+                                System.out.println("Inside C1's callMe method");
+
+                }
+
+}
+
+public class Example4 {
+
+ 
+
+                public static void main(String[] args) {
+
+                   A1 a=new B1();
+
+                   a.callMe();
+
+                   a=new C1();
+
+                   a.callMe();
+
+                   a=new A1();
+
+                   a.callMe();
+
+                }
+
+ 
+
+}
+
+ 
+
+No constructor overriding
+
+ 
+
+Type casting/Type conversion
+
+   - convert from one data type to another data type
+
+1. Implicit conversion - converting from lower to higher datatype
+
+      float f=3.14f;
+
+      double d=f;
+
+ 
+
+2. Explicit conversion - converting from higher to lower data type
+
+      int a = 129;
+
+      byte b = (byte)a;   -128 to 127
+
+      System.out.println(b); //-127
+
+ 
+
+ 
+
+How Constructor are called in Inheritance?
+
+    - In case of Inheritance, the constructor will be called in top bottom approach  and it always try to invoke base class default constructor
+
+    - First it will go to that particular constructor and check whether we use super() or this() if we used it will work according to that in case if we didnt use it will always try to invoke base class default constructor
+
+ 
+
+ 
+
+class A2{
+
+                A2(int a){
+
+                                System.out.println("1");
+
+                }
+
+                /*A2(){
+
+                                System.out.println("0");
+
+                }*/
+
+}
+
+class B2 extends A2 {
+
+                B2(){
+
+                                super(10);
+
+                                System.out.println("2");
+
+                }
+
+}
+
+class C2 extends B2{
+
+                C2(){
+
+                                System.out.println("3");
+
+                }
+
+}
+
+public class Example6 {
+
+                public static void main(String[] args) {
+
+                                C2 c=new C2();
+
+                }
+
+ 
+
+}
+
+ 
+
+compound/instance block
+
+  {
+
+     //compound block
+
+  }
+
+- it will execute before ur constructor invokes
+
+ 
+
+Java Relationship - 2types
+
+ 
+
+1. IS-A relationship
+
+      - we use inheritance
+
+class Animal{
+
+}
+
+class Dog extends Animal{
+
+}
+
+Dog is a Animal
+
+ 
+
+2. HAS-A relationship - Aggregration
+
+     - whenever we try to create object of one class into another class
+
+ 
+
+class Wheel{
+
+ 
+
+}
+
+class Car {
+
+   Wheel w=new Wheel();
+
+}
+
+Car has a Wheel
+
+ 
+
+ 
+
+final keyword
+
+   - it is a non access specifier
+
+   - If we define class to final, we cant do inheritance
+
+   - If we define method to be final, method overriding is not possible
+
+   - If we define variable to be final, it will act as constant
+
+ 
+
+static import
+
+   - Available only JDK1.5
+
+   - Normally we will call static methods using classname.methodname, but if we dont want to call as classname.methodname then we use static import
+
+ 
+
+varargs
+
+   - Available from JDK1.5
+
+ 
+
+void add(int a,int b){ a+b; }
+
+void add(int a,int b,int c){ a+b+c; }
+
+void add(int a,int b,int c,int d){ a+b+c+d; }
+
+ 
+
+   - In case of method overloading, if we want to pass any number of variable arguments we can go for varargs
+
+   - varargs is represented using ...
+
+   - whenever u give combination of variables, the varargs should be always present as last argument
+
+   - A method can have only one varargs argument
+
+ 
+
+class Test{
+
+                void add(int...a) {
+
+                                for(int a1:a)
+
+                                                System.out.println(a1);
+
+                }
+
+                void add(String...s) {
+
+                                for(String s1:s)
+
+                                                System.out.println(s1);
+
+                }
+
+                void add(boolean b,int...a) {
+
+                                System.out.println(b);
+
+                                for(int a2:a)
+
+                                                System.out.println(a2);
+
+                }
+
+}
+
+public class Example10 {
+
+ 
+
+                public static void main(String...args) {
+
+                                Test t=new Test();
+
+                                t.add(20,30);
+
+                                t.add(1,2,3,4,5,6,7,8);
+
+                                t.add("a","b","c");
+
+                                t.add(true,2,3,4,5,6);
+
+                }
+
+ 
+
+}
+
+ 
+
+Command Line Argument
+
+   - used to provide inputs in command line
+
+   - If we use args in main program, then for that program we have to provide input through command line
+
+   - Each command line is separated by space
+
+ 
+
+ 
+
+abstract keyword
+
+   - It is a non access specifier
+
+   - If a class is declared as abstract, u cannot create an object for that class
+
+   - If a method is declared as abstract, the method does not have any implementations, it just ends with semicolon
+
+   - Variable cannot be declared as abstract
+
+   - When a class contains abstract method, then that class should be declared as abstract. But not necessary all abstract class contains abstract methods
+
+   - Abstract class can also contain some non abstract method
+
+   - Abstract class can also be inherited, whenever we inherit the abstract class then we have give the implementation of all abstract method inside the inherited class. In case if we didnt give the implementation then we have to declare the inherited class as abstract
+
+   - Abstract class contain one default constructor but it cant be invoked
+
+abstract class A4{
+
+                abstract void callme();
+
+                void show() {
+
+                                System.out.println("Normal method");
+
+                }
+
+}
+
+class B4 extends A4{
+
+                void callme() {
+
+                                System.out.println("Implementation of abstract method");
+
+                }
+
+}
+
+public class Example12 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                B4 b=new B4();
+
+                                b.callme();
+
+                                b.show();
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Anonymous Inner class
+
+   - Whenever we have abstract class  which contains normal method, without inheritance we can invoke that method using AIC
+
+ 
+
+abstract class A5{
+
+                void show() {
+
+                                System.out.println("Hello");
+
+                }
+
+}
+
+public class Example13 {
+
+ 
+
+                public static void main(String[] args) {
+
+                   A5 a=new A5() {
+
+                                   public void show() {
+
+                                                   System.out.println("hello");
+
+                                   }
+
+                   };
+
+                   a.show();
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Interface
+
+   - Interface used instead of multiple inheritance
+
+   - Interface is similar to class which contains method declaration and variable declaration and initialization
+
+   - Syntax
+
+          <accessspecifier(public/default)> interface interfacename {
+
+               //method declaration
+
+               //variable declaration and initialization
+
+          }
+
+   - By default all interfaces are abstract, so we cant create an object for interface
+
+   - By default all interface methods are public and abstract
+
+   - By default all interface variables are public, static, final
+
+   - Interface variable is accessed as interfacename.variablename
+
+   - Interface is implemented in class using implements keyword
+
+   - If a class implements an interface then we have to compulsorly implement all the methods declared in the interface with public access specifier, in case if we leave one method also then the class is declared as abstract
+
+   - The implemented class can also contain some normal methods
+
+   - Interface can also be extended
+
+   - In Java we have 3 options
+
+          - 1 class extends 1 class
+
+          - 1 class implements n interface
+
+          - 1 interface extends n interface
+
+   - Marker interface - any interface which does have anything eg: Serializable, Cloneable, Remote, RandomAccess
+
+ 
+
+Predefined Packages
+
+ 
+
+1. java.lang -only one optional package in Java
+
+ 
+
+a. Object class
+
+     - super class of all classes
+
+     - by default all userdefined and predefined class will inherit the Object class
+
+ 
+
+Constructor:
+
+   1. Object()
+
+ 
+
+Methods
+
+1. String toString() - String representation of an object
+
+    - Whenever u print any object it will print only memory reference, but we dont print memory reference we want to print some content in that case we go toString()
+
+    - All predefined classes will contain toString(), so whenever we print object of predefined class it will print some content
+
+    - But for user defined class it will print only memory reference, but we want to print some content for that we have to override toString()
+
+    
+
+String s=new String("hello");
+
+   sop(s);   //hello
+
+ 
+
+Sample s1=new Sample("hello");
+
+  sop(s1);   //memory reference
+
+ 
+
+2.int hashCode()
+
+     - returns unique code for the value stored in the object
+
+     - If two objects are equal according to the equals() then calling hashCode() on each of two objects must produce same result
+
+ 
+
+3.boolean equals(Object o) - used to check the equality of content
+
+  == (equal versus) - used to check equality of object reference
+
+ 
+
+4. protected void finalize()
+
+5. final void wait()
+
+6. final void wait(long msec)
+
+7. final void notify()
+
+8. final void notifyAll()
+
+9. Object clone()
+
+ 
+
+ 
+
+b. Math class - to perform mathematical operation
+
+ 
+
+1. static double sqrt(double d)
+
+2. static double pow(double y,double x)
+
+3. static double sin(double d)
+
+4. static double cos(double d)
+
+5. static double tan(double d)  
+
+6. static double abs(double d)
+
+7. static double log(double d)
+
+8. static long max(long a,long b)
+
+9. static int min(int a,int b)
+
+10. static double random(double d)
+
+11. static double floor(double d)
+
+12. static double ceil(double d)
+
+ 
+
+instanceof
+
+ 
+
+class Test6{
+
+               
+
+}
+
+public class Example20 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Test6 t=new Test6();
+
+                                if(t instanceof Test6) {
+
+                                                System.out.println("True");
+
+                                }
+
+                                if(t instanceof Object) {
+
+                                                System.out.println("Hello");
+
+                                }
+
+                }
+
+ 
+
+}

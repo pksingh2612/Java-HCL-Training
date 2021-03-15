@@ -1,0 +1,1159 @@
+//Prabhakar Singh Java Mode 1 Training Handson 4 Solution
+//---------------------------------------------------------
+
+// Problem #1
+//------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Eggs {   
+//
+//    int doX(Long x, Long y) { return 1;}
+//
+//    int doX(long... x) { return 2;}
+//
+//    int doX(Integer x, Integer y) { return 3; }
+//
+//    int doX(Number n, Number m) { return 4; }
+//
+//   
+//    public static void main(String[ ] args) {
+//
+//        new Eggs().go();
+//
+//    }
+//
+// 
+//
+//    void go() {
+//
+//        short s = 7;
+//
+//        System.out.println(doX(s,s) + " ");
+//
+//        System.out.println(doX(7,7));
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. 1  1
+//B. 2  1
+//C. 3  1
+//D. 4  1
+//E. 2  3
+//F. 3  3
+//G. 4  3
+
+package com.handon4;
+
+public class Eggs {
+	int doX(Long x, Long y) { return 1;}
+
+    int doX(long... x) { return 2;}
+
+    int doX(Integer x, Integer y) { return 3; }
+
+    int doX(Number n, Number m) { return 4; }
+    
+    
+    void go() {
+
+        short s = 7;
+
+        System.out.println(doX(s,s) + " "); // calling int doX(Number n, Number m) { return 4; } because by default all short wrapper class present in Number Class
+
+        System.out.println(doX(7,7));// 7 is int type but no method is their in Eggs for it. So A/c to auto-boxing concept it will call int doX(Integer x, Integer y) { return 3; }.
+        //Because all the int convert to Interger wrapper class
+        
+
+    }
+
+   
+	public static void main(String[] args) {
+		new Eggs().go();
+	}
+
+}
+
+// Answer : G
+
+
+
+// Problem #2
+//-------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Mixer {   
+//
+//    Mixer() { }
+//
+//    Mixer(Mixer m) { m1 = m; }
+//
+//    Mixer m1;
+//
+//    public static void main(String[ ] args) {
+//
+//        Mixer m2 = new Mixer();
+//
+//        Mixer m3 = new Mixer(m2);
+//
+//        m3.go();
+//
+//        Mixer m4 = m3.m1;
+//
+//        m4.go();
+//
+//        Mixer m5 = m2.m1;
+//
+//        m5.go();
+//
+//    }
+//
+//    void go() {
+//
+//        System.out.println("hi ");
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. hi
+//B. hi hi
+//C. hi hi hi
+//D. Compilation fails
+//E. hi, followed by an exception
+//F. hi hi, followed by an exception
+// 
+package com.handon4;
+
+public class Mixer {
+
+	Mixer() { }
+
+    Mixer(Mixer m) { m1 = m; }
+
+    Mixer m1;
+    
+    void go() {
+
+        System.out.println("hi ");
+
+    }
+    
+	public static void main(String[] args) {
+		Mixer m2 = new Mixer();
+
+        Mixer m3 = new Mixer(m2);
+
+        m3.go();
+
+        Mixer m4 = m3.m1;
+
+        m4.go();
+
+        Mixer m5 = m2.m1;
+        
+        m5.go();
+	}
+
+}
+
+// Answer: F hi hi, followed by an exception. And the exception is
+//Exception in thread "main" java.lang.NullPointerException: Cannot invoke "com.handon4.Mixer.go()" 
+//because "m5" is null at com.handon4.Mixer.main(Mixer.java:79)
+
+
+
+// Problem #3
+//-------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Alien {
+//
+//    String invade(short ships) {
+//
+//        return " a few";
+//
+//    }
+//
+//}
+//
+// 
+//
+//class Defender {   
+//
+//    public static void main(String[] args) {
+//
+//        System.out.println(new Alien().invade(7));
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. many
+//b. a few
+//C. Compilation fails
+//D. The output is not predictable
+//E. An exception is thrown at runtime
+
+package com.handon4;
+
+class Alien {
+
+  String invade(short ships) {
+
+      return " a few";
+
+  }
+
+}
+
+public class Defender {
+
+	public static void main(String[] args) {
+		System.out.println(new Alien().invade(7));
+
+	}
+
+}
+
+//Answer: C. Compilation fails
+// because
+//	Exception in thread "main" java.lang.Error: Unresolved compilation problem: 
+//		The method invade(short) in the type Alien is not applicable for the arguments (int)
+//
+//		at com.handon4.Defender.main(Defender.java:52)
+
+
+
+//Problem #4
+//-------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Fizz {
+//
+//    int x = 5;
+//
+//    public static void main(String[] args) {
+//
+//        final Fizz f1 = new Fizz();
+//
+//        Fizz f2 = new Fizz();
+//
+//        Fizz f3 = FizzSwitch(f1, f2);
+//
+//        System.out.println((f1 == f3) + " " + (f1.x == f3.x));
+//
+//    }
+//
+//    static Fizz FizzSwitch(Fizz x, Fizz y) {
+//
+//        final Fizz z = x;
+//
+//        z.x = 6;
+//
+//        return z;
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. true true
+//B. false true
+//C. true false
+//D. false false
+//E. Compilation fails.
+//F. An exception is thrown at runtime.
+
+package com.handon4;
+
+public class Fizz {
+	
+	
+	static Fizz FizzSwitch(Fizz x, Fizz y) {
+      final Fizz z = x;
+      z.x = 6;
+      return z;
+	}
+
+	public static void main(String[] args) {
+		final Fizz f1 = new Fizz();
+		
+        Fizz f2 = new Fizz();
+
+        Fizz f3 = FizzSwitch(f1, f2);
+
+        System.out.println((f1 == f3) + " " + (f1.x == f3.x));
+
+	}
+
+}
+
+// Answer : E. Compilation fails.
+// Because 
+//Exception in thread "main" java.lang.Error: Unresolved compilation problems: 
+//	x cannot be resolved or is not a field
+//	x cannot be resolved or is not a field
+
+
+// Problem #5
+//------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Knowing {   
+//
+//    static final long tooth = 343L;
+//
+//    static long doIt(long tooth) {
+//
+//        System.out.print(++tooth + " ");
+//
+//        return ++tooth;
+//
+//    }   
+//
+//    public static void main(String[] args) {
+//
+//        System.out.print(tooth + " ");
+//
+//        final long tooth = 340L;
+//
+//        new Knowing().doIt(tooth);
+//
+//        System.out.println(tooth);
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. 343  340  340
+//B. 343  340  342
+//C. 343  341  342
+//D. 343  341  340
+//E. 343  341  343
+//F. Compilation fails.
+//G. An exception is thrown at runtime.
+
+package com.handon4;
+
+public class Knowing {
+
+  static final long tooth = 343L;
+
+  static long doIt(long tooth) {
+
+      System.out.print(++tooth + " ");
+
+      return ++tooth;
+
+  }   
+
+  public static void main(String[] args) {
+
+      System.out.print(tooth + " ");
+
+      final long tooth = 340L;
+
+      new Knowing().doIt(tooth);
+
+      System.out.println(tooth);
+
+  }
+
+}
+
+// Anwser: D. 343  341  340
+
+
+
+
+// Problem #6
+//------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Bird {   
+//
+//    { System.out.print("b1 "); }
+//
+//   
+//
+//    public Bird() {
+//
+//        System.out.print("b2 ");
+//
+//    }
+//
+//}
+//
+// 
+//
+//class Raptor extends Bird {
+//
+//    static { System.out.print("r1 "); }
+//
+//   
+//
+//    public Raptor() {
+//
+//        System.out.print("r2 ");
+//
+//    }
+//
+//   
+//
+//    { System.out.print("r3 "); }
+//
+//   
+//
+//    static { System.out.print("r4 "); }
+//
+//}
+//
+// 
+//
+//class Hawk extends Raptor {
+//
+//    public static void main(String[] args) {
+//
+//        System.out.print("pre ");
+//
+//        new Hawk();
+//
+//        System.out.println("hawk ");
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. pre b1 b2 r3 r2 hawk
+//B. pre b2 b1 r2 r3 hawk
+//C .pre b2 b1 r2 r3 hawk r1 r4
+//D. r1 r4 pre b1 b2 r3 r2 hawk
+//E. r1 r4 pre b2 b1 r2 r3 hawk
+//F. pre r1 r4 b1 b2 r3 r2 hawk
+//G. pre r1 r4 b2 b1 r2 r3 hawk
+//H. The order of output cannot be predicted.
+//I. Compilation fails.
+package com.handon4;
+
+class Bird {   
+
+  { System.out.print("b1 "); }
+
+ 
+
+  public Bird() {
+
+      System.out.print("b2 ");
+
+  }
+
+}
+
+
+
+class Raptor extends Bird {
+
+  static { System.out.print("r1 "); }
+
+ 
+
+  public Raptor() {
+
+      System.out.print("r2 ");
+
+  }
+
+ 
+
+  { System.out.print("r3 "); }
+
+ 
+
+  static { System.out.print("r4 "); }
+
+}
+public class Hawk extends Raptor {
+	
+  public static void main(String[] args) {
+
+      System.out.print("pre ");
+
+      new Hawk();
+
+      System.out.println("hawk ");
+
+  }
+
+}
+
+
+// Answer) D. r1 r4 pre b1 b2 r3 r2 hawk
+
+
+// Problem #7
+//------------
+
+Problem Statement:
+
+Which is true? (Choose all that apply.)
+
+A. “X extends Y” is correct if and only if X is a class and Y is an interface.
+B. “X extends Y” is correct if and only if X is an interface and Y is a class.
+C. “X extends Y” is correct if X and Y are either both classes or both interfaces.
+D. “X extends Y” is correct for all combinations of X and Y being classes and/or interfaces.
+
+
+Answer: C is correct.
+
+
+// Problem #8
+//-------------
+
+//What is the output of the following program?
+//
+// 
+//
+//class Top {
+//
+//    public Top(String s) {
+//
+//        System.out.println("B");
+//
+//    }
+//
+//   
+//
+//    public class Bottom2 extends Top {
+//
+//        public Bootom2(String s) {
+//
+//            System.out.println("D");
+//
+//        }
+//
+//        public static void main(String[] args) {
+//
+//            new Bottom2("C");
+//
+//            System.out.println(" ");
+//
+//        }
+//
+//    }
+//
+//}
+//
+// 
+//
+//A. BD
+//B. DB
+//C. BDC
+//D. DBC
+//E. Compilation fails.
+package com.handon4;
+
+
+class Top {
+
+  public Top(String s) {
+
+      System.out.println("B");
+
+  }
+}
+public class Bottom2 {
+	public Bootom2(String s) 
+	{
+		System.out.println("D");
+	}
+		
+    public static void main(String[] args) {
+
+        new Bottom2("C");
+
+        System.out.println(" ");
+
+    }
+
+}
+
+// Answer: E. Compilation fails.
+// because 
+//Exception in thread "main" java.lang.Error: Unresolved compilation problem: 
+//	The constructor Bottom2(String) is undefined
+
+
+// Problem #9
+//------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Clidders {
+//
+//    public final void flipper() {
+//
+//        System.out.println("Clidder");
+//
+//    }
+//
+//}
+//
+// 
+//
+//public class Clidlets  extends Clidders {
+//
+//    public void flipper() {
+//
+//        System.out.println("Flip a Clidlet");
+//
+//        super.flipper();
+//
+//    }   
+//
+//    public static void main(String[] args) {
+//
+//        new Clidlets().flipper();
+//
+//    }   
+//
+//}
+//
+// 
+//
+//A. Flip a Clidlet
+//B. Flip  a Clidder
+//C. Flip a Clidder
+//   Flip a Clidlet
+//
+//D. Flip a Clidlet
+//   Flip a Clidder
+//
+//E. Compilation fails.
+
+package com.handon4;
+
+class Clidders {
+
+  public final void flipper() {
+
+      System.out.println("Clidder");
+
+  }
+
+}
+
+public class Clidlets {
+
+	public void flipper() {
+		
+		        System.out.println("Flip a Clidlet");
+		
+		        super.flipper();
+		
+		    }   
+		
+		    public static void main(String[] args) {
+		
+		        new Clidlets().flipper();
+		
+		    }   
+
+}
+
+//Answer) E. Compilation fails.
+// because
+//Exception in thread "main" java.lang.Error: Unresolved compilation problem: 
+//	The method flipper() is undefined for the type Object
+
+
+// Problem #10
+//-------------
+
+//Problem Statement:
+//
+//Given, the following program:
+//
+//1. class Programmer {
+//
+//2.     Programmer debug() { return this; }   
+//
+//3. }
+//
+//4. class SCJP extends Programmer {
+//
+//5.     // insert code here
+//
+//6.}
+//
+// 
+//
+//Which method at line 5, will compile? (Choose all that apply.)
+//
+//A. Programmer debug() { return this; }
+//B. SCJP debug()  { return this; }
+//C. Object debug() { return this; }
+//D. int debug() { return 1; }
+//E. int debug(int x) { return 1; }
+//F. Object debug(int x) { return this; }
+
+
+//Answer: 
+//	->  A, B, E, and F are correct. A and B are examples of overriding, specifically, B is an
+//	example of overriding using a covariant return. E and F are examples of overloading.
+//	->  C and D are incorrect. They are illegal overrides because their return types are
+//	incompatible. They are illegal overloads because their arguments did not change.
+
+
+// Problem #11
+//-------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//class Clidder {
+//
+//    private final void flipper() {
+//
+//        System.out.println("Clidder");
+//
+//    }
+//
+//}
+//
+// 
+//
+//public class Clidlet  extends Clidder {
+//
+//    public final void flipper() {
+//
+//        System.out.println("Clidlet");
+//
+//    }
+//
+//    public static void main(String[] args) {
+//
+//        new Clidlet().flipper();
+//
+//    }   
+//
+//}
+//
+// 
+//
+//A. Clidlet
+//B. Clidder
+//C. Clidder
+//Clidlet
+//
+//D. Clidlet
+//Clidder
+//
+//E. Compilation fails.
+package com.handon4;
+
+class Clidder {
+
+  private final void flipper() {
+
+      System.out.println("Clidder");
+
+  }
+
+}
+
+public class Clidlet1 extends Clidder {
+	
+  public final void flipper() {
+
+      System.out.println("Clidlet");
+
+  }
+
+  public static void main(String[] args) {
+
+      new Clidlet1().flipper();
+
+  }   
+
+}
+
+
+// Answer) A. Clidlet
+
+
+
+// Problem #12
+//---------------
+
+interface Base 
+{
+    boolean m1 ();
+    byte m2(short s);
+}
+which two code fragments will compile?
+
+A. interface Base2 implements Base { }
+B. abstract class Class2 extends Base {
+public boolean m1() { return true; } }
+C. abstract class Class2 implements Base { }
+D. abstract class Class2 implements Base {
+public boolean m1() { return (true); } }
+E. class Class2 implements Base {
+boolean m1() { return false; }
+byte m2(short s) { return 42; } }
+
+Answer:
+
+>   C and D are correct. 
+C is correct because an abstract class doesn't have to implement any or all of its interface's methods. 
+D is correct because the method is correctly implemented.
+->  A is incorrect because interfaces don't implement anything. 
+B is incorrect because classes don't extend interfaces. 
+E is incorrect because interface methods are implicitly public, so the methods being implemented must be public.
+
+
+// Problem #13
+//--------------
+
+Problem Statement:
+
+Which of the following declare a compatible abstract class? (Choose all that apply.)
+
+ 
+
+a)  public abstract class Canine { public Bark speak(); }
+
+b)  public abstract class Canine { public Bark speak() { } }
+
+c)  public class Canine { public abstract Bark speak(); }
+
+d)  public class Canine abstract { public abstract Bark speak(); }
+
+
+//Answer: 
+->B is correct. abstract classes don't have to have any abstract methods.
+-> A is incorrect because abstract methods must be marked as such. 
+C is incorrect becauseyou can't have an abstract method unless the class is abstract. 
+D is incorrect because thekeyword abstract must come before the classname.
+
+
+// Problem #14
+//------------
+
+Problem Statement:
+
+Given:
+
+public abstract interface Frobnicate { public void twiddle(String s); }
+
+
+Which is a correct class?
+
+a)  public abstract void twiddle(String s) { }
+
+}
+
+b)  public abstract class Frob implements Frobnicate { }
+
+c)  public class Frob extends Frobnicate {
+
+d)              public void twiddle(Integer i) { }
+
+}
+
+e)  public class Frob implements Frobnicate {
+
+f)             public void twiddle(Integer i) { }
+
+}
+
+g)  public class Frob implements Frobnicate {
+
+h)             public void twiddle(String i) { }
+
+i)             public void twiddle(Integer s) { }
+
+
+Answer: b)
+
+
+// Problem #15
+//-------------
+Problem Statement:
+
+Which statement()s) are true? ()Choose all that apply.)
+
+A. HAS-A relationships always rely on inheritance.
+B. HAS-A relationships always rely on instance variables.
+C. HAS-A relationships always require at least two class types.
+D. HAS-A relationships always rely on polymorphism.
+E. HAS-A relationships are always tightly coupled.
+ 
+ 
+Answer: B
+A. Has-a relationships always rely on inheritance
+No, Is-a relationship rely on inheritance. For example, Dog Is-A Animal relationship.
+
+>B. Has-a relationships always rely on instance veriables
+Yes. For example,
+class Person {
+String name;
+...
+}
+Person Has-a name
+
+>C. Has-a relationships always require at least two class types
+No, only one. It doesn't matter what a class Has.
+
+>D. Has-a relationships always rely on polymorphism
+No relation.
+
+>E. Has-a relationships are always tightly coupled
+No. A class having a member of a certain interface makes it loosely coupled.
+
+
+// Problem #16
+//-------------
+Problem Statement:
+
+Given:
+
+1. class Plant {
+
+2.     String getName() ) { return “plant”; }
+
+3.     Plant getType() ) { return this; }
+
+4. }
+
+5. class Flower extends Plant {
+
+6.     // insert code here
+
+7. }
+
+8. class Tulip extends Flower { }
+
+ 
+
+Which statement()s), inserted at line 6, will compile? ()Choose all that apply.)
+
+A. Flower getType() ) { return this; }
+B. String getType() ) { return “this”; }
+C. Plant getType() ) { return this; }
+D. Tulip getType() ) { return new Tulip() ); }
+
+Answer:) A, C, and D are correct.
+->  A, C, and D are correct. A and D are examples of co-variant returns, i.e., Flower and Tulip are both subtypes of Plant.
+->B is incorrect, String is not a subtype of Plant.
+
+
+
+// Problem #17
+//------------
+
+Problem Statement:
+
+Given:
+
+1.      class Zing {
+
+2.      protected Hmpf h;
+
+3. }
+
+4. class Woop extends Zing {  }
+
+5. class Hmpf { }
+
+ 
+
+Which is true?
+
+A.     Woop IS-A Hmpf and HAS-A zing.
+
+B.     Zing IS-A Woop and HAS-A Hmpf.
+
+C.     Hmpf HAS-A Woop and Woop IS-A Zing.
+
+D.    Woop HAS-A Hmpf and Woop IS-A Zing.
+
+E.     Zing HAS-A Hmpf and Zing IS-A Woop.
+
+Answer:
+->  D is correct, Woop inherits a Hmpf from Zing.
+->  A, B, C, and E are incorrect based on the preceding.
+
+
+// Problem #18
+//---------------
+
+Problem Statement:
+
+Given:
+
+            public class MyOuter {
+
+         public static class MyInner {
+
+                    public static void foo() ) { }
+
+                }
+
+           }
+
+Which, if placed in a class other than MyOuter or MyInner, instantiates an instance of the nested class?
+
+MyOuter.MyInner m = new MyOuter.MyInner() );
+MyOuter.MyInner m2 = new MyInner() );
+MyOuter m = new MyOuter() );
+MyOuter.MyInner mi = m.new MyOuter.MyInner() );
+
+MyInner mi = new MyOuter.MyInner() );
+
+Answer: Option A
+
+Explanation:
+
+MyInner is a static nested class, so it must be instantiated using the fully-scoped name of MyOuter.MyInner.
+
+Option B is incorrect because it doesn't use the enclosing name in the new.
+
+Option C is incorrect because it uses incorrect syntax. When you instantiate a nested class by invoking new on an instance of the enclosing class, you do not use the enclosing name. The difference between Option A and C is that Option C is calling new on an instance of the enclosing class rather than just new by itself.
+
+Option D is incorrect because it doesn't use the enclosing class name in the variable declaration.
+
+
+// Problem #19
+//---------------
+
+Problem Statement:
+
+What is the output of the following program?
+
+ 
+
+public abstract class AbstractTest {
+
+   
+
+    public int getNum()) {
+
+        return 45;
+
+    }
+
+    public abstract class Bar {
+
+        public int getNum()) {
+
+            return 38;
+
+        }
+
+    }
+
+    public static void main()String[] args) {
+
+        AbstractTest t = new AbstractTest()) {
+
+            public int getNum()) {
+
+                return 22;
+
+            }
+
+        };
+
+        AbstractTest.Bar f = t.new Bar()) {
+
+            public int getNum()) {
+
+                return 57;
+
+            }
+
+        };
+
+        System.out.println()f.getNum()) + " " + t.getNum()));
+
+    }
+
+}
+
+ 
+
+A. 57  22
+B. 45  38
+C. 45  57
+D. An exception occurs at runtime.
+E. Compilation fails.
+
+Answer)
+Answer: Option A
+
+Explanation:
+
+You can define an inner class as abstract, which means you can instantiate only 
+concrete subclasses of the abstract inner class. The object referenced by the variable t 
+is an instance of an anonymous subclass of AbstractTest, and the anonymous class overrides 
+the getNum() method to return 22. The variable referenced by f is an instance of an anonymous 
+subclass of Bar, and the anonymous Bar subclass also overrides the getNum() method (to return 57). 
+Remember that to instantiate a Bar instance, we need an instance of the enclosing AbstractTest class 
+to tie to the new Bar inner class instance. AbstractTest can't be instantiated because it's abstract, 
+so we created an anonymous subclass (non-abstract) and then used the instance of that anonymous subclass
+ to tie to the new Bar subclass instance.
+
+
+
+

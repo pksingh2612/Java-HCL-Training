@@ -1,0 +1,16 @@
+package com.day4;
+
+public class Example7 {
+
+	public static void main(String[] args) {
+		String s1="Hello";
+		System.out.println(s1.charAt(1)); //e
+		
+		String s2 ="This is a demo of greater method";
+		int start=10,end=14;
+		char buf[] = new char[end=start];
+		s2.getChars(10, 14, buf, 0);
+		System.out.println(buf); //e
+	}
+
+}

@@ -1,0 +1,367 @@
+Exception Handling
+
+    - If we take any language - 2 types
+
+         1. Error - generate at compile time, mostly human made errors or syntatical erros
+
+         2. Exception - generate at runtime, logical error for eg: % by 0, FileNotFound
+
+ 
+
+   - All Exception related class present inside class Throwable in java.lang.*
+
+ 
+
+2 Types of Exception
+
+  1. Checked Exception
+
+         - All subclass of Exception excluding RuntimeException
+
+         - Eventhough ur program 100% correct also, you have compulsorly handle the exception using try catch block or throws keyword otherwise ur program will not compile
+
+         - Will insist the programmer to surround the code using try catch block or throws otherwise the program will not compile
+
+  2. Unchecked exception
+
+         - All subclass of RuntimeException
+
+         - The compiler will not insist the programmer to surround the code using try catch block or throws keyword, the program will compile but runtime you will get exception
+
+ 
+
+Constructor
+
+  1. Throwable()
+
+  2. Throwable(Throwable t)
+
+  3. Throwable(String message)
+
+  4. Throwable(String message, Throwable t)
+
+ 
+
+Methods
+
+  1. String toString()
+
+  2. int hashCode()
+
+  3. boolean equals(Object o)
+
+  4. String getMessage()
+
+  5. void printStackTrace()
+
+ 
+
+Different types of exception
+
+ 
+
+1. Error - it is an exception, whenever we have memory overflow, stack overflow, hardware failure
+
+2. ArthimeticException (Unchecked) - % by 0
+
+3. ArrayIndexOutOfBoundsException (Unchecked) - datatype array
+
+      int a[]=new int[3];
+
+        a[3]=20;
+
+4. StringIndexOutOfBoundsException (Unchecked) - String array
+
+      String a[]=new String[3];
+
+         a[3]="abcd";
+
+5. ArrayStoreException (Unchecked) - invalid storage in array
+
+      int a[]=new int[3];
+
+          a[2]="abcd";
+
+6. ClassCastException (Unchecked) - Invalid casting
+
+ 
+
+class Parent{
+
+ 
+
+}
+
+class Child extends Parent{
+
+ 
+
+}
+
+class Main { PSVM {
+
+   Parent p=new Parent();
+
+   Child c=new Child();
+
+    p=c;  --correct
+
+    c=p;  //ClassCastException
+
+}}
+
+ 
+
+7. NegativeArraySizeException (Unchecked)
+
+     int a[]=new int[-3];
+
+8. NumberFormatException (Unchecked)
+
+     int i=Integer.parseInt("abcd");
+
+9. NullPointerException (Unchecked)
+
+      Parent p=new Parent();
+
+      p.show();
+
+      p=null; //garbage collection
+
+      p.show(); //NullPointerException
+
+10. InstanciationException (Checked)
+
+      - when we try to create object for abstract class at runtime
+
+ 
+
+Object creation using new operator is compile time
+
+To create object at runtime we can use
+
+1.Class.forName()
+
+2. getInstance()
+
+ 
+
+11. IllegalThreadStateException (Unchecked)
+
+12. IllegalMonitorStateException (Unchecked)
+
+13. InterruptedException (checked)
+
+14. SQLException (checked)
+
+15. ClassNotFoundException (checked)
+
+16. CloneNotSupportedException (checked)
+
+ 
+
+5 keywords
+
+1. try
+
+     - Program to be montiored for exception
+
+2. catch
+
+     - Whenever an exception occurs, to print user defined exception message it will automatically go to catch block
+
+3. finally
+
+     - finally is an optional statement
+
+     - used mainly to close or release the resources
+
+     - used mainly in file programming, database programming and socket programming
+
+     - If finally is present, it will execute after the try block whether exception occurs or not
+
+4. throw
+
+    - if we want to manually create an exception
+
+    - if we see throw keyword, then it automatically go to related catch block
+
+    - Syntax
+
+          throw new Exception();
+
+5. throws
+
+    - throws is used to declare and throw the exception
+
+    - throws used only in methods
+
+ 
+
+try{
+
+1
+
+line 2  //there is an exception
+
+3
+
+}
+
+catch(){
+
+}
+
+4
+
+5
+
+ 
+
+try{
+
+fp=fopen("a.txt","r");
+
+read/write operation
+
+}
+
+catch(){
+
+ 
+
+}
+
+finally {
+
+  fclose(fp);
+
+}
+
+ 
+
+Only 3 ways to define exception handling
+
+1. try{                2. try{                  3. try{
+
+                            
+
+   }                      }                        }
+
+   catch(){               catch() {                finally {
+
+   
+
+   }                      }                        }
+
+                          finally {
+
+                          }
+
+ 
+
+System.in - used to get input
+
+public class System{
+
+   static PrintStream out;
+
+   static InputStream in;
+
+}
+
+ 
+
+Multiple catch block
+
+   - try can have any number of catch block
+
+   - Whenever u r using general catch block called Exception then it should be always present in last catch
+
+ 
+
+try{
+
+ 
+
+}
+
+catch(ArthimeticException e){
+
+ 
+
+}
+
+catch(NumberFormatException e){
+
+ 
+
+}
+
+catch(NullPointerException e){
+
+ 
+
+}
+
+catch(ArrayIndexOutOfBoundsException e){
+
+ 
+
+}
+
+catch(Exception e){  //catch(Throwable e){}
+
+ 
+
+}
+
+ 
+
+In jdk1.7, they have introduce new multi catch block using | (u cant use general class Exception)
+
+try{
+
+ 
+
+}
+
+catch(ArthimeticException | ArrayIndexOutOfBoundsException | NullPointerException |
+
+NumberFormatException e){
+
+ 
+
+}
+
+catch(Exception e){
+
+ 
+
+}
+
+ 
+
+Userdefined exceptions
+
+   - then ur class extends an class called Exception
+
+ 
+
+ 
+
+Assertion
+
+   - Available from JDK1.5
+
+   - used to check boolean condition at runtime
+
+   - By default Assertion is disabled in Java
+
+   - assert keyword, AssertionError class is unchecked
+
+   - Syntax:
+
+         assert <expression>;
+
+   - If assert condition is true no problem, if assert condition is false it throws AssertionError exception

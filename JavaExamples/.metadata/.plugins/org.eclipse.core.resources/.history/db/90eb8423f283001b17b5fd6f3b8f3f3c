@@ -1,0 +1,15 @@
+//Problem Statement:
+//
+//There are exactly 2.54 centimeters to an inch. Write a program that takes a number of inches from the 
+//command line and converts it to centimeters.
+
+package com.handon2;
+
+public class Problem11 {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

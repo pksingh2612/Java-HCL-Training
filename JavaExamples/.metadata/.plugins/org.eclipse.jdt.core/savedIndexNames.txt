@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+D:\Github\Java-HCL-Training\JavaExamples\.metadata\.plugins\org.eclipse.jdt.core
+2623082283.index

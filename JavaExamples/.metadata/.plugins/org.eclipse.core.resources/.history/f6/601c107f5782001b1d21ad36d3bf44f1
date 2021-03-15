@@ -1,0 +1,12 @@
+package com.day4;
+
+public class Example8 {
+
+	public static void main(String[] args) {
+		StringBuffer sb = new StringBuffer("hellohellohello");
+		System.out.println(sb);
+		System.out.println(sb.length());
+
+	}
+
+}

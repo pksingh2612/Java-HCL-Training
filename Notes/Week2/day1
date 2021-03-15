@@ -1,0 +1,10 @@
+Collection
+    a) List Interface (Ordered, duplicate elements)
+        1. ArrayList
+        2. LinedList
+        3. Vector
+    b) Set Interface (unordered, no duplicates allowed)
+        1. HashSet
+        2. LinkedHashSet
+        3. SortedSet Interface
+            a) TreeSet

@@ -1,0 +1,836 @@
+//Java MODE 1 Handson 5 Solution
+//--------------------------------
+// Copy and paste the code 
+
+// Problem #1
+//T20 IPL system stores the date of all the final matches in a particular format. 
+//Check whether the date is set as per the following Validation Rule : 
+//1. The date should be in the format dd-MM-yyyy. It is valid only when the date is in this format dd-MM-yyyy. 
+//Include a class UserMainCode with a static method validateDate which accepts a string. In this method check 
+//whether the given date is valid as per the validation rules mentioned above. 
+//i.e the date should be a data in the format dd-mm-yyyy. The return type is Boolean. 
+// 
+//Create a Class Main which would be used to accept the string and call the static method present in UserMainCode. 
+// 
+//Input and Output Format: 
+//Input consists of a string. 
+//Output consists of a string “Valid” or “Invalid”. 
+//Refer sample output for formatting specifications. 
+// 
+//Sample Input 1: 
+//01-06-2008 
+//Sample Output 1: 
+//Valid 
+// 
+//Sample Input 2: 
+//24/05/2009 
+//Sample Output 2: 
+//Invalid
+
+package com.handon5;
+
+import java.util.Scanner;
+
+class UserMainCode{
+	static boolean validateDate(String strDate) 
+	{
+		if(strDate.matches("([0-9]{2})\\-([0-9]{2})\\-([0-9]{4})"))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+}
+
+
+public class Problem1 {
+
+	public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+		UserMainCode umc = new UserMainCode();
+		System.out.println("Enter the Input 1 :");
+		System.out.println("Output 1 :"+(UserMainCode.validateDate(sc.nextLine())?"Valid":"Invalid"));
+		
+		System.out.println("Enter the Input 2 :");
+		System.out.println("Output 2 :"+(UserMainCode.validateDate(sc.nextLine())?"Valid":"Invalid"));
+	}
+
+}
+
+
+
+
+
+// Problem #2
+//In T20 IPL all the team names have their home ground .The city of their home ground is given in particular format. 
+//Check whether the city name is set as per the following Validation Rule : 
+//1. The city name should have only the first two characters and last two characters of the word and the remaining 
+// letters should be replaced with asterisks (‘*’) .The city name should contain only alphabets .
+// It is valid only when the name is in this format. 
+//Include a class UserMainCode with a static method validateCity which accepts a string. 
+//In this method check whether the given city name is valid as per the validation rules mentioned above.
+//The return type is Boolean. 
+// 
+// Create a Class Main which would be used to accept the string and call the static method present in UserMainCode. 
+// 
+//Input and Output Format: 
+//Input consists of a string. 
+//Output consists of a string “Valid” or “Invalid”. 
+//Refer sample output for formatting specifications. 
+//Sample Input 1: 
+//Ch***ai 
+//Sample Output 1: 
+//Valid 
+// 
+//Sample Input 2: 
+//Mum**i 
+//Sample Output 2: 
+//Invalid
+
+package com.handon5;
+
+import java.util.Scanner;
+
+class UserMainCode1{
+	static boolean validateDate(String strDate) 
+	{
+		
+		// The city name should have only the first two characters and last two characters of the word and 
+		// the remaining letters should be replaced with asterisks (‘*’) .
+		//The city name should contain only alphabets .
+		if(strDate.matches("([a-zA-Z]{2})(\C\*)+([a-zA-Z]{2})"))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+}
+
+public class Problem2 {
+
+	public static void main(String[] args) {
+		 Scanner sc= new Scanner(System.in);
+			UserMainCode1 umc = new UserMainCode1();
+			System.out.println("Enter the Input 1 :");
+			System.out.println("Output 1 :"+(UserMainCode1.validateDate(sc.nextLine())?"Valid":"Invalid"));
+			
+			System.out.println("Enter the Input 2 :");
+			System.out.println("Output 2 :"+(UserMainCode1.validateDate(sc.nextLine())?"Valid":"Invalid"));
+
+	}
+
+}
+
+
+
+
+
+
+// Problem #3
+//In T20 IPL, a player name is considered as lucky based on some constraints.
+// 
+//Check whether the player name is set as per the following Validation Rule :
+//1. The player name is a string, it should have alphabet 'a' only at odd occurrences It is valid only when 
+//the player name is in this format. 
+//If the alphabet 'a' is not present in the whole string also it is valid only.
+// 
+//2. If it present in even occurrence, the output must be invalid.
+// 
+//Note: The starting index of the string is 1.
+// 
+//Include a class UserMainCode with a static method validatePlayer which accepts a string. In this method check whether the given player name is valid as per the validation rules mentioned above. The return type is Boolean.
+// 
+// Create a Class Main which would be used to accept the string and call the static method present in UserMainCode.
+//Input and Output Format:
+//Input consists of a string.
+// 
+//The output consists of a string “Valid” or “Invalid”.
+//Refer sample output for formatting specifications.
+// 
+//Sample Input 1:
+//Albie Morkel
+//Sample Output 1:
+//Valid
+//Sample Input 2:
+//Suresh Raina
+//Sample Output 2:
+//Invalid
+
+package com.handon5;
+
+import java.util.Scanner;
+
+class UserMainCode2{
+	static boolean validateDate(String strDate) 
+	{
+		
+		//1. The player name is a string, it should have alphabet 'a' only at odd occurrences It is valid only when 
+		//the player name is in this format. 
+		//If the alphabet 'a' is not present in the whole string also it is valid only.
+		boolean result = false;
+		
+		char c[]=strDate.toCharArray();
+
+        for(char c1:c)
+        {        	    	
+        	if(c1!='a')
+    		{
+        		if(strDate.indexOf(c1)%2!=0)
+            	{
+            		result=true;	
+            	}
+    		}
+    		else {
+    			result= false;
+    			break;
+    		}
+        }
+     return result;
+        
+	}
+}
+
+public class Problem3 {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		UserMainCode2 umc = new UserMainCode2();
+		System.out.println("Enter the Input 1 :");
+		System.out.println("Output 1 :"+(UserMainCode2.validateDate(sc.nextLine())?"Valid":"Invalid"));
+		
+		System.out.println("Enter the Input 2 :");
+		System.out.println("Output 2 :"+(UserMainCode2.validateDate(sc.nextLine())?"Valid":"Invalid"));
+
+	}
+
+}
+
+
+
+
+
+// Problem #4
+//1.Inheritance 1 - Illustration
+// 
+// 
+// 
+//The task is to calculate the area of the shape using a menu driven application.
+// 
+//Write a Java program to Implement this task.
+// 
+// 
+// 
+//Create a class called Shape.
+// 
+//Include the following protected data members / attributes:
+// 
+//shapeName – of type String
+// 
+//Include the following methods :
+// 
+//Create a constructor that initializes the shapeName
+//calculateArea –  The return type of this method is Double. This method returns 0.
+// 
+// 
+// 
+// 
+//Create a class called Square that extends Shape
+// 
+//Include the following private data members / attributes:
+// 
+//side – of type Integer.
+// 
+//Include the following methods :
+// 
+//Create a constructor that initializes the side. (1-argument constructor). Initialize the shapeName as "Square".
+// 
+//calculateArea – calculates and returns the area of the square. The return type of this method is Double.
+// 
+// 
+// 
+//Create a class called Rectangle that extends Shape
+// 
+//Include the following private data members / attributes:
+// 
+//length – of type Integer.
+// 
+//breadth – of type Integer.
+// 
+//Include the following methods :
+// 
+//Create a constructor that initializes the length and breadth. (2-argument constructor). Initialize the shapeName as "Rectangle".
+// 
+//calculateArea - calculates and returns the area of the rectangle. The return type of this method is Double.
+// 
+// 
+// 
+//Create a class called Circle that extends Shape
+// 
+//Include the following private data members / attributes:
+// 
+//radius – of type Integer.
+// 
+//Include the following methods :
+// 
+//Create a constructor that initializes the radius. (1-argument constructor). Initialize the shapeName as "Circle".
+// 
+//calculateArea – calculates and returns the area of the circle. The return type of this method is Double.
+// 
+// 
+//Include appropriate getters and setters.
+// 
+// 
+//Input and Output Format:
+// 
+//Refer sample input and output for formatting specifications.
+// 
+//All text in bold corresponds to input and the rest corresponds to output.
+// 
+// 
+//Format the output with two decimal points
+// 
+// 
+//Sample Input and Output 1:
+// 
+//1. Rectangle
+// 
+//2. Square
+// 
+//3. Circle
+// 
+//Area Calculator --- Choose your shape
+// 
+//1
+// 
+//Enter length and breadth:
+// 
+//100
+// 
+//40
+// 
+//Area of Rectangle is:4000.00
+// 
+// 
+// 
+//Sample Input and Output 2:
+// 
+//1. Rectangle
+// 
+//2. Square
+// 
+//3. Circle
+// 
+//Area Calculator --- Choose your shape
+// 
+//2
+// 
+//Enter side:
+// 
+//20
+// 
+//Area of Square is:400.00
+// 
+// 
+// 
+//Sample Input and Output 3:
+// 
+//1. Rectangle
+// 
+//2. Square
+// 
+//3. Circle
+// 
+//Area Calculator --- Choose your shape
+// 
+//3
+// 
+//Enter Radius:
+// 
+//5
+// 
+//Area of Circle is:78.54
+package com.handon5;
+
+import java.util.Scanner;
+
+class Shape{
+	protected String shapeName;
+
+	public Shape() {
+		super();
+	}
+	
+	double calculateArea() {
+		return 0;
+	}
+	 
+}
+
+class Square extends Shape
+{
+	private int side;
+
+	public Square(int side) {
+		super();
+		this.side = side;
+	}
+	double calculateArea() {
+		return side*side;
+	}
+	
+}
+
+class Rectangle extends Shape
+{
+	private int length;
+	private int  breadth;
+	public Rectangle(int length, int breadth) {
+		super();
+		this.length = length;
+		this.breadth = breadth;
+	}
+	
+	double calculateArea() {
+		return length*breadth;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getBreadth() {
+		return breadth;
+	}
+
+	public void setBreadth(int breadth) {
+		this.breadth = breadth;
+	}
+}
+
+class Circle extends Shape{
+	private int radius;
+	
+	public Circle(int radius) {
+		super();
+		this.radius = radius;
+	}
+
+	double calculateArea() {
+		return 3.14*radius*radius;
+	}
+}
+
+public class Problem4 {
+
+	public static void main(String[] args) {
+		
+		Scanner sc= new Scanner(System.in);
+		int ch;
+		do
+		{  
+			System.out.println("Menu "); 
+			System.out.println("Press 1 for Rectangle "); 
+			System.out.println("Press 2 for Square "); 
+			System.out.println("Press 3 for Circle "); 
+			System.out.println("Press 4 for Exit");
+			System.out.println("Area Calculator --- Choose your shape");
+		    ch=sc.nextInt();
+		    switch(ch) {
+		    case 1:
+		    	System.out.print("Enter length and breadth :");
+		    	Rectangle rectangle = new Rectangle(sc.nextInt(),sc.nextInt());
+		    	System.out.println("Area of Circle :"+rectangle.calculateArea());
+		    	break;
+		    case 2:
+		    	System.out.print("Enter side: ");
+		    	Square square = new Square(sc.nextInt());
+		    	System.out.println("Area of Circle :"+square.calculateArea());
+		    	break;
+		    case 3:
+		    	System.out.println("Enter Radius: ");
+		    	Circle circle = new Circle(sc.nextInt());
+		    	System.out.println("Area of Circle :"+circle.calculateArea());
+		    	break;
+		    case 4:
+		    	System.exit(0); 
+		    	break;
+		    default:
+		    	System.out.println("Wrong Key Pressed!!"); 
+		    	break;
+		    }
+		}while(true);  
+
+	}
+
+}
+
+
+
+// Problem #5
+
+//1. Exception 2(ArrayIndexOutOfBoundsException And NegativeArraySizeException)
+//
+// 
+//
+//Write a program to get the number of overs and the runs scored in each over. Get the over
+//
+//number from the user and display number of runs scored in that over. Let 
+//
+//number of overs be the array size
+//
+//over number be the index of the array+1
+//
+//runs be the array elements
+//
+// 
+//
+//This program may generate 
+//
+//1. NegativeArraySize Exception when the number of overs is negative
+//
+//2. ArrayIndexOutOfRange Exception when the over number that is searched is beyond the
+//
+//specified over numbers. 
+//
+//Use exception handling mechanisms to handle these exceptions.Use a single catch block. In
+//
+//the catch block, print the class name of the exception thrown.
+//
+//Input and Output Format:
+//
+//Refer sample input and output for formatting specifications.
+//
+//All text in bold corresponds to input and the rest corresponds to output.
+//
+// 
+//
+//Sample  Input/Output 1:
+//
+//Enter the number of overs
+//
+//3
+//
+//Enter the number of runs for each over
+//
+//8
+//
+//15
+//
+//12
+//
+//Enter the over number 
+//
+//2
+//
+//Runs scored in this over : 15
+//
+// 
+//
+//Sample  Input/Output 2:
+//
+//Enter the number of overs
+//
+//3
+//
+//Enter the number of runs for each over
+//
+//8
+//
+//15
+//
+//12
+//
+//Enter the over number 
+//
+//4
+//
+//java.lang.ArrayIndexOutOfBoundsException
+//
+// 
+//
+//Sample  Input/Output 3:
+//
+//Enter the number of overs
+//
+//-1
+//
+//Enter the number of runs for each over
+//
+//java.lang.NegativeArraySizeException
+
+package com.handon5;
+
+import java.util.Scanner;
+
+public class Problem5 {
+
+	public static void main(String[] args) {
+		try {
+			Scanner sc= new Scanner(System.in);
+			System.out.println("Enter the number of overs :");
+			int totalOver = sc.nextInt();
+			
+			int[] array = new int[totalOver];
+			System.out.println("Enter the number of runs for each over :");
+			for(int i=0;i<totalOver;i++) {
+				array[i]=sc.nextInt();
+			}
+			
+			System.out.println("Enter the over number :");
+			int overNumber = sc.nextInt();
+			
+			System.out.println("Runs scored in this over :"+array[overNumber-1]);
+		}
+		catch( Exception e) {
+			System.out.println(e);
+		}
+		
+		//NegativeArraySizeException
+		//ArrayIndexOutOfRange
+	}
+
+}
+
+
+
+// Problem #6
+//2.Custom Exceptions [Age]
+//
+//
+//Write a program to get the name and age of the player from the user and  display it. 
+//
+//player name is a string 
+//
+//player age is an integer value 
+//
+//Note : The player is eligible to participate in IPL when their age is 19 and above 
+//
+// 
+//
+//  
+//
+//This program may generate   
+//
+//1. InvalidAgeRange Custom Exception when the player&#39;s age is below 19 
+//
+// Use exception handling mechanisms to handle these exceptions 
+//
+// Create a class called CustomException which extends Exception and it includes constructor
+//
+//to initialize the message. 
+//
+// 
+//
+// Use appropriate exception handling mechanisms to handle these exceptions  
+//
+// 
+//
+//Input and Output Format:
+//
+//Refer sample input and output for formatting specifications.
+//
+//All text in bold corresponds to input and the rest corresponds to output.
+//
+// 
+//
+//Sample  Input/Output 1:
+//
+//Enter the player name
+//
+//Albie Morkel
+//
+//Enter the player age
+//
+//35
+//
+//Player name : Albie Morkel
+//
+//Player age : 35
+//
+// 
+//
+//Sample  Input/Output 2:
+//
+//Enter the player name
+//
+//Ishan Kishan
+//
+//Enter the player age
+//
+//16
+//
+//CustomException: InvalidAgeRangeException
+
+package com.handon5;
+
+import java.util.Scanner;
+
+class CustomException extends Exception{
+	CustomException(String s){  
+	  super(s);  
+	 }  
+}
+
+public class Problem7 {
+	
+	static void validate(int age) throws CustomException{  
+     if(age<19)  
+    	 throw new CustomException("InvalidAgeRangeException");  
+//     else  
+//    	 System.out.println("The Player is eligible to participate in IPL");  
+   }  
+
+	public static void main(String[] args) {
+		
+		try{  
+			Scanner sc= new Scanner(System.in);
+			System.out.println("Enter the player name :");
+			String playerName = sc.nextLine();
+			System.out.println("Enter the player age :");
+			int playerAge = sc.nextInt();
+		    System.out.println("Player name :" + playerName);
+		    validate(playerAge);
+			System.out.println("Player age :" + playerAge);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}  
+		
+
+	}
+
+}
+
+
+
+// Problem #7
+
+//3. TeamNameNotFound Exception
+//
+//Write a program to get the two team names i.e expected Runner and Winner team of IPL
+//
+//season 4 and display it.
+//
+//Team name is a string
+//
+//Note : The team name given below are only eligible to take part in IPL season 4
+//
+//Chennai Super Kings
+//
+//Deccan Chargers
+//
+//Delhi Daredevils
+//
+//Kings XI Punjab
+//
+//Kolkata Knight Riders
+//
+//Mumbai Indians
+//
+//Rajasthan Royals
+//
+//Royal Challengers Bangalore
+//
+//This program may generate TeamNameNotFound Custom Exception when the expected
+//
+//team entered is not present in the above eligible teams list for IPL season 4.
+//
+//Use exception handling mechanisms to handle these exceptions
+//
+// 
+//
+//Input and Output Format:
+//
+//Refer sample input and output for formatting specifications.
+//
+//All text in bold corresponds to input and the rest corresponds to output.
+//
+//Sample Input and Output 1:
+//
+//Enter the expected winner team of IPL Season 4
+//
+//Chennai Super Kings
+//
+//Enter the expected runner Team of IPL Season 4
+//
+//Mumbai Indians
+//
+//Expected IPL Season 4 winner: Chennai Super Kings
+//
+//Expected IPL Season 4 runner: Mumbai Indians
+//
+// 
+//Sample Input and Output 1:
+//
+//Enter the expected winner team of IPL Season 4
+//
+//Pune Warriors
+//
+//TeamNameNotFoundException: Entered team is not a part of IPL Season 4
+
+package com.handon5;
+
+import java.util.Scanner;
+
+class TeamNameNotFoundException extends Exception{
+	TeamNameNotFoundException(String s){  
+	 super(s);  
+	}  
+}
+
+
+public class Problem6 {
+	
+	static void check(String teamName) throws TeamNameNotFoundException{ 
+		String[] teamList = new String[]{ "Chennai Super Kings","Deccan Chargers","Delhi Daredevils","Kings XI Punjab",
+				"Kolkata Knight Riders","Mumbai Indians","Rajasthan Royals","Royal Challengers Bangalore"};
+		boolean flag=true; 
+		for (String element : teamList) { 
+            if (element.equals(teamName)) { 
+            	flag=false;
+            	break;
+            }
+            else {
+            	flag=true;
+            }
+        } 
+		
+		if(flag)
+		{
+			throw new TeamNameNotFoundException("Entered team is not a part of IPL Season 4");
+		}
+		
+	}
+	     
+
+	public static void main(String[] args) {
+		try{  
+			Scanner sc= new Scanner(System.in);
+			System.out.println("Enter the expected winner team of IPL Season 4 :");
+			String teamWinner = sc.nextLine();
+			System.out.println("Enter the expected runner Team of IPL Season 4 :");
+			String teamRunner = sc.nextLine();
+			check(teamWinner);
+		    System.out.println("Expected IPL Season 4 winner:" + teamWinner);
+		    check(teamRunner);
+			System.out.println("Expected IPL Season 4 runner:" + teamRunner);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}  
+		
+
+	}
+
+}
+
+
+

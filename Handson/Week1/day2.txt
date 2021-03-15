@@ -1,0 +1,610 @@
+Prabhakar Singh Java Mode 1 Training Handson 2 Solution
+--------------------------------------------------------
+
+// Problem #1
+-----------------
+
+//Problem Statement 1:
+//
+//Find out whether the following file will compile. If it does not compile, how you would fix it?
+//
+// 
+//
+// public static void main(String[ ] args) {
+//
+//      int x = 5;
+//
+//      while (x > 1) {
+//
+//          x = x + 1;
+//
+//          if (x < 3) {
+//
+//               System.out.println(“small x”);
+//
+//          }
+//
+//      }
+//
+// }
+
+package com.handon2;
+
+public class Problem1 {
+
+	public static void main(String[] args) {
+		int x = 5;
+		
+      while (x > 1) {
+          x = x + 1;
+          if (x < 3) {
+               System.out.println("small x");
+          }
+
+      }
+
+	}
+}
+
+// Answer: Yes it is compiled, its prints the "small x".
+// Beacaue x executes upto max range of  int datatype of 2^31 and -2^31. where - 2 ^ 31 is <(1 or 2) 
+// that why it - 2 ^ 31 < 3 so it prints "small x".
+
+
+
+
+
+// Problem #2
+//------------
+
+//Problem Statement:
+//
+//Find out whether the following file will compile. If it does not compile, how you would fix it?
+//
+// 
+//
+//                                                          class Digit {
+//
+//      public static void main(String[ ] args) {
+//
+//                                   int x = 1;
+//
+//                                   while (x < 10) {
+//
+//                              if (x > 3) {
+//
+//                                   System.out.println(“big x”);
+//
+//                             }
+//
+//                        }
+//
+//                 }
+//
+//            }
+
+package com.handon2;
+
+public class Problem2 {
+
+	public static void main(String[] args) {
+		 int x = 1;
+ 
+                             while (x < 10) {
+ 
+                               if (x > 3) {
+ 
+                                    System.out.println("big x");
+ 
+                              }
+                             }
+
+	}
+
+}
+//Answer: Yes it is compiled, its not prints the "big x".
+//Beacaue x executes upto max range of  int datatype of 2^31 and -2^31. where - 2 ^ 31 is <(1 or 2) 
+//that why it - 2 ^ 31 < 3 so it not prints "big x".
+
+
+
+// Problem #3
+//---------------
+
+//Problem Statement:
+//
+//Find out whether the following file will compile. If it does not compile, how you would fix it?
+//
+// 
+//
+//                                                          class Loop {
+//
+//                  int x = 5;
+//
+//                             while (x  > 1) {
+//
+//                                   x = x - 1;
+//
+//                        if (x < 3) {
+//
+//                              System.out.println(“small x”);
+//
+//                        }
+//
+//                   }
+//
+//             }
+//
+// 
+
+package com.handon2;
+
+public class Problem3 {
+
+	public static void main(String[] args) {
+		int x = 5;
+		
+		                             while (x  > 1) {
+		
+		                                   x = x - 1;
+		
+		                        if (x < 3) {
+		
+		                              System.out.println("small x");
+		
+		                        }
+		                             }
+	}
+
+}
+
+//Answer: It complies twice and prints "small x" two times like this:
+//small x
+//small x
+
+
+// Problem #4
+//-------------
+
+//Problem Statement:
+//
+//Personalize the Hello World program with your name so that it tells you Hello rather than 
+// the somewhat generic "World."
+
+// Answer: 
+package com.handon2;
+
+public class Problem4 {
+
+	public static void main(String[] args) {
+		String myName="Prabhakar Singh";
+		System.out.println("Hello, "+myName+". Welcome to world of Java Langauge.");
+	}
+
+}
+
+
+// Problem #5
+--------------
+
+//Problem Statement:
+//
+//Write a program that produces the following output:
+//
+//Hello World!
+//
+//It's been nice knowing you.
+//
+//Goodbye world!
+
+// Answer: 
+
+package com.handon2;
+
+public class Problem5 {
+
+	public static void main(String[] args) {
+		String myName="Prabhakar Singh";
+		System.out.println("Hello World! \nIt's been nice knowing you.\nGoodbye world!");
+
+	}
+
+}
+
+
+// Problem #6
+--------------
+
+//Problem Statement:
+//
+//Write a program that draws the following figures one above the other.
+//
+// 
+//
+//* * * * *             * 
+//
+//* * * * *            * * 
+//
+//* * * * *           * * *
+//
+//* * * * *         * * * * *
+//
+// 
+//
+//Now modify it to draw them next to each other like earlier.
+
+//Answer:
+package com.handon2;
+
+public class Problem6 {
+
+	public static void main(String[] args) {
+		int R=4;
+		int C=5;
+		for(int i=0; i<R; ++i)
+	    {
+	        /* Iterate over columns */
+	        for(int j=0; j<C; ++j)
+	        {
+	            /* Print star for each column */
+	            System.out.print("*");
+	        }
+	        
+	        /* Move to the next line/row */
+	        System.out.println();
+	    }
+		
+		System.out.println();
+		
+		R=5;
+		C=5;
+		
+		for(int i=0;i<R;++i)  
+		   {  
+		       for(int j=0;j<C-1;++j)  
+		       {  
+		    	   System.out.print(" ");
+		       }  
+		       for(int k=0;k<2*i-1;k++)  
+		       {  
+		    	   System.out.print("*"); 
+		       }  
+		       C--;  
+		     
+		       System.out.println();
+		    }  
+		
+		System.out.println();
+		
+		
+		R=4;
+		int C1=5;
+		int C2=5;
+		for(int i=0; i<R; ++i)
+	    {
+	        /* Iterate over columns */
+				for(int j=0; j<C1; ++j)
+		        {
+		            /* Print star for each column */
+		            	System.out.print("*");
+		            
+		        }
+			
+	        for(int e=0;e<C2-1;++e)  
+		       {  
+		    	   System.out.print(" ");
+		       }  
+		       for(int k=0;k<2*i-1;k++)  
+		       {  
+		    	   System.out.print("*"); 
+		       }  
+		       C2--;  
+	        
+	        /* Move to the next line/row */
+	        System.out.println();
+	    }	
+
+	}
+
+}
+
+
+// Problem #7
+//--------------
+
+//Problem Statement:
+//
+//Write a program that prints all the integers between zero and 36.
+
+// Answer:
+package com.handon2;
+
+public class Problem7 {
+
+	public static void main(String[] args) {
+		for(int i=1;i<36;++i)
+		{
+			System.out.println(i);
+		}
+
+	}
+
+}
+
+
+// Problem #8
+--------------
+//Problem Statement:
+//
+//What does the following program print?
+//
+// 
+//
+//// This is the Hello Rank program in Java
+//
+//class HelloRank {
+//
+//      public static void main (String args[ ]) {     
+//
+//                    String name = "Rank";
+//
+//                    /* Now let's say hello */
+//
+//                   System.out.println("Hello + name");
+//
+//                    }
+//
+//}
+package com.handon2;
+
+public class Problem8 {
+
+	public static void main(String[] args) {
+		String name = "Rank";
+		
+		                    /* Now let's say hello */
+		
+		System.out.println("Hello + name");
+
+	}
+
+}
+
+// Answer : It prints "Hello + name"
+
+
+
+// Problem #9
+
+//Problem Statement:
+//
+//What is wrong with this program?
+//
+// 
+//
+//// This is the Hello program in Java
+//
+//class Hello {
+//
+//      public static void main (String args[ ]) {   
+//
+//                    int i;   
+//
+//                    System.out.print("Hello ");       // Say Hello
+//
+//               i = 0;                               // Initialize loop counter
+//
+//                       while (i <= args.length) {    // Test and Loop
+//
+//                    System.out.print(args[i] + " "); 
+//
+//                     i = i + 1;                     // Increment Loop Counter
+//
+//                     }
+//
+//                        System.out.println();             // Finish the line
+//
+//         }
+//
+//}
+
+package com.handon2;
+
+public class Problem9 {
+
+	public static void main(String args[]) {
+      int i;   
+
+      System.out.print("Hello ");       // Say Hello
+
+ i = 0;                               // Initialize loop counter
+
+         while (i <= args.length) {    // Test and Loop
+
+      System.out.print(args[i] + " "); 
+
+       i = i + 1;                     // Increment Loop Counter
+
+       }
+
+          System.out.println();             // Finish the line
+	}
+
+}
+
+// Answer : Exception occurs java.lang.ArrayIndexOutOfBoundsException. 
+// this error occurs beacuse Index 1 out of bounds for length 1
+
+
+// Problem # 10
+//-----------------
+
+// Answer
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+// 
+//
+//import java.util.*;
+//public class Area {
+//      public static void main(String[ ] args){
+//          double a;
+//    double r;
+//    final double pi = Math.PI;
+//
+//    r = 1.0;
+//    a = pi * r * r;
+//    display(r,a);
+//
+//    r = 1.5;
+//    a = pi * r * r;
+//    display(r,a);
+//
+//    r = 2.0;
+//     a = pi * r * r;
+//    display(r,a);
+//      }//end main
+//      //-------------------------------------------//
+//      static void display(double r, double a){
+//           System.out.println("For radius = " + r +
+//                                ", area = " + a);
+//      }//end print
+//}//end Area class
+package com.handon2;
+
+public class Problem10 {
+	
+	static void display(double r, double a){
+        System.out.println("For radius = " + r +
+                             ", area = " + a);
+   }
+
+	public static void main(String[] args) {
+		double a;
+	    double r;
+	    final double pi = Math.PI;
+
+	    r = 1.0;
+	    a = pi * r * r;
+	    display(r,a);
+
+	    r = 1.5;
+	    a = pi * r * r;
+	    display(r,a);
+
+	    r = 2.0;
+	     a = pi * r * r;
+	    display(r,a);
+	}
+
+}
+
+// Answer
+//For radius = 1.0, area = 3.141592653589793
+//For radius = 1.5, area = 7.0685834705770345
+//For radius = 2.0, area = 12.566370614359172
+
+
+
+// Problem #11
+//-------------
+
+//Problem Statement:
+//
+//There are exactly 2.54 centimeters to an inch. Write a program that takes a number of inches from the 
+//command line and converts it to centimeters.
+
+package com.handon2;
+
+public class Problem11 {
+
+	public static void main(String[] args) {
+		
+		int inInches=Integer.parseInt(args[0]);
+		System.out.print(inInches+" inches = "+(inInches*2.54)+" centimeters");
+
+	}
+
+}
+
+// Set arguments first using right click in eclipse > Run as > Run Configuration > arguments set> click run button 
+// output : 23 inches = 58.42 centimeters
+
+
+// Problem #12
+//----------------
+
+//Problem Statement:
+
+//Write a program that reads two numbers from the command line, the number of hours worked by an 
+//employee and their base pay rate. Then output the total pay due
+package com.handon2;
+
+public class Problem12 {
+
+	public static void main(String[] args) {
+		
+		System.out.println(Integer.parseInt(args[0]) * Integer.parseInt(args[1]));
+
+	}
+
+}
+
+// Set arguments first using right click in eclipse > Run as > Run Configuration > arguments set> click run button
+
+
+// Problem #13
+//---------------
+
+//Problem Statement:
+//
+//What is the output of the following program?
+//
+//class Hexy {
+//
+//   
+//
+//     public static void main (String[] args)    {
+//
+//         Integer i = 42;
+//
+//         String s = (i<40)?"life"sadi>50)?"universe":"everything";
+//
+//         System.out.println(s);
+//
+//     }
+//
+//}
+//
+// 
+//
+//null
+//life
+//universe
+//everything
+//Compilation fails
+//An exception is thrown at runtime.   
+package com.handon2;
+
+public class Problem13 {
+
+	public static void main(String[] args) {
+		Integer i = 42;
+		
+		         String s = (i<40)?"life"sadi>50)?"universe":"everything";
+		
+		         System.out.println(s);
+
+	}
+
+}
+
+// Answer : Compilation fails. Beacause their is syntax mistake.
+//Syntax error on token ""life"", invalid (
+//		Syntax error, insert ": Expression" to complete Expression
+
+
+
+
+

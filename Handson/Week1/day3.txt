@@ -1,0 +1,903 @@
+//Prabhakar Singh Java Mode 1 Training Handson 3 Solution
+//--------------------------------------------------------- 
+// copy and paste code and check.
+
+// Problem #1
+//1. Create a class named Venue with the following member variables / attributes (Default access) 
+//
+//Data Type
+//
+//Variable Name
+//
+//String
+//
+//name
+//
+//String
+//
+//city
+//
+//
+//Create another class called Main and write a main method to test the above class. 
+//
+// Input and Output Format: 
+// Refer sample input and output for formatting specifications. 
+//All text in bold corresponds to input and the rest corresponds to output. 
+//
+// Sample Input and Output : 
+//Enter the venue name 
+//M. A. Chidambaram Stadium 
+//Enter the city name 
+//Chennai 
+//Venue Details : 
+//Venue Name : M. A. Chidambaram Stadium 
+//City Name : Chennai 
+
+package com.handon3;
+import java.util.*;  
+class Venue1{
+	String name;
+	String city;
+}
+public class Problem1 {
+
+	public static void main(String[] args) {
+		Venue1 venue= new Venue1();
+		Scanner sc= new Scanner(System.in);
+		System.out.print("Enter the venue name : ");
+		venue.name=sc.nextLine();
+		System.out.print("Enter the city name : ");
+		venue.city=sc.nextLine();
+		System.out.println("Venue Details :");
+		System.out.println("Venue Name : "+venue.name);
+		System.out.println("City Name : "+venue.city); 
+	}
+}
+
+
+
+
+
+// Problem #2
+
+//2. Create a class named Player with the following  member variables / attributes  (Default access) 
+//
+//Data Type
+//
+//Variable Name
+//
+//String
+//
+//name
+//
+//String
+//
+//country
+//
+//String
+//
+//skill
+//
+//
+//Create another class named Main and write a main method to test the above class. 
+//
+//  Input and Output Format: 
+// Refer sample input and output for formatting specifications. 
+//All text in bold corresponds to input and the rest corresponds to output. 
+//
+// Sample Input and Output : 
+//Enter the player name 
+//MS Dhoni 
+//Enter the country name 
+//India 
+//Enter the skill 
+//All Rounder 
+//Player Details : 
+//Player Name : MS Dhoni 
+//Country Name : India 
+//Skill : All Rounder
+
+
+package com.handon3;
+
+import java.util.Scanner;
+
+class Player{
+	String name;
+	String country;
+	String skill;
+}
+public class Problem2 {
+
+	public static void main(String[] args) {
+		
+		Player player= new Player();
+		
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.print("Enter the player name : ");
+		player.name= sc.nextLine();
+		System.out.print("Enter the country name : ");
+		player.country= sc.nextLine();
+		System.out.print("Enter the skill : ");
+		player.skill= sc.nextLine();
+		
+		System.out.println("Player Details :");
+		System.out.println("Player Name : "+player.name);
+		System.out.println("Country Name : "+player.country); 
+		System.out.println("Skill: "+player.skill); 
+	}
+}
+
+
+
+
+// Problem #3
+
+//3. Create a class named Delivery with the following public member variables / attributes 
+//
+//Data Type
+//
+//Variable Name
+//
+//Long
+//
+//over
+//
+//Long
+//
+//ball
+//
+//Long
+//
+//runs
+//
+//String
+//
+//batsman
+//
+//String
+//
+//bowler
+//
+//String
+//
+//nonStriker
+//
+//
+//  
+//Include a method in the class named displayDeliveryDetails(). In this method, display the details of the delivery in the format shown in the sample output. This method does not accept any arguments and its return type is void. 
+//
+//Create another class called Main  and write a main method to test the above class. 
+//
+//  Input and Output Format: 
+// Refer sample input and output for formatting specifications. 
+//All text in bold corresponds to input and the rest corresponds to output. 
+//
+// Sample Input and Output : 
+//Enter the over 
+//1 
+//Enter the ball 
+//1 
+//Enter the runs 
+//4 
+//Enter the batsman name 
+//MS Dhoni 
+//Enter the bowler name 
+//Dale steyn 
+//Enter the nonStriker name 
+//Suresh Raina 
+//Delivery Details : 
+//Over : 1 
+//Ball : 1 
+//Runs : 4 
+//Batsman : MS Dhoni 
+//Bowler : Dale steyn 
+//NonStriker : Suresh Raina 
+
+
+package com.handon3;
+
+import java.util.Scanner;
+
+class Delivery{
+
+	public Long over;
+	public Long ball;
+	public Long runs;
+	public String batsman;
+	public String bowler;
+	public String nonStriker;
+	
+	void displayDeliveryDetails() {
+		System.out.println("Delivery Details : ");
+		System.out.println("Over : "+over);
+		System.out.println("Ball : "+ball); 
+		System.out.println("Runs : "+runs); 
+		System.out.println("Batsman : "+batsman);
+		System.out.println("Bowler : "+bowler); 
+		System.out.println("NonStriker : "+nonStriker); 
+	}
+}
+public class Problem3 {
+
+	public static void main(String[] args) {
+		
+		Delivery delivery= new Delivery();
+		
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.println("Enter the over : ");
+		delivery.over= Long.parseLong(sc.nextLine());
+		System.out.println("Enter the ball : ");
+		delivery.ball= Long.parseLong(sc.nextLine());
+		System.out.println("Enter the runs: ");
+		delivery.runs= Long.parseLong(sc.nextLine());
+		System.out.println("Enter the batsman name : ");
+		delivery.batsman= sc.nextLine();
+		System.out.println("Enter the bowler name : ");
+		delivery.bowler= sc.nextLine();
+		System.out.println("Enter the nonStriker name : ");
+		delivery.nonStriker= sc.nextLine();
+		
+		delivery.displayDeliveryDetails();
+	}
+
+}
+
+
+
+
+// Problem #4 
+
+//4. Create a class named Player with the following member variables / attributes (default access) 
+//
+//Data Type
+//
+//Variable Name
+//
+//String
+//
+//name
+//
+//String
+//
+//country
+//
+//String
+//
+//skill
+//
+//
+//Create another class called Main and write a main method to get the player details in a string seperated by comma.Use String. split() function to display the details. 
+//
+//Input and Output Format: 
+//Refer sample input and output for formatting specifications. 
+//All text in bold corresponds to input and the rest corresponds to output. 
+//
+//Sample Input and Output : 
+//Enter the player details 
+//MS Dhoni,India,All Rounder 
+//Player Details 
+//Player Name : MS Dhoni 
+//Country Name : India 
+//Skill : All Rounder 
+package com.handon3;
+
+import java.util.Scanner;
+
+class Player1{
+	String name;
+	String country;
+	String skill;
+}
+public class Problem4 {
+
+	public static void main(String[] args) {
+        Player1 player= new Player1();
+		
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.print("Enter the player details : ");
+		String[] result = sc.nextLine().split(",");
+		player.name= result[0];
+		player.country= result[1];
+		player.country= result[2];
+		
+		System.out.println("Player Details :");
+		System.out.println("Player Name : "+player.name);
+		System.out.println("Country Name : "+player.country); 
+		System.out.println("Skill: "+player.country); 
+	}
+}
+
+
+// Problem #5
+
+//. 5. Create a class named Venue with the following private member variables / attributes 
+//String name 
+//String city 
+//
+//Include appropriate getters and setters. 
+//[Naming Convention: 
+//getters : getName getCity... 
+//setters : setName setCity...] 
+//
+//Create another class and write a main method to test the above class. In the main method, get the choice from the user and update the corresponding venue details. 
+// 
+//Input and Output Format: 
+// Refer sample input and output for formatting specifications. 
+//All text in bold corresponds to input and the rest corresponds to output. 
+//  
+//Sample Input and Output : 
+//Enter the venue name 
+//Green Park Stadium 
+//Enter the city name 
+//Kanpur 
+//Venue Details 
+//Venue Name : Green Park Stadium 
+//City Name : Kanpur 
+//Verify and Update Venue Details 
+//Menu 
+//1.Update Venue Name 
+//2.Update City Name 
+//3.All informations Correct/Exit 
+//Type 1 or 2 or 3 
+//2 
+//Enter the city name 
+//Chennai 
+//Venue Details 
+//Venue Name : Green Park Stadium 
+//City Name : Chennai 
+//Verify and Update Venue Details 
+//Menu 
+//1.Update Venue Name 
+//2.Update City Name 
+//3.All informations Correct/Exit 
+//Type 1 or 2 or 3 
+//1 
+//Enter the venue name 
+//Chidambaram Stadium 
+//Venue Details 
+//Venue Name : Chidambaram Stadium 
+//City Name : Chennai 
+//Verify and Update Venue Details 
+//Menu 
+//1.Update Venue Name 
+//2.Update City Name 
+//3.All informations Correct/Exit 
+//Type 1 or 2 or 3 
+//3 
+//Venue Details 
+//Venue Name : Chidambaram Stadium 
+//City Name : Chennai 
+
+ 
+package com.handon3;
+import java.util.*;  
+class Venue{
+	private String name;
+	private String city;
+	
+	  public String getCity() {
+		return city;
+	  }
+
+	  public String getName() {
+	    return name;
+	  }  
+	
+	  // Setter
+	  void setCity(String newCity) {
+	    this.city = newCity;
+	  }
+	  void setName(String newName) {
+	    this.name = newName;
+	  }
+	  
+}
+public class Problem5 {
+
+	public static void main(String[] args) {
+		Venue venue= new Venue();
+		Scanner sc= new Scanner(System.in);
+		System.out.print("Enter the venue name : ");
+		venue.setName(sc.nextLine());
+		System.out.print("Enter the city name : ");
+		venue.setCity(sc.nextLine());
+		System.out.println("Venue Details :");
+		System.out.println("Venue Name : "+venue.getName());
+		System.out.println("City Name : "+venue.getCity()); 
+		System.out.println("Verify and Update Venue Details "); 
+		int ch;
+		do
+		{  
+			System.out.println("Menu "); 
+			System.out.println("1.Update Venue Name "); 
+			System.out.println("2.Update City Name  "); 
+			System.out.println("3.Show All informations"); 
+			System.out.println("4.Exit");
+			System.out.println("Type 1 or 2 or 3 or 4");
+			ch=sc.nextInt();
+		    switch(ch) {
+		    case 1:
+		    	System.out.print("Enter the venue name : ");
+		    	venue.setName(sc.nextLine()); 
+		    	break;
+		    case 2:
+		    	System.out.print("Enter the city name : ");
+		    	venue.setCity(sc.nextLine());
+		    	break;
+		    case 3:
+		    	System.out.println("Venue Details :");
+				System.out.println("Venue Name : "+venue.getName());
+				System.out.println("City Name : "+venue.getCity());  
+		    	break;
+		    case 4:
+		    	System.out.println("Venue Details :");
+				System.out.println("Venue Name : "+venue.getName());
+				System.out.println("City Name : "+venue.getCity()); 
+		    	System.exit(0); 
+		    	break;
+		    default:
+		    	System.out.println("Wrong Key Pressed!!"); 
+		    	break;
+		    }
+		}while(true);  
+	}
+}
+
+
+
+// Problem #6
+
+//2.                   Create a class named ExtraType with the following member variables / attributes 
+//String name 
+//long runs 
+//
+//Include appropriate getters and setters. 
+//[Naming Convention: 
+//getters : getName getRuns.. 
+//setters : setName, setRuns...] 
+//
+//Create another class and write a main method to get the extratype details in a string seperated by #. Use String.split() function to display the details. 
+//
+//Input and Output Format: 
+// Refer sample input and output for formatting specifications. 
+//All text in bold corresponds to input and the rest corresponds to output. 
+//
+//Sample Input and Output : 
+//Enter the extratype details 
+//Wide#1 
+//ExtraType Details 
+//Extra Type:Wide 
+//Runs:1 
+
+package com.handon3;
+
+import java.util.Scanner;
+
+class ExtraType{
+	  String name;
+	  long runs;
+	
+	  public long getRuns() {
+		return runs;
+	  }
+	  void setRuns(long newRuns) {
+	    this.runs = newRuns;
+	  }
+	  public String getName() {
+		return name;
+	  }
+	  void setName(String newName) {
+	    this.name = newName;
+	  }
+}
+public class Problem6 {
+	public static void main(String[] args) {
+		ExtraType extraType= new ExtraType();
+		
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.println("Enter the extratype details :");
+		String[] result = sc.nextLine().split("#");
+		extraType.setName(result[0]);
+		extraType.setRuns(Long.parseLong(result[1]));
+		
+		System.out.println("ExtraType Details :");
+		System.out.println("Extra Type : "+extraType.getName());
+		System.out.println("Runs : "+extraType.getRuns()); 
+	}
+}
+
+
+
+
+// Problem #7
+
+//7. Delivery Details
+//
+//[Note :
+//Strictly adhere to the object oriented specifications given as a part of the problem statement.
+//Use the same class names and member variable names.
+//Follow the naming conventions mentioned for getters / setters.
+//Create 2 separate classes in 2 separate files.]
+//
+//
+//
+//Create a class named Delivery with the following private member variables / attributes
+//
+//1.        
+//
+//Long over;
+//
+//2.        
+//
+//3.        
+//
+//Long ball;
+//
+//4.        
+//
+//5.        
+//
+//Long runs;
+//
+//6.        
+//
+//7.        
+//
+//String batsman
+//
+//8.        
+//
+//9.        
+//
+//String bowler
+//
+//10.    
+//
+//11.    
+//
+//String nonStriker
+//
+//12.    
+//
+// 
+//
+// 
+//
+//Include a 6-argument constructor in this class. The arguments passed to the constructor are in this order --- over, ball, runs,batsman,bowler,nonStriker.
+//Include an empty default constructor.
+// 
+//
+// 
+//
+//
+// 
+//
+//Include appropriate getters and setters.
+//
+//[Naming Convention:
+//
+//getters : getOver getBall...
+//
+//setters : setOver, setBall...]
+//
+// 
+//
+//
+//
+//Create another class named Main and include a main method to test the above class(Print the output in Main Class).
+//
+// 
+//
+// Input and Output Format:
+//
+// Refer sample input and output for formatting specifications.
+//
+//All text in bold corresponds to input and the rest corresponds to output.
+//
+// 
+//
+// Sample Input and Output :
+//
+//Enter the over
+//1
+//Enter the ball
+//1
+//Enter the runs
+//4
+//Enter the batsman name
+//Ms Dhoni             
+//Enter the bowler name
+//Dale steyn
+//Enter the nonStriker name
+//Suresh Raina
+//Over : 1
+//Ball : 1
+//Runs : 4
+//Batsman : Ms Dhoni
+//Bowler : Dale steyn
+//NonStriker : Suresh Raina
+
+package com.handon3;
+
+import java.util.Scanner;
+
+class Delivery1{
+	private long over;
+	private long ball;
+	private long runs;
+	private String batsman;
+	private String bowler;
+	private String nonStriker;
+	Delivery1() {
+		super();
+	}
+	Delivery1(long over, long ball, long runs, String batsman, String bowler, String nonStriker) {
+		super();
+		this.over = over;
+		this.ball = ball;
+		this.runs = runs;
+		this.batsman = batsman;
+		this.bowler = bowler;
+		this.nonStriker = nonStriker;
+	}
+	public long getOver() {
+		return over;
+	}
+	public void setOver(long over) {
+		this.over = over;
+	}
+	public long getBall() {
+		return ball;
+	}
+	public void setBall(long ball) {
+		this.ball = ball;
+	}
+	public long getRuns() {
+		return runs;
+	}
+	public void setRuns(long runs) {
+		this.runs = runs;
+	}
+	public String getBatsman() {
+		return batsman;
+	}
+	public void setBatsman(String batsman) {
+		this.batsman = batsman;
+	}
+	public String getBowler() {
+		return bowler;
+	}
+	public void setBowler(String bowler) {
+		this.bowler = bowler;
+	}
+	public String getNonStriker() {
+		return nonStriker;
+	}
+	public void setNonStriker(String nonStriker) {
+		this.nonStriker = nonStriker;
+	}
+}
+public class Problem7 {
+
+	public static void main(String[] args) {
+		Delivery1 delivery= new Delivery1();
+		
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.print("Enter the over : ");
+		delivery.setOver(Long.parseLong(sc.nextLine()));
+		System.out.print("Enter the ball : ");
+		delivery.setBall(Long.parseLong(sc.nextLine()));
+		System.out.print("Enter the runs: ");
+		delivery.setRuns(Long.parseLong(sc.nextLine()));
+		System.out.print("Enter the batsman name : ");
+		delivery.setBatsman(sc.nextLine());
+		System.out.print("Enter the bowler name : ");
+		delivery.setBowler(sc.nextLine());
+		System.out.print("Enter the nonStriker name : ");
+		delivery.setNonStriker(sc.nextLine());
+		
+		System.out.println("Delivery Details : ");
+		System.out.println("Over : "+delivery.getOver());
+		System.out.println("Ball : "+delivery.getBall()); 
+		System.out.println("Runs : "+delivery.getRuns()); 
+		System.out.println("Batsman : "+delivery.getBatsman());
+		System.out.println("Bowler : "+delivery.getBowler()); 
+		System.out.println("NonStriker : "+delivery.getNonStriker()); 
+	}
+
+}
+
+
+
+// Problem #8
+
+//9. Wicket Details
+//
+// 
+//
+// 
+//
+//[Note :
+//Strictly adhere to the object oriented specifications given as a part of the problem statement.
+//Use the same class names and member variable names.
+//Follow the naming conventions mentioned for getters / setters.
+//Create 2 separate classes in 2 separate files.]
+//
+//Create a class named Wicket with the following private member variables / attributes
+//
+//1.        
+//
+//Long over
+//
+//2.        
+//
+//3.        
+//
+//Long ball
+//
+//4.        
+//
+//5.        
+//
+//String wicketType
+//
+//6.        
+//
+//7.        
+//
+//String playerName
+//
+//8.        
+//
+//9.        
+//
+//String bowlerName
+//
+//10.    
+//
+//
+// 
+//
+//Include a 5-argument argument constructor in this class. The arguments passed to the constructor are in this order --- over, ball,wicketType,playerName,bowlerName.
+//Include a default empty constructor.
+// 
+//
+//
+// 
+//
+// Include appropriate getters and setters.
+//
+//[Naming Convention:
+//
+//getters : getOver getBall ...
+//
+//setters : setOver, setBall...]
+//
+// 
+//
+//Create another class named Main and include a main method to test the above class(Print the output in Main Class).
+//
+//
+// Input and Output Format:
+//
+// Refer sample input and output for formatting specifications.
+//
+//Use array of objects to read wicket details and use String.split() function to display the wicket details.
+//
+//All text in bold corresponds to input and the rest corresponds to output.
+//
+//
+// 
+//
+// Sample Input and Output :
+//
+//Enter the number of wickets
+//3
+//Enter the details of wicket 1
+//5,2,LBW,Gautam Gambir,Aswin
+//Enter the details of wicket 2
+//6,6,Bowled,Brad Hogg,Dwayne Bravo
+//Enter the details of wicket 3
+//7,3,Stumped,Robin Uthappa,Ravindra Jadeja
+//Wicket Details
+//Over : 5
+//Ball : 2
+//Wicket Type : LBW
+//Player Name : Gautam Gambir
+//Bowler Name : Aswin
+//Over : 6
+//Ball : 6
+//Wicket Type : Bowled
+//Player Name : Brad Hogg
+//Bowler Name : Dwayne Bravo
+//Over : 7
+//Ball : 3
+//Wicket Type : Stumped
+//Player Name : Robin Uthappa
+//Bowler Name : Ravindra Jadeja
+
+package com.handon3;
+
+import java.util.Scanner;
+
+class Wicket{
+	private long over;
+	private long ball;
+	private String wicketType;
+	private String playerName;
+	private String bowlerName;
+	public Wicket() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Wicket(long over, long ball, String wicketType, String playerName, String bowlerName) {
+		super();
+		this.over = over;
+		this.ball = ball;
+		this.wicketType = wicketType;
+		this.playerName = playerName;
+		this.bowlerName = bowlerName;
+	}
+	public long getOver() {
+		return over;
+	}
+	public void setOver(long over) {
+		this.over = over;
+	}
+	public long getBall() {
+		return ball;
+	}
+	public void setBall(long ball) {
+		this.ball = ball;
+	}
+	public String getWicketType() {
+		return wicketType;
+	}
+	public void setWicketType(String wicketType) {
+		this.wicketType = wicketType;
+	}
+	public String getPlayerName() {
+		return playerName;
+	}
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+	public String getBowlerName() {
+		return bowlerName;
+	}
+	public void setBowlerName(String bowlerName) {
+		this.bowlerName = bowlerName;
+	}
+}
+public class Problem9 {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter the number of wickets : ");
+		int N = Integer.parseInt(sc.nextLine());
+		
+		Wicket[] wicket = new Wicket[N]; 
+		for( int i=0;i<N;++i) {
+			System.out.println("Enter the details of wicket : "+(i+1));
+			String[] result = sc.nextLine().split(",");
+			wicket[i] = new Wicket(Long.parseLong(result[0]), Long.parseLong(result[1]),result[2],result[3],result[4]); 
+		}
+		
+		for( int i=0;i<N;++i) {
+			System.out.println("Wicket Details");
+			System.out.println("Over : "+wicket[i].getOver());
+			System.out.println("Ball : "+wicket[i].getBall());
+			System.out.println("Wicket Type : "+wicket[i].getWicketType());
+			System.out.println("Player Name :"+wicket[i].getPlayerName());
+			System.out.println("Bowler Name : "+wicket[i].getBowlerName());
+		}
+		
+	}
+}
+
