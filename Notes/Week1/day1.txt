@@ -12,7 +12,7 @@ Java - Sun Microsystem - Oracle
 Java was developed by Sun Microsystems (which is now the subsidiary of Oracle) in the year 1995.
 James Gosling is known as the father of Java. Before Java, its name was Oak.
 Since Oak was already a registered company, so James Gosling and his team changed the Oak name to Java.
-
+5
 
 3 Categories
 
@@ -114,7 +114,9 @@ f. Polymorphism - one class takes many forms
 
      - Used to initialize the values to the variables at the time of object creation
 
-     - By default all class contains one default constructor(constructor without arguments), apart from that we can create our own constructor where the class name and the constructor name should be same at that time it will destroy the already present default constructor
+     - By default all class contains one default constructor(constructor without arguments), apart from that we can create our own
+       constructor where the class name and the constructor name should be same at that time it will destroy the already present
+       default constructor
 
      - Constructor can have access specifiers mostly public, whenever the constructor declared as private we cant create object for that particular class
 
@@ -143,7 +145,6 @@ class Box{
 
 4. String is a datatype
 
- 
 
 Java
 
@@ -163,7 +164,8 @@ Java
 
      2. Explicit garbage collection
 
-           - we can call System.gc() or Runtime.gc(), where this method will automatically call another method called finalize() which contains the resources to be deallocated and it will invoked only once in the lifecycle of the program
+           - we can call System.gc() or Runtime.gc(), where this method will automatically call another method called finalize()
+           which contains the resources to be deallocated and it will invoked only once in the lifecycle of the program
 
  
 
