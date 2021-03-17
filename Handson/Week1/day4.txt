@@ -10,7 +10,7 @@
 //
 // 
 //
-//class Eggs {   
+//class Eggs {
 //
 //    int doX(Long x, Long y) { return 1;}
 //
@@ -1085,8 +1085,6 @@ What is the output of the following program?
 
 public abstract class AbstractTest {
 
-   
-
     public int getNum()) {
 
         return 45;
@@ -1125,7 +1123,7 @@ public abstract class AbstractTest {
 
         };
 
-        System.out.println()f.getNum()) + " " + t.getNum()));
+        System.out.println((f.getNum()) + " " + t.getNum()));
 
     }
 
