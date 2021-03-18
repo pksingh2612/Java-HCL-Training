@@ -1,190 +1,465 @@
+// Problem #1
+// ------------
+//1. Calculate Average – Hash Map
+//
+//Write a method that accepts the input data as a hash map and finds out the avg of all values whose keys are odd numbers.
+//
+//
+//Include a class UserMainCode with a static method calculateAverage which accepts a HashMap<Integer,Double> and the size of 
+// the HashMap.
+//The return type (Double) should return the calculated average. Round the average to two decimal places and return it.
+//
+//Create a Class Main which would be used to accept Input values and store it as a hash map, and call the static method present 
+//in UserMainCode.
+//
+//Input and Output Format:
+//
+//Input consists of an integer n corresponds to number of hash map values, followed by 2n values. (index followed by value).
+//
+//Output consists of a Double.
+//
+//Refer sample input and output for formatting specifications.
+//
+//Sample Input :
+//
+//4
+//
+//1
+//
+//3.41
+//
+//2
+//
+//4.1
+//
+//3
+//
+//1.61
+//
+//4
+//
+//2.5
+//
+//Sample Output :
+//
+//2.51
+
+// Solution
+//-------------
+package com.handsonWeek_2_Day3;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.text.DecimalFormat;
+
+class UserMainCode{
+	static double calculateAverage(Map<Integer,Double> hm, int size) {
+		Set s=hm.entrySet(); //convert both key value pair
+
+        Iterator itr=s.iterator();
+
+        double sum=0;
+        int count=0;
+        while(itr.hasNext()) {
+
+          Map.Entry me=(Map.Entry)itr.next();
+
+          if((int) me.getKey()%2==1) {
+        	  count++;
+        	  sum+=(double)me.getValue();
+          }
+        }
+        
+        DecimalFormat df = new DecimalFormat("0.00");
+        
+		return Double.parseDouble(df.format(sum/count));
+		
+	}
+}
+
+public class Problem1 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Sample Input :");
+		int n = sc.nextInt();
+		Map<Integer,Double> hm= new HashMap<>();
+		for ( int i =0; i<n;++i) {
+			hm.put(sc.nextInt(),sc.nextDouble());
+		}		
+	
+//        double Final =Math.round((sum/count)*100)/100;
+		System.out.println("Sample Output :");
+		System.out.println(UserMainCode.calculateAverage(hm,hm.size()));
+	}
+
+}
+
+
+
+// Problem #3
+//==================
+//
+//2. Removing elements from HashMap
+//
+//Given a HashMap as input, write a program to perform the following operation :  If the keys are divisible by 3 then remove that key and its values and print the number 
+// of remaining keys in the hashmap.
+//Include a class UserMainCode with a static method afterDelete which accepts a HashMap as input.
+//
+// 
+//
+//The return type of the output is an integer which represents the count of remaining elements in the hashmap.
+//
+// 
+//
+//Create a class Main which would get the input and call the static method afterDelete present in the UserMainCode.
+//
+// 
+//
+//Input and Output Format:
+//
+//First input corresponds to the size of hashmap
+//
+//Input consists a HashMap
+//
+//Output is an integer which is the count of remaining elements in the hashmap.
+//
+//Refer sample output for formatting specifications.
+//
+// 
+//
+//Sample Input 1:
+//
+//4
+//
+//339
+//
+//RON
+//
+//1010
+//
+//JONS
+//
+//3366
+//
+//SMITH
+//
+//2020
+//
+//TIM
+//
+//Sample Output 1:
+//
+//2
+//
+// 
+//
+//Sample Input 2:
+//
+//5
+//
+//1010
+//
+//C2WE
+//
+//6252
+//
+//XY4E
+//
+//1212
+//
+//M2ED
+//
+//7070
+//
+//S2M41ITH
+//
+//8585
+//
+//J410N
+//
+//Sample Output 2:
+//
+//3
 
  
 
- 
+// Solution
+//-------------------
+
+package com.handsonWeek_2_Day3;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+class UserMainCode1{
+	static int afterDelete(HashMap<Integer,String> hm) {
+		Set s=hm.keySet(); //convert both key value pair
+
+        Iterator itr=s.iterator();
+
+        while(itr.hasNext()) {
+
+          int key=(int)itr.next();
+          
+          System.out.println(key);
+          
+          if(key%3==0) {
+        	  hm.remove(key); // object key need to pass
+          }
+        }
+        
+        System.out.println(hm);
+        
+		return hm.size();
+		
+	}
+}
+
+public class Problem2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Sample Input :");
+		int n = Integer.parseInt(sc.nextLine());
+		HashMap<Integer,String> hm= new HashMap<>();
+		for ( int i =0; i<n;++i) {
+			hm.put(Integer.parseInt(sc.nextLine()),sc.nextLine());
+		}		
+		
+		System.out.println(hm);
+	
+		System.out.println("Sample Output :");
+		System.out.println(UserMainCode1.afterDelete(hm));
+
+	}
+
+
+
+
+
+//3. Largest Key in HashMap
+//
+//
+//Write a program that construts a hashmap and returns the value corresponding to the largest key.
+//
+//Include a class UserMainCode with a static method getMaxKeyValue which accepts a string. The return type (String) should be the value corresponding to the largest key.
+//
+//Create a Class Main which would be used to accept Input string and call the static method present in UserMainCode.
+//
+//Input and Output Format:
+//
+//Input consists of 2n+1 values. The first value corresponds to size of the hashmap. The next n pair of numbers equals the integer key and value as string.
+//
+//Output consists of a string which is the value of largest key.
+//
+//Refer sample output for formatting specifications.
+//
+//Sample Input 1:
+//
+//3
+//
+//12
+//
+//amron
+//
+//9
+//
+//Exide
+//
+//7
+//
+//SF
+//
+//Sample Output 1:
+//
+//Amron
+//
+//
+
+// Solution
+// ------------
+package com.handsonWeek_2_Day3;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+class UserMainCode2{
+	static String getMaxKeyValue(Map<Integer,String> hm) {
+		TreeSet<Integer> t= new TreeSet<>();
+		Set s1=hm.entrySet(); //convert both key value pair
+		Set s=hm.keySet(); //convert both key value pair
+
+        Iterator itr=s.iterator();
+
+        while(itr.hasNext()) {
+          int key=(int)itr.next();
+          t.add(key);
+        }
+        
+        int largestKey = (t.size()-1);
+        
+        //convert TreeSet to an 1D Array
+        Integer[] numberArray = t.toArray( new Integer[t.size()] );
+        
+        Iterator itr1=s1.iterator();
+        String result = null;
+        while(itr1.hasNext()) {
+        	 Map.Entry me1=(Map.Entry)itr1.next();
+             
+             if(me1.getKey()==numberArray[largestKey]) {
+           	  result=(String) me1.getValue();
+           	  break;
+             }
+          }
+        
+		return result;
+	}
+}
+
+public class Problem3 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Sample Input :");
+		int n = Integer.parseInt(sc.nextLine());
+		Map<Integer,String> hm= new HashMap<>();
+		for ( int i =0; i<n;++i) {
+			hm.put(Integer.parseInt(sc.nextLine()),sc.nextLine());
+		}		
+		
+		System.out.println("Sample Output :");
+		System.out.println(UserMainCode2.getMaxKeyValue(hm));
+	}
+}
 
-2. Removing elements from HashMap
 
-Given a HashMap as input, write a program to perform the following operation :  If the keys are divisible by 3 then remove that key and its values and print the number of remaining keys in the hashmap.
 
- 
 
-Include a class UserMainCode with a static method afterDelete which accepts a HashMap as input.
 
- 
 
-The return type of the output is an integer which represents the count of remaining elements in the hashmap.
 
- 
 
-Create a class Main which would get the input and call the static method afterDelete present in the UserMainCode.
-
- 
-
-Input and Output Format:
-
-First input corresponds to the size of hashmap
-
-Input consists a HashMap
-
-Output is an integer which is the count of remaining elements in the hashmap.
-
-Refer sample output for formatting specifications.
-
- 
-
-Sample Input 1:
-
-4
-
-339
-
-RON
-
-1010
-
-JONS
-
-3366
-
-SMITH
-
-2020
-
-TIM
-
-Sample Output 1:
-
-2
-
- 
-
-Sample Input 2:
-
-5
-
-1010
-
-C2WE
-
-6252
-
-XY4E
-
-1212
-
-M2ED
-
-7070
-
-S2M41ITH
-
-8585
-
-J410N
-
-Sample Output 2:
-
-3
-
- 
-
- 
-
-3. Largest Key in HashMap
-
- 
-
-Write a program that construts a hashmap and returns the value corresponding to the largest key.
-
-Include a class UserMainCode with a static method getMaxKeyValue which accepts a string. The return type (String) should be the value corresponding to the largest key.
-
-Create a Class Main which would be used to accept Input string and call the static method present in UserMainCode.
-
-Input and Output Format:
-
-Input consists of 2n+1 values. The first value corresponds to size of the hashmap. The next n pair of numbers equals the integer key and value as string.
-
-Output consists of a string which is the value of largest key.
-
-Refer sample output for formatting specifications.
-
-Sample Input 1:
-
-3
-
-12
-
-amron
-
-9
-
-Exide
-
-7
-
-SF
-
-Sample Output 1:
-
-Amron
-
- 
-
- 
-
-4. Employees & Designations
-
- 
-
-A Company wants to obtain employees of a particular designation. You have been assigned as the programmer to build this package. You would like to showcase your skills by creating a quick prototype. The prototype consists of the following steps:
-
-    Read Employee details from the User. The details would include name and designaton in the given order. The datatype for name and designation is string.
-
-    Build a hashmap which contains the name as key and designation as value.
-
-    You decide to write a function obtainDesignation which takes the hashmap and designation as input and returns a string List of employee names who belong to that designation as output. Include this function in class UserMainCode. Display employee name's in ascending order.
-
-Create a Class Main which would be used to read employee details in step 1 and build the hashmap. Call the static method present in UserMainCode.
-
- 
-
-Input and Output Format:
-
-Input consists of employee details. The first number indicates the size of the employees. The next two values indicate the employee name employee designation. The last string would be the designation to be searched.
-
-Output consists of a array values containing employee names.
-
-Refer sample output for formatting specifications.
-
- 
-
-Sample Input 1:
-
-4
-
-Manish
-
-MGR
-
-Babu
-
-CLK
-
-Rohit
-
-MGR
-
-Viru
-
-PGR
-
-MGR
 
  
 
-Sample Output 1:
+//4. Employees & Designations
+//
+//A Company wants to obtain employees of a particular designation. You have been assigned as the programmer to build this package. 
+// You would like to showcase your skills by creating a quick prototype. The prototype consists of the following steps:
+//
+//    Read Employee details from the User. The details would include name and designaton in the given order. The datatype for name and designation is string.
+//
+//    Build a hashmap which contains the name as key and designation as value.
+//
+//    You decide to write a function obtainDesignation which takes the hashmap and designation as input and returns a 
+//string List of employee names who belong to that designation as output. Include this function in class UserMainCode. 
+//Display employee name's in ascending order.
+//
+//Create a Class Main which would be used to read employee details in step 1 and build the hashmap. Call the static method present in UserMainCode.
+//
+// 
+//
+//Input and Output Format:
+//
+//Input consists of employee details. The first number indicates the size of the employees. The next two values indicate the employee name employee designation. The last string would be the designation to be searched.
+//
+//Output consists of a array values containing employee names.
+//
+//Refer sample output for formatting specifications.
+//
+// 
+//
+//Sample Input 1:
+//
+//4
+//
+//Manish
+//
+//MGR
+//
+//Babu
+//
+//CLK
+//
+//Rohit
+//
+//MGR
+//
+//Viru
+//
+//PGR
+//
+//MGR
+//
+// 
+//
+//Sample Output 1:
+//
+//Manish
+//
+//Rohit
 
-Manish
 
-Rohit
+//Solution 
+//-----------
+package com.handsonWeek_2_Day3;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+class UserMainCode3{
+	static TreeSet<String> obtainDesignation(Map<String,String> hm,String d) {
+		TreeSet<String> t= new TreeSet<>();
+		Set s=hm.entrySet(); //convert both key value pair
+
+        Iterator itr=s.iterator();
+
+        while(itr.hasNext()) {
+
+          Map.Entry me=(Map.Entry)itr.next();
+          if(me.getValue().equals(d)) {
+        	  t.add((String)me.getKey());
+          }
+        }
+		return t;
+	}
+}
+
+
+public class Problem4 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Sample Input :");
+		int n = Integer.parseInt(sc.nextLine());
+		Map<String,String> hm= new HashMap<>();
+		for ( int i =0; i<n;++i) {
+			hm.put(sc.nextLine(),sc.nextLine());
+        }
+		String desg=sc.nextLine();
+
+		System.out.println("Sample Output :");
+		for(String a:UserMainCode3.obtainDesignation(hm,desg)) {
+			System.out.println(a);
+		}
+
+	}
+
+}
