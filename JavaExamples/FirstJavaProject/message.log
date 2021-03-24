@@ -1,0 +1,3 @@
+0    [main] ERROR com.Week3_Day1.Example9  - error message
+4    [main] WARN  com.Week3_Day1.Example9  - warn message
+4    [main] FATAL com.Week3_Day1.Example9  - fatal message
