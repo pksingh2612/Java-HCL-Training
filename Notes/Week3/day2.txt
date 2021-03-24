@@ -1,0 +1,100 @@
+Unit Testing
+
+SDLC
+
+  1. Planning and Estimation
+
+  2. Requirement and Analysis
+
+         - What is to be done in ur project
+
+  3. Design
+
+         - How is to be done
+
+         - 40% work for Analysis and design
+
+  4. Coding
+
+         - 20% work
+
+  5. Testing - used to test the project whether it satisfy customer requirement
+
+         - 40% work
+
+         - Manual testing and Automated Testing(script using Selenuium)
+
+
+Unit Testing
+
+   - test individual modules/classes, done by developer at coding stage
+
+
+Junit Framework - unit testing in Java
+
+Nunit framework - unit testing in .NET
+
+Junit Framework
+
+   - unit testing framework for Java language
+
+    - it promotes "first testing then coding"
+
+Installation
+
+   - download junit.jar file and configure inside the project
+
+Junit classes
+
+1. Assert - set of assert methods
+
+      1. void assertEquals(String expected,String actual)
+
+      2. void assertFalse(boolean condition)
+
+      3. void assertTrue(boolean condition)
+
+      4. void assertNotNull(Object o)
+
+      5. void assertNull(Object o)
+
+2. TestCase - defines the fixture to run multiple tests
+
+3. TestResult - collects the result of executing test case
+
+
+
+setUp() - before ur test is started, we want to initialize something
+
+tearDown() - used to deallocate the memory
+
+@Test - all test method should be annotated
+
+@Ignore - if we want to ignore any test method
+
+@Before - we want to execute any method before each test is executed
+
+@After - we want to execute any method after each test is executed
+
+@BeforeClass - to run once before any of the test method in the class
+
+@AfterClass -  to run once after any of the test method in the class
+
+
+@FixMethodOrder - to execute test in an order
+
+MethodSorters class
+
+    1. MethodSorters.DEFAULT - sort the test in any specific order
+
+    2. MethodSorters.JVM - JVM will decide in which to execute the test
+
+    3. MethodSorters.NAME_ASCENDING - it will sort the test based on method name in ascending order
+
+ 
+
+@Test(expected=ArithmeticException.class)
+
+
+
+Test Suite - used to bundle few junit test cases and run them together using @RunWith and @Suite

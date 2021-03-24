@@ -1,0 +1,1185 @@
+Date API
+
+1. LocalDate
+
+2. LocalTime
+
+3. LocalDateTime
+
+4. TemporalAdjusters interface
+
+        - to extract information from date and time
+
+ 
+
+import java.time.DayOfWeek;
+
+import java.time.LocalDateTime;
+
+import java.time.temporal.TemporalAdjusters;
+
+ 
+
+public class Example1 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                LocalDateTime l1=LocalDateTime.now();
+
+                                System.out.println(l1);
+
+                                System.out.println(l1.with(TemporalAdjusters.firstDayOfMonth()));
+
+                                System.out.println(l1.with(TemporalAdjusters.lastDayOfMonth()));
+
+                                System.out.println(l1.with(TemporalAdjusters.firstDayOfNextMonth()));
+
+                                System.out.println(l1.with(TemporalAdjusters.firstDayOfNextYear()));
+
+                                System.out.println(l1.with(TemporalAdjusters.firstDayOfYear()));
+
+                                System.out.println(l1.with(TemporalAdjusters.next(DayOfWeek.MONDAY)));
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+        - we can create our own TemporalAdjuster
+
+import java.time.LocalDate;
+
+import java.time.Month;
+
+import java.time.temporal.Temporal;
+
+import java.time.temporal.TemporalAdjuster;
+
+ 
+
+class CustomTemporalAdjuster implements TemporalAdjuster{
+
+ 
+
+                @Override
+
+                public Temporal adjustInto(Temporal temporal) {
+
+                                LocalDate l1=LocalDate.now();
+
+                                int day=l1.getDayOfMonth();
+
+                                if(day%2==0) {
+
+                                                l1=l1.plusDays(2);
+
+                                }else {
+
+                                                l1=l1.plusDays(1);
+
+                                }
+
+                                return temporal.with(l1);
+
+                }
+
+               
+
+}
+
+public class Example2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                LocalDate l1=LocalDate.of(2017,Month.NOVEMBER, 1);
+
+                                LocalDate l2=LocalDate.of(2017, Month.NOVEMBER, 2);
+
+                                CustomTemporalAdjuster cust=new CustomTemporalAdjuster();
+
+                                LocalDate d1=l1.with(cust);
+
+                                LocalDate d2=l2.with(cust);
+
+                                System.out.println(d1);
+
+                                System.out.println(d2);
+
+                                                               
+
+                }
+
+ 
+
+}
+
+ 
+
+5. Period class - to get difference between two dates
+
+   Duration class - to get difference between two times
+
+import java.time.Duration;
+
+import java.time.LocalDate;
+
+import java.time.LocalTime;
+
+import java.time.Period;
+
+import java.time.temporal.ChronoUnit;
+
+ 
+
+public class Example3 {
+
+ 
+
+                public static void main(String[] args) {
+
+        LocalDate l1=LocalDate.now();
+
+        LocalDate l2=l1.plus(Period.ofDays(5));
+
+        int i=Period.between(l1, l2).getDays();
+
+        System.out.println(i);
+
+        int j=Period.between(l1, l2).getMonths();
+
+        System.out.println(j);
+
+       
+
+        long l3=ChronoUnit.DAYS.between(l1, l2);
+
+        System.out.println(l3);
+
+       
+
+        LocalTime l4=LocalTime.now();
+
+        LocalTime l5=l4.plus(Duration.ofSeconds(20));
+
+        long l6=Duration.between(l4, l5).getSeconds();
+
+        System.out.println(l6);
+
+        long l7=Duration.between(l4, l5).toMinutes();
+
+        System.out.println(l7);
+
+}
+
+}
+
+ 
+
+6. DateTimeFormatter interface
+
+       - used to format the date and time in different style
+
+ 
+
+import java.time.LocalDateTime;
+
+import java.time.format.DateTimeFormatter;
+
+import java.time.format.FormatStyle;
+
+ 
+
+public class Example4 {
+
+ 
+
+                public static void main(String[] args) {
+
+          LocalDateTime l1=LocalDateTime.now();
+
+          System.out.println(l1);
+
+          String s1=l1.format(DateTimeFormatter.ISO_DATE);
+
+          System.out.println(s1);
+
+          String s2=l1.format(DateTimeFormatter.ISO_DATE_TIME);
+
+          System.out.println(s2);
+
+          String s3=l1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+          System.out.println(s3);
+
+          String s4=l1.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+
+          System.out.println(s4);
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+4. Lambda Expression
+
+      - to enable Functional programming - we want to pass an action and execute that action
+
+      - We want to pass the behaviour and execute the behaviour directly (ie) we have to pass perform() directly.
+
+      But here we are passing the thing that contains the behaviour, we are passing object of Greeting
+
+     - With Lambda expression we can execute the function directly
+
+ 
+
+How to write Lambda expression?
+
+  1.Imagine we take a method and assign to a variable
+
+    a=public void perform(){
+
+               System.out.println("Hello");
+
+      }
+
+    - public,private, protected make sense if we define method inside the class. But here the function are exist in isolation (ie) it is stored in a variable. So while writing lambda expr there is no need to write access specifers
+
+  2. a=void perform(){
+
+          System.out.println("hello");
+
+       }
+
+    - When we assign a function to a variable, we can refer the function using variable "a", so there is no need to have separate name for the method
+
+  3. a=void(){
+
+          System.out.println("hello");
+
+       }
+
+   - By seeing the method itself we can identify the return type of method, so in lambda expr there is no need to specify return type
+
+  4. a=(){
+
+          System.out.println("hello");
+
+       }
+
+  These are the elements need to provide in order to write lambda expr.
+
+  We removed the access specifier, method name, return type. It would contain () which represent input arg and logic and we need to put -> symbol
+
+   a=() -> {
+
+              //logic
+
+           }
+
+   - If ur body of lambda expr is just one line , then u can remove curly braces
+
+       a=() -> System.out.println("Hello");
+
+   - s = (int a) ->   return a*2;
+
+        If the lambda expr is one line, even we can remove the return stmt
+
+           s = (int a) -> a*2;
+
+   - addfunction = (int a,int b) -> a+b;
+
+   - safeDivideFunction = (int a,int b) -> {
+
+                                             if(b==0) returb 0;
+
+                                             else return a/b;
+
+                                           }
+
+  - ab = (String s) -> s.length();
+
+ 
+
+     - Whenever u create a lambda expression, the return type of lambda expr always into a functional interface, this concept is called type inference
+
+ 
+
+Functional Interface
+
+   - Any interface that contains only one abstract method and any number of default and static methods
+
+   - using @FunctionalInterface - optional ( present in java.lang.*)
+
+   - also called SAM(Single Abstract Method interface)
+
+   - If an interface contains any method of Object class as abstract it is also called Functional interface
+
+   - present in java.util.function.*
+
+  
+
+//It is a functional interface
+
+interface A{
+
+    void add(); 
+
+}
+
+ 
+
+//It is a functional interface
+
+interface A1{
+
+    void add();
+
+    default void show(){
+
+    } 
+
+}
+
+ 
+
+//It is not a functional interface
+
+interface A2{
+
+    void add();
+
+    void show();
+
+}
+
+ 
+
+//It is a functional interface
+
+interface A3{
+
+   void add();
+
+   String toString();
+
+}
+
+ 
+
+ 
+
+Method Reference
+
+   - used to refer the method of Functional interface
+
+   - u can use this method reference as replacement of Lambda expr
+
+ 
+
+3 ways
+
+  1. Reference to a static method
+
+interface Sayable{
+
+                void say();
+
+}
+
+public class Example9 {
+
+    public static void doSomething() {
+
+                System.out.println("Hello world");
+
+    }
+
+                public static void main(String[] args) {
+
+                                Sayable s=()->System.out.println("using functional interface");
+
+        s.say();
+
+       
+
+        Sayable s1=Example9::doSomething; //Method Reference using Static method
+
+        s1.say();   
+
+      
+
+                }
+
+ 
+
+}
+
+ 
+
+public class Example10 {
+
+     public static void status() {
+
+                 System.out.println("Thread is running");
+
+     }
+
+                public static void main(String[] args) {
+
+                  Thread t1=new Thread(()->System.out.println("using lambda"));
+
+                  t1.run();
+
+                 
+
+                  Thread t2=new Thread(Example10::status); //method reference of static method
+
+                  t2.run();
+
+                 
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+2. Reference to instance/normal method - we have to create an object
+
+ 
+
+interface Drawable{
+
+                void draw();
+
+}
+
+public class Example11 {
+
+      public static void draw1() {
+
+                  System.out.println("using method reference static method");
+
+      }
+
+      public void draw2() {
+
+                  System.out.println("using method reference instance method");
+
+      }
+
+                public static void main(String[] args) {
+
+                                Drawable d=()->System.out.println("Using lambda");
+
+                    d.draw();
+
+                   
+
+                    Drawable d1=Example11::draw1;
+
+                    d1.draw();
+
+                   
+
+                    Example11 e=new Example11();
+
+                    Drawable d2=e::draw2; //method refernce of instance method
+
+                    d2.draw();
+
+                   
+
+                }
+
+ 
+
+}
+
+ 
+
+3. Reference to a Constructor
+
+ 
+
+interface Messageable{
+
+                Example12 getExample(String msg);
+
+}
+
+public class Example12 {
+
+               
+
+                Example12(String msg){
+
+                                System.out.println(msg);
+
+                }
+
+ 
+
+                public static void main(String[] args) {
+
+                                Messageable m=Example12::new; //method reference to a constructor
+
+                                m.getExample("hello");
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Predefined Functional interface
+
+    - present in java.util.function.*
+
+ 
+
+1. Consumer interface
+
+      - It is a functional interface with one abstract method
+
+         - void accept(T t)
+
+But in JDK1.8, we have new method called forEach(Consumer c) used to iterate List and Set interface
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+ 
+
+public class Example13 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                List<String> l=new ArrayList<>();
+
+                                   l.add("Ram");
+
+                                   l.add("Sam");
+
+                                   l.add("Tam");
+
+                                   l.add("Jam");
+
+                                   l.add("Fam");
+
+                                   System.out.println(l);
+
+                                  
+
+                                   l.forEach((n)->System.out.println(n));
+
+                                  
+
+                                   l.forEach(System.out::println); //method reference of instance method
+
+                                  
+
+                                   
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+2. BiConsumer interface
+
+     - It is functional intreface used to iterate elements of Map interface
+
+     - void accept(T t,U u)
+
+ 
+
+import java.util.HashMap;
+
+import java.util.Map;
+
+ 
+
+public class Example14 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Map<String,Integer> hm=new HashMap<>();
+
+                                hm.put("b", 20);
+
+                                hm.put("f", 30);
+
+                                hm.put("a", 34);
+
+                                hm.put("e", 23);
+
+                               
+
+                                System.out.println(hm);
+
+                               
+
+                                hm.forEach((k,v)->System.out.println("Key "+k+"Value "+v));
+
+                }
+
+ 
+
+}
+
+ 
+
+3. Function interface
+
+       - It is a functional interface
+
+       - R apply(T t)
+
+ 
+
+import java.util.function.Function;
+
+ 
+
+public class Example15 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Function<String,Integer> f=(x)->x.length();
+
+                                Integer i=f.apply("hello");
+
+                                System.out.println(i);
+
+                }
+
+ 
+
+}
+
+ 
+
+4. BiFunction interface
+
+     -It is a functional interface
+
+     - R apply(T t,U u)
+
+ 
+
+import java.util.function.BiFunction;
+
+import java.util.function.Function;
+
+ 
+
+public class Example16 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                BiFunction<Integer,Integer,Integer> b=(n1,n2)->n1+n2;
+
+                                System.out.println(b.apply(20, 30));
+
+                                Function<Integer,Integer> f=(n1)->n1/2;
+
+                                System.out.println(f.apply(10));
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+5. Predicate interface
+
+      - it is a functional interface
+
+      - boolean Test(T t)
+
+ 
+
+6. BiPredicate interface
+
+     - It is a functional interface
+
+     - boolean test(T t,U u)
+
+ 
+
+import java.util.function.BiPredicate;
+
+import java.util.function.Predicate;
+
+ 
+
+public class Example17 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Predicate<String> p=(s)->s.startsWith("Foo");
+
+        System.out.println(p.test("Foobar"));
+
+       
+
+       BiPredicate<Integer,String> bp=(s1,s2)->s1>20 && s2.endsWith("bar");
+
+       System.out.println(bp.test(10, "Foobar"));
+
+                }
+
+ 
+
+}
+
+ 
+
+7. Supplier interface
+
+     - It is a functional interface
+
+     - T get()
+
+import java.util.function.Supplier;
+
+ 
+
+public class Example18 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Supplier<String> s=()->"Hello";
+
+                                System.out.println(s.get());
+
+                               
+
+                                Supplier<Integer> s1=()->10+20;
+
+                                System.out.println(s1.get());
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+8. BooleanSupplier interface
+
+       - It is a fucntional interface
+
+       - boolean getAsBoolean()
+
+import java.util.function.BooleanSupplier;
+
+ 
+
+public class Example19 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                int x=20, y=30;
+
+                                BooleanSupplier b=() -> x>y;
+
+                                System.out.println(b.getAsBoolean());
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+9. BinaryOperator interface
+
+       - It is a functional interface
+
+       - R apply(T t, U u)
+
+10. UnaryOperator interface
+
+       - It is a functional interface
+
+       - R apply(T t)
+
+ 
+
+Default Method in Map interface
+
+ 
+
+1. getOrDefault()
+
+      - returns the value to which key is mapped to value or default value if there is not key
+
+ 
+
+import java.util.HashMap;
+
+import java.util.Map;
+
+ 
+
+public class Example20 {
+
+ 
+
+                public static void main(String[] args) {
+
+                  Map<Integer,String> hm=new HashMap();
+
+                 System.out.println(hm.size());
+
+                 
+
+                  hm.put(1000,"Ram");
+
+                  hm.put(2000,"Sam");
+
+                  hm.put(3000,"Raj");
+
+                  hm.put(2500,"Tam");
+
+                 
+
+                  System.out.println(hm.get(2000));
+
+                 
+
+                  System.out.println(hm.getOrDefault(1500, "Tim"));
+
+                 
+
+                  hm.forEach((k,v)->System.out.println(k+" "+v));
+
+                 
+
+                }
+
+ 
+
+}
+
+ 
+
+2. replaceAll()
+
+3. putIfAbsent()
+
+public class Example21 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Map<Double,Double> hm=new HashMap<>();
+
+                                hm.put(2.0, 3.0);
+
+                                hm.put(3.0, 4.0);
+
+                                hm.put(2.0, 4.0);
+
+                               
+
+                                hm.replaceAll((n1,n2)->Math.pow(n1, n2));
+
+                                hm.forEach((k,v)->System.out.println(k+" "+v));
+
+                               
+
+                                Map<Integer,String> hm1=new HashMap<>();
+
+                                hm1.put(1000, "Ram");
+
+                                hm1.put(2000, "Sam");
+
+                                hm1.put(3000, "Raj");
+
+                                String s=hm1.putIfAbsent(1001,"Ramu");
+
+                                System.out.println(s); //null
+
+                                System.out.println(hm1.get(1001)); //ramu
+
+                                String s1=hm1.putIfAbsent(1000, "Rajan");
+
+                                System.out.println(s1); //Ram
+
+                                hm1.forEach((k,v)->System.out.println(k+" "+v));
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+4. remove()
+
+5. replace()
+
+ 
+
+public class Example22 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Map<Integer,String> hm=new HashMap<>();
+
+                                hm.put(20, "Author-A");
+
+                                hm.put(10, "Author-B");
+
+                                hm.put(30, "Author-C");
+
+                               
+
+                                boolean rem=hm.remove(10, "Author-B");
+
+                                System.out.println(rem);
+
+                                boolean rem1=hm.remove(10,"Author-D");
+
+                                System.out.println(rem1);
+
+                                hm.forEach((k,v)->System.out.println(k+" "+v));
+
+                               
+
+                                boolean b2=hm.replace(30, "Author-C", "Author-D");
+
+                                System.out.println(b2);
+
+                                String b3=hm.replace(20,"Author-X");
+
+                                System.out.println(b3);
+
+                                String b4=hm.replace(200, "Author-Y");
+
+                                System.out.println(b4);
+
+                                hm.forEach((k,v)->System.out.println(k+" "+v));
+
+                }
+
+ 
+
+}
+
+ 
+
+6. compute()
+
+7. computeIfPresent()
+
+8. computeIfAbsent()
+
+ 
+
+import java.util.HashMap;
+
+import java.util.Map;
+
+ 
+
+public class Example23 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Map<Integer,String> hm=new HashMap<>();
+
+                                hm.put(1, "Java");
+
+                                hm.put(2, null);
+
+                                System.out.println(hm);
+
+                               
+
+                                hm.computeIfAbsent(1,(key)->"Java at "+key);
+
+                                System.out.println(hm);
+
+                                hm.computeIfAbsent(2,(key)->"Java at "+key);
+
+                                System.out.println(hm);
+
+                                hm.computeIfAbsent(3,(key)->"Java at "+key);
+
+                                System.out.println(hm);
+
+                               
+
+                                Map<Integer,String> hm1=new HashMap<>();
+
+                                hm1.put(1, "Java");
+
+                                hm1.put(2, "Java");
+
+                                System.out.println(hm1);
+
+                               
+
+                                hm1.computeIfPresent(1,(key,oldval)->oldval.concat("script"));
+
+                                hm1.computeIfPresent(2,(key,oldval)->oldval.concat("Technology"));
+
+                                System.out.println(hm1);
+
+                               
+
+                                String s1=hm1.computeIfPresent(1,(key,oldval)->null);
+
+                                System.out.println(s1); //null
+
+                                String s2=hm1.computeIfPresent(3,(key,oldval)->null);
+
+                                System.out.println(s2); //null
+
+                                String s3=hm1.computeIfPresent(30,(key,oldval)->"Spring Framework");
+
+                                System.out.println(s3); //null
+
+                                System.out.println(hm1);
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Default Methods in List interface
+
+1. void sort()
+
+2. replaceAll()
+
+ 
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+ 
+
+public class Example25 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                List<Person> l=new ArrayList<>();
+
+                                l.add(new Person(23,"Ram",34));
+
+                                l.add(new Person(25,"Tam",23));
+
+                                l.add(new Person(24,"Raj",30));
+
+                                l.add(new Person(21,"Ramu",24));
+
+                               
+
+                                l.sort((p1,p2)->p1.getAge()>p2.getAge()?1:-1);
+
+                                l.forEach((n)->System.out.println(n));
+
+                               
+
+                                System.out.println();
+
+                                l.replaceAll(p -> {
+
+                                                if(p.getAge() >30) {
+
+                                                                return p;
+
+                                                }
+
+                                                else {
+
+                                                                p.setAge(p.getAge()+5);
+
+                                                                return p;
+
+                                                }
+
+                                });
+
+                                l.forEach((n)->System.out.println(n));
+
+                }
+
+ 
+
+}

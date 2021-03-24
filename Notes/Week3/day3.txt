@@ -1,0 +1,1011 @@
+SQL
+----
+
+3 LAYERS
+
+1. Presentation layer -- used to present the info to the client
+
+         -- reside on the client side
+
+         -- HTML,CSS, Java script -- client components
+
+
+2.Business logic layer -- used to write business logic processing
+
+         -- reside on server side
+
+         -- web tier component - JSP, Servlets, Java bean
+
+         -- Enterprise tier component -- EJB
+
+
+3. Data access layer
+
+        -- used to perform db connectivity
+
+
+File processing system -- store inside the files
+
+Drawback
+
+   1. data redundancy -- duplicates of data
+
+   2. data isolation -- same data is scattered across multiple machine
+
+   3.we can store only particular format of data
+
+   4.no security
+
+   5. no backup recovery
+
+   6. integrity constraints are buried under programming logic
+
+
+Database system
+
+   -- set of logical related data  -- database
+
+   -- set of programs to access those data  - DBMS/RDBMS
+
+
+DBMS
+
+1. There is no relationship between the table
+
+2. data are stored flat file system
+
+3. only single user can access
+
+4. eg:MS Access, Visual Foxpro
+
+ 
+
+RDBMS
+
+1. Tables related with each other using foreign key concept
+
+2. data are stored in tables
+
+3. multiple user can access the data
+
+4. eg: Oracle, MySQL, SQL Server, DB2, Sybase, Postgress SQL
+
+ 
+
+DBMS -- set of programs to access the data
+
+  1. SQL
+
+  2. PL/SQL
+
+ 
+
+Data model - represent semantic features of data
+
+1. Network model
+
+2. Hiearchial model
+
+3. ER model -- represent table in the form ER diagram
+
+4. Relational model -- represent data in form of tables
+
+  columns/attributes/fields
+
+  rows/tuples/records
+
+ 
+
+ 
+
+SQL - Structured Query Language
+
+   -- it is english like syntax used to insert,delete,select the data from db
+
+ 
+
+Types of keys
+
+1. Super key -any combination of column to uniquely determine value from table
+
+  Consider we have employee table - empid,ename,salary,addr,dept
+
+ 
+
+ename,addr,dept - super key
+
+empid,salary - candidate key (minimal of super key)
+
+empid - primary key (any one of candidate key)
+
+salary - alternate key
+
+ 
+
+Integrity constraints
+
+1. Entity integrity constraint
+
+     -- constraint applied on the table
+
+     -- Primary key -- no duplication and no null value
+
+     -- Unique key -- no duplication and only one null value is allowed
+
+2. Domain integrity constraint
+
+     -- Domain is permitted value for the column
+
+     -- constraint that applied to the value of column
+
+     -- not null
+
+     -- check -- but it not present in MYSQL
+
+3. Referential integrity constraint
+
+     -- we can refer one table with another table
+
+     -- Foreign key
+
+     -- one table PK will act as FK in another table
+
+     -- First we have to create PK table and then we have to create FK table
+
+     -- FK will contain duplicate values and also contain null value
+
+     -- FK column contain only the values that are present in PK column
+
+     -- First we have to delete PK table then only we can delete FK table
+
+Person
+
+pid(pk)  pname   address
+
+ 1         A       XYZ    
+
+ 2         B       PQR    
+
+ 3         C       MNL    
+
+ 
+
+Order
+
+orderid(pk)   ordernumber pid(FK)
+
+10              100         1
+
+11              101         2
+
+12              102         3
+
+13              103         1
+
+14              104         2     
+
+ 
+
+4. default constraint
+
+     by default the value is null irrespective of the datatype
+
+5. null constraint
+
+ 
+
+6. Composite primary key
+
+     -- if table has more than one column as primary key and its combination should be unique
+
+ 
+
+Emp
+
+A(PK)   B(PK)  C    D
+
+1         2    2    -
+
+2         1    3    3
+
+3         1    4    1
+
+1         1    3    0
+
+ 
+
+Data types
+
+1. Numeric data type
+
+   numeric(p,q)- numeric(5,2) - 123.45
+
+   numeric(p) - numeric(5) - 12345
+
+   int/integer
+
+   tinyint -- -128 to 127
+
+   smallint -- -32768 to 32767
+
+   mediumint -- -8388608 to 8388607
+
+   bigint -- -9223372036854775808 to 9223372036854775807
+
+   decimal(p,q)
+
+   fixed(p,q)
+
+   float
+
+   double
+
+ 
+
+2. character data type
+
+    varchar(n) - variable length of char between 1 to 255 char
+
+        varchar(10)='ram' -- it allocates only 3 byte
+
+    char(n) -- fixed length of char between 1 to 255 char
+
+       char(10)='ram' -- it allocates 10 bytes
+
+3. Date data type
+
+     1. Date -- yyyy-MM-dd
+
+     2. Datetime - yyyy-MM-dd hh:mm:ss
+
+     3. Timestamp - print both date and time but without - and :
+
+             yyyyMMddhhmmss
+
+     4. Time - hh:mm:ss
+
+ 
+
+4. LOB data type - large object data type
+
+1. BLOB -- store images, videos and audios
+
+2. CLOB -- store big string
+
+ 
+
+SQL Operators
+
+1. +,-,*,/, >,<,>=,<=
+
+2. ALL
+
+3. ANY
+
+4. EXISTS AND NOT EXITS
+
+5. Pattern matching operator -- LIKE, not like
+
+6. Range operator - between, not between
+
+7. in, not in
+
+8. and
+
+9. or
+
+10. SET operator - intersect, minus, union, union all
+
+11. is null, is not null
+
+ 
+
+SQL statements
+
+1. DDL statement  -- Data Defination Language
+
+    create - used to create a table
+
+    alter - changing the table name
+
+          - to add a new column to existing table
+
+          - to modify the data type of existing column
+
+          - to drop the existing column from table
+
+          - to rename the column name
+
+          - to add a new constraint to existing table
+
+          - to enable and disable the keys
+
+    drop - to drop the entire table (ie) both structure and data
+
+    truncate - will delete the data but the structure will exist it cannot be rollback
+
+ 
+
+rollback cannot be applied for DDL 
+
+ 
+
+create database sample;
+
+use sample;
+
+ 
+
+show databases; //all db
+
+show tables; //show all tables in db
+
+ 
+
+drop database sample;
+
+ 
+
+ 
+
+CREATE TABLE suppliers
+
+( supplier_id numeric(10) not null,
+
+  supplier_name varchar(50) not null,
+
+  contact_name varchar(50) 
+
+);
+
+ 
+
+CREATE TABLE Customer
+
+(SID integer PRIMARY KEY,
+
+Last_Name varchar(30),
+
+First_Name varchar(30));
+
+ 
+
+CREATE TABLE customers
+
+( customer_id numeric(10) not null,
+
+  customer_name varchar(50) not null,
+
+  address varchar(50), 
+
+  city varchar(50), 
+
+  state varchar(25), 
+
+  zip_code varchar(10), 
+
+  CONSTRAINT customers_pk PRIMARY KEY (customer_id)
+
+);
+
+ 
+
+CREATE TABLE contacts
+
+( contact_id INT(11) NOT NULL AUTO_INCREMENT,
+
+  last_name VARCHAR(30) NOT NULL,
+
+  first_name VARCHAR(25),
+
+  birthday DATE,
+
+  CONSTRAINT contacts_pk PRIMARY KEY (contact_id)
+
+);
+
+ 
+
+ALTER TABLE contacts AUTO_INCREMENT = 50;
+
+ 
+
+CREATE TABLE departments
+
+( department_id numeric(10) not null,
+
+  department_name varchar(50) not null,
+
+  CONSTRAINT departments_pk PRIMARY KEY (department_id)
+
+);
+
+ 
+
+ 
+
+CREATE TABLE employees
+
+( employee_number numeric(10) not null,
+
+  employee_name varchar(50) not null,
+
+  dept_id numeric(10), 
+
+  salary numeric(6), 
+
+  CONSTRAINT employees_pk PRIMARY KEY (employee_number),
+
+  CONSTRAINT fk_departments
+
+    FOREIGN KEY (dept_id)
+
+    REFERENCES departments(department_id)
+
+);
+
+ 
+
+ 
+
+CREATE TABLE ORDERS
+
+(Order_ID integer primary key,
+
+Order_Date date,
+
+Customer_SID integer references CUSTOMER(SID),
+
+Amount double);
+
+ 
+
+ 
+
+CREATE TABLE Persons
+
+(
+
+P_Id int NOT NULL,
+
+LastName varchar(255) NOT NULL,
+
+FirstName varchar(255),
+
+Address varchar(255),
+
+City varchar(255),
+
+CONSTRAINT chk_Person CHECK (P_Id>0 AND City='Sandnes')
+
+)
+
+ 
+
+ 
+
+CREATE TABLE Student
+
+(Student_ID integer Unique,
+
+Last_Name varchar (30),
+
+First_Name varchar (30),
+
+Score integer DEFAULT 80);
+
+ 
+
+ 
+
+CREATE TABLE Customer
+
+(SID integer Unique,
+
+Last_Name varchar(30),
+
+First_Name varchar(30));
+
+ 
+
+ 
+
+ 
+
+CREATE TABLE Persons
+
+(
+
+P_Id int NOT NULL,
+
+c_id int not null,
+
+LastName varchar(255) NOT NULL,
+
+FirstName varchar(255),
+
+Address varchar(255),
+
+City varchar(255),
+
+CONSTRAINT uc_PersonID primary key (P_Id,c_id)
+
+)
+
+ 
+
+//copys both structure and data from person to supplier table
+
+CREATE TABLE suppliers
+
+  AS (SELECT *
+
+         FROM persons
+
+         WHERE p_id > 1000);
+
+ 
+
+ 
+
+ 
+
+CREATE TABLE suppliers
+
+  AS (SELECT id, address, city, state, zip
+
+          FROM companies
+
+          WHERE id > 1000);
+
+ 
+
+ 
+
+ 
+
+ 
+
+CREATE TABLE suppliers
+
+  AS (SELECT companies.id, companies.address, categories.cat_type
+
+          FROM companies, categories
+
+          WHERE companies.id = categories.id
+
+          AND companies.id > 1000);
+
+ 
+
+//copy only structure
+
+CREATE TABLE suppliers
+
+  AS (SELECT * FROM persons WHERE 1=2);
+
+ 
+
+ 
+
+ 
+
+ALTER TABLE suppliers
+
+RENAME TO vendors;
+
+ 
+
+ 
+
+ALTER TABLE suppliers
+
+ADD suppl_name  varchar(50);
+
+ 
+
+ 
+
+ALTER TABLE suppliers ADD COLUMN address INTEGER AFTER supplier_name;
+
+ 
+
+ 
+
+ALTER TABLE suppliers
+
+ADD ( state varchar(50),
+
+  city varchar(45) );
+
+ 
+
+ALTER TABLE contacts
+
+  ADD last_name varchar(40) NOT NULL
+
+    AFTER contact_id,
+
+  ADD first_name varchar(35)
+
+    AFTER last_name;
+
+ 
+
+ALTER TABLE suppliers
+
+MODIFY supplier_name   varchar(100)     not null;
+
+ 
+
+ 
+
+ALTER TABLE suppliers
+
+MODIFY column supplier_name varchar(100) not null,
+
+ modify column city varchar(75);
+
+ 
+
+ 
+
+ALTER TABLE suppliers
+
+DROP COLUMN supplier_name;
+
+ 
+
+ALTER TABLE suppliers
+
+  CHANGE COLUMN supplier_name sname
+
+    varchar(20) NOT NULL;
+
+ 
+
+ 
+
+ALTER TABLE Persons
+
+ADD CONSTRAINT pk_Person primary key (P_Id)
+
+ 
+
+--disable pk and unique
+
+ALTER TABLE <tablename> DISABLE KEYS;
+
+ 
+
+-- disable FK
+
+SET FOREIGN_KEY_CHECKS=0;
+
+ 
+
+--Enable
+
+SET FOREIGN_KEY_CHECKS=1;
+
+ALTER TABLE <tablename> ENABLE KEYS;
+
+ 
+
+ALTER TABLE tbl_magazine_issue
+
+  DROP FOREIGN KEY FK_tbl_magazine_issue_mst_users
+
+ 
+
+ 
+
+DROP TABLE supplier;
+
+DROP TABLE customers, suppliers;
+
+DROP TABLE IF EXISTS customers, suppliers;
+
+ 
+
+truncate table suppliers;
+
+ 
+
+2. DML statement - Data Manipulation Language
+
+       insert -- used to insert a new row inside table
+
+       update -- used to update the existing data from table
+
+       delete -- will delete the data but structure will exist but it can rollbacked
+
+ 
+
+//insert to all columns of table
+
+INSERT INTO suppliers
+
+VALUES
+
+(24553, 'IBM',"Chennai");
+
+ 
+
+//insert only to specific columns
+
+INSERT INTO suppliers
+
+(supplier_id, supplier_name)
+
+VALUES
+
+(24553, 'IBM');
+
+ 
+
+//insert into select stmt
+
+INSERT INTO suppliers
+
+(supplier_id, supplier_name)
+
+SELECT account_no, name
+
+FROM customers
+
+WHERE city = 'Newark';
+
+ 
+
+//single insert query to insert 3 values
+
+INSERT INTO tasks(subject,start_date,end_date,description)
+
+VALUES ('Task 1','2010-01-01','2010-01-02','Description 1'),
+
+       ('Task 2','2010-01-01','2010-01-02','Description 2'),
+
+       ('Task 3','2010-01-01','2010-01-02','Description 3');
+
+ 
+
+UPDATE suppliers
+
+SET name = 'HP'
+
+WHERE name = 'IBM';
+
+ 
+
+ 
+
+UPDATE suppliers
+
+SET name = 'HP',city='abc'
+
+WHERE name = 'IBM';
+
+ 
+
+ 
+
+DELETE FROM suppliers;
+
+ 
+
+DELETE FROM suppliers
+
+WHERE supplier_name = 'IBM';
+
+ 
+
+ 
+
+DELETE FROM contacts
+
+WHERE last_name = 'Johnson'
+
+ORDER BY contact_id DESC
+
+LIMIT 1;
+
+ 
+
+3. DQL statement - Data Query Language
+
+        select - used to select the data from table
+
+select * from suppliers;
+
+ 
+
+select sid,sname,city from suppilers;
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE city = 'Newark';
+
+ 
+
+ 
+
+SELECT name, city, state
+
+FROM suppliers
+
+WHERE supplier_id > 1000;
+
+ 
+
+ 
+
+SELECT orders.order_id, suppliers.name
+
+FROM suppliers, orders
+
+WHERE suppliers.supplier_id = orders.supplier_id;
+
+ 
+
+SELECT o.order_id, s.name
+
+FROM suppliers s, orders o
+
+WHERE s.supplier_id = o.supplier_id;
+
+ 
+
+SELECT DISTINCT city
+
+FROM suppliers;
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE city = 'New York'
+
+and type = 'PC Manufacturer';
+
+ 
+
+SELECT o.order_id, s.supplier_name
+
+FROM suppliers s, orders o
+
+WHERE s.supplier_id = o.supplier_id
+
+and s.supplier_name = 'IBM';
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE city = 'New York'
+
+or city = 'Newark';
+
+ 
+
+SELECT supplier_id
+
+FROM suppliers
+
+WHERE name = 'IBM'
+
+or name = 'Hewlett Packard'
+
+or name = 'Gateway';
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE (city = 'New York' and name = 'IBM')
+
+or (city = 'Newark');
+
+ 
+
+SELECT supplier_id
+
+FROM suppliers
+
+WHERE (name = 'IBM')
+
+or (name = 'Hewlett Packard' and city = 'Atlantic City')
+
+or (name = 'Gateway' and status = 'Active' and city = 'Burma');
+
+ 
+
+Pattern matching operator
+
+    -- Like, not like
+
+    -- 2 wild card characters
+
+          % = everything(all)
+
+          _ = single value
+
+ 
+
+If we want include % and _ in selection in that case we go fro escape sequence
+
+ 
+
+Hello%
+
+ 
+
+select * from supplier where supplier_name like 'Hello%';
+
+ 
+
+SELECT * FROM suppliers
+
+WHERE supplier_name like 'Hew%';
+
+ 
+
+SELECT * FROM suppliers
+
+WHERE supplier_name like '%bob%';
+
+ 
+
+SELECT * FROM suppliers
+
+WHERE supplier_name not like 'T%';
+
+ 
+
+SELECT * FROM suppliers
+
+WHERE supplier_name like 'Sm_th';
+
+ 
+
+SELECT * FROM suppliers
+
+WHERE account_number like '12317_';
+
+ 
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE supplier_name LIKE 'G!%' ESCAPE '!';
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE supplier_name LIKE 'H%!%' ESCAPE '!';
+
+ 
+
+ 
+
+SELECT *
+
+FROM suppliers
+
+WHERE supplier_name LIKE 'H\%';

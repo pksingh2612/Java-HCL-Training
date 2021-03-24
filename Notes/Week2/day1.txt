@@ -1,0 +1,485 @@
+Collection
+    a) List Interface (Ordered, duplicate elements)
+        1. ArrayList
+        2. LinkedList
+        3. Vector
+    b) Set Interface (unordered, no duplicates allowed)
+        1. HashSet
+        2. LinkedHashSet
+        3. SortedSet Interface
+            a) TreeSet
+
+java.util package
+
+    - utility package or Collection framework
+
+    - used to store collection of Objects (ie) collection of String or collection of Box class or collection of Integer class
+
+    - used for faster performance
+
+    - It provided with 2 things
+
+         1. Collections class - contains static methods or static algorthims that supports util package
+
+         2. Collection interface - core interface used to store collection of objects
+
+
+Collection interface
+
+    - core interface used to store of collection of object
+
+Methods
+
+1. boolean add(Object o) - used to add single object
+
+2. boolean addAll(Collection c) - used to add group of objects
+
+3. boolean remove(Object o) - used to remove single object
+
+4. boolean removeAll(Collection c) - used to remove group of objects
+
+5. boolean contains(Object o) - to check whether single object present or not
+
+6. boolean containsAll(Collection c) - to check collection of object present r not
+
+7. boolean retainsAll(Collection c) - removes from target collection all its elemets that are not contained in the specfied collection
+
+8. boolean isEmpty() - to check whether the collection is empty or not
+
+9. int size() - retunrs size of the collection
+
+10. boolean equals(Object o)
+
+11. int hashCode()
+
+12. String toString()
+
+13. Iterator iterator()
+
+14. ListIterator listIterator()
+
+15. Object[] toArray() - convert collection to an array
+
+ 
+
+ 
+
+List interface
+
+   - ordered and duplicate elements allowed
+
+Methods
+
+1. void add(Object o) - add single object
+
+2. void add(int index,Object o) - add single object at particular index
+
+3. boolean addAll(int index, Collection c) - add group of object at particular index
+
+4. Object get(int index) - returns single object at particular index
+
+5. Object remove(int index) - remove single object at a particular index
+
+6. int indexOf(Object o) - return position of first occurence of object
+
+7. int lastIndexOf(Object o - return position of last occurence of object
+
+8. Object set(int index, Object o) - set the Object at particular index
+
+9. List subList(int start,int end) - return part of list from start to end-1
+
+ 
+
+ 
+
+Set interface
+
+  - unordered, no duplicates allowed, null allowed
+
+ 
+
+SortedSet interface
+
+  - display Set objects in sorted order
+
+Methods
+
+1. Object first() - return first object
+
+2. Object last() - return last object
+
+3. SortedSet subSet(int start, int end) - part of set from start to end-1
+
+4. SortedSet headSet(Object val) - elements present before the specified elt
+
+       1 2 3 4 5.headSet(3) -  1 2
+
+5. SortedSet tailSet(Object val) - elements present after the specified elt
+
+       1 2 3 4 5.tailSet(3) -  4 5
+
+ 
+
+ 
+
+1. ArrayList class
+
+      - ArrayList extends AbstractList implements List, Cloneable, Serializable
+
+      - It is dynamic array where we can increase or decrease its size at runtime
+
+      - ArrayList is similar to array (ie) static array
+
+      - Faster retrieval whereas slower in insertion and deletion
+
+ 
+
+Constructors
+
+     - ArrayList()
+
+     - ArrayList(int capacity) - default capacity is 10
+
+     - ArrayList(Collection c)
+
+ 
+
+Generics
+
+   - Available from JDK1.5
+
+   - used to specify the type of object stored
+
+ 
+
+List<String> l=new ArrayList<String>();
+
+List<Integer> l1=new ArrayList<Integer>();
+
+List<Test> l2=new ArrayList<Test>();
+
+ 
+
+   - JDK1.7
+
+    List<String>1=new ArrayList<>();
+
+ 
+
+2. LinkedList class
+
+      - LinkedList extends AbstractSequentialList implements List,Deque,Cloneable, Serializable
+
+      - similar to ArrayList
+
+      - Deque interface is double ended queue where insert and deletion at both the ends
+
+      - Faster in insertion and deletion whereas slower in retreival
+
+ 
+
+Constructor
+
+    - LinkedList()
+
+    - LinkedList(Collection c)
+
+ 
+
+Methods
+
+  1. void addFirst(Object o)
+
+  2. void addLast(Object o)
+
+  3. Object getFirst()
+
+  4. Object getLast()
+
+  5. void removeFirst()
+
+  6. void removeLast()
+
+ 
+
+3. Vector class
+
+      - It is legacy class (older)
+
+      - Similar to ArrayList, but Vector is synchronized or thread safe
+
+      - default capacity is 10
+
+Constructor
+
+      - Vector()
+
+      - Vector(int capacity)
+
+      - Vector(int capacity, int increment)
+
+      - Vector(Collection c)
+
+ 
+
+Methods
+
+1. void addElement(Object o)
+
+2. int size()
+
+3. int capacity()
+
+4. Object get(int index)
+
+5. Object elementAt(int index)
+
+6. Object firstElement()
+
+7. Object lastElement()
+
+8. boolean contains(Object elt)
+
+9. void insertElementAt(int index,Object elt)
+
+10. void setElementAt(int index,Object elt)
+
+11. void removeElementAt(int index)
+
+12. void removeAllElements()
+
+ 
+
+ 
+
+Set Interface
+
+1. HashSet class
+
+     - HashSet extends AbstractSet implements Set, Cloneable, Serializable
+
+     - It prints the elements in random order, we cant gurantee the order of elements
+
+     - HashSet uses HashMap internally to store its object, HashMap is used to store to unique key value pairs, whatever element we added it will add as key and for the value it will take some dummy constant
+
+ 
+
+Set s=new HashSet();               HashMap hm=new HashMap()
+
+s.add(10);                          // hm.put(10,"dummy");
+
+s.add(20);                                                 hm.put(20,"dummy");
+
+s.add(30);                           hm.put(30,"dummy");
+
+s.add(10);// no error                hm.put(10,"dummy");
+
+sop(s.size()); //3
+
+ 
+
+Constructor
+
+   - HashSet()
+
+   - HashSet(int capacity) - default capacity is 16
+
+   - HashSet(int capacity,float fillratio)
+
+        fillratio ranges from 0.0 to 1.0, default is 0.75
+
+       Set s=new HashSet(3,0.5);
+
+         s.add(10);
+
+         s.add(20);
+
+         s.add(40);
+
+         s.add(50);    3*0.5=1.5+3=4.5
+
+         s.add(44);    4.5*0.5=2.25+4.5=6.75
+
+   - HashSet(Collection c)
+
+ 
+
+2. LinkedHashSet class
+
+     - LinkedHashSet extends HashSet
+
+     - It will print in the order we have inserted
+
+Constructor
+
+   - LinkedHashSet()
+
+   - LinkedHashSet(int capacity) - default capacity is 16
+
+   - LinkedHashSet(int capacity,float fillratio)
+
+        fillratio ranges from 0.0 to 1.0, default is 0.75
+
+   - LinkedHashSet(Collection c)
+
+ 
+
+3. TreeSet class
+
+     - TreeSet class implements SortedSet, Cloneable, Serializable
+
+     - It prints in sorted order for String it will be alphabetical and for numbers it will be ascending order
+
+     - For TreeSet dont give combination of String and numbers, if we give it leads to compilation error
+
+ 
+
+Constructor
+
+   - TreeSet()
+
+   - TreeSet(Collection c)
+
+   - TreeSet(SortedSet s)
+
+ 
+
+To access individual elements of Collection - 5 ways
+
+1. for loop
+
+2. foreach statement
+
+3. Iterator interface
+
+      - used to access individual elements of collection only forward direction
+
+      - Iterator interface accessed using Iterator iterator()
+
+      - Methods
+
+          1. boolean hasNext() - to check whether it has many elts or not
+
+          2. Object next() - to return individual elements
+
+          3. void remove() - at time of individual access we can remove the elt
+
+4. ListIterator interface
+
+      - used to access individual elements of collection both forward and backward direction
+
+      - ListIterator interface accessed using ListIterator listIterator()
+
+      - Methods
+
+          1. boolean hasNext() - to check whether it has many elts or not
+
+          2. Object next() - to return individual elements
+
+          3. void remove() - at time of individual access we can remove the elt
+
+          4. boolean hasPrevious()
+
+          5. Object previous()
+
+          6. void add(Object o) - adding new object
+
+          7. void set(Object o) - replace all values
+
+5. Enumeration interface
+
+       - It is legacy interface
+
+       - used to access individual elements of collection but only in legacy class
+
+       - Enumeration interface is accessed using Enumeration elements()
+
+       - Methods
+
+            1. boolean hasMoreElements()
+
+            2. Object nextElement()
+
+ 
+
+ 
+
+Version Control
+
+   - Version control as management system that manages the changes that you made in ur project till ur end.The changes u made might be adding a new files or modifying the older files of the software.
+
+   - So what version control system does in that everytime u change something in project, it creates a snapshot of entire project and saves it. These snapshots are called as different versions.
+
+ 
+
+Version control tools
+
+1. GIT
+
+2. CVS (Concurrent Version System)
+
+3. Subversion
+
+4. Mercurial
+
+ 
+
+What is repository?
+
+    - It is a directory or storage space where all projects will be there.
+
+    - 2types
+
+        1. Local repository - present in ur local machine - Git
+
+        2. Remote/Central repository - present in remote - GitHub/GitLab/BitBucket
+
+ 
+
+What is Git? - developed in Unix platform
+
+   - DeveloperA tries to pull the code from central repo and keep it in local repo
+
+   - Now developerA will update all code in local repo, once code are perfect
+
+   - Then developerA will push the code from local repo to central repo
+
+ 
+
+1. Initialize the local git repo
+
+     >git init
+
+ 
+
+2. We want to give info abt remote repo
+
+     > git remote add origin "repo name"
+
+ 
+
+3. To check remote repo info
+
+     > git remote -v 
+
+4. To move data from working dir to staging area
+
+     > git add .
+
+5. To move data from staging area to local repo
+
+     >git commit -m "Initial commit"
+
+ 
+
+6. If Author identity unknown error comes
+
+    >git config --global user.email "ur email in github"
+
+    >git config --global user.name "ur username in github"
+
+ 
+
+7. To push data from loacl to remote repo
+
+     >git push -u origin master

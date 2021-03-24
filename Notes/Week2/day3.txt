@@ -1,0 +1,938 @@
+DateFormat class
+
+    - It is a abstract class used for formatting(convert date to string) and parsing(convert string to date), at that time we can display date in different format
+
+    - present in java.text.*
+
+Constructor
+
+    1. DateFormat()
+
+ 
+
+Constants
+
+    1. DateFormat.SHORT
+
+    2. DateFormat.LONG
+
+    3. DateFormat.MEDIUM
+
+    4. DateFormat.FULL
+
+ 
+
+Methods
+
+   1. String format(Date e) - convert date to string
+
+   2. Date parse(String s) - convert string to date
+
+   3. static DateFormat getInstance() - display date & time in Short format
+
+   4. static DateFormat getDateInstance() - display only date in medium format
+
+   5. static DateFormat getDateInstance(int datestyle) - display date in diff style
+
+   6. static DateFormat getTimeInstance() - display only time in medium format
+
+   7. static DateFormat getTimeInstance(int timestyle) - display time in diff style
+
+   8. static DateFormat getDateTimeInstance() - display date & time in medium
+
+   9. static DateFormat getDateTimeInstance(int datestyle,int timestyle) - display date & time in diff format
+
+import java.text.DateFormat;
+
+import java.util.Date;
+
+ 
+
+public class Example1 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Date d=new Date();
+
+                                System.out.println(d);
+
+ 
+
+                                DateFormat df=DateFormat.getInstance();
+
+                                System.out.println(df.format(d));
+
+                               
+
+                                DateFormat df1=DateFormat.getDateInstance();
+
+                                System.out.println(df1.format(d));
+
+                               
+
+                                DateFormat df2=DateFormat.getTimeInstance();
+
+                                System.out.println(df2.format(d));
+
+                               
+
+                                DateFormat df3=DateFormat.
+
+                                                                getTimeInstance(DateFormat.LONG);
+
+                                System.out.println(df3.format(d));
+
+                               
+
+                                DateFormat df4=DateFormat.getDateTimeInstance();
+
+                                System.out.println(df4.format(d));
+
+                               
+
+                                DateFormat df5=DateFormat.
+
+                                                                getDateTimeInstance
+
+                                                                (DateFormat.SHORT,DateFormat.FULL);
+
+                                System.out.println(df5.format(d));
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+SimpleDateFormat class (we can create object)
+
+   - concrete implementation of DateFormat class
+
+   - formatting and parsing - java.text.*
+
+ 
+
+Constructors
+
+   1. SimpleDateFormat(String pattern)
+
+   2. SimpleDateFormat()
+
+ 
+
+Patterns
+
+1. G - represent ERA in text (AD/BC)
+
+2. y - year in number
+
+3. M - month - MMMM - December, MMM-Dec, MM-12
+
+4. d - day in month in number
+
+5. D - day in year in number
+
+6. w - week in year in number
+
+7. W - week in month in number
+
+8. E - day in week in text
+
+9. h - hour in AM/PM - 1 to 12
+
+10. m - minute
+
+11. s - seconds
+
+12. S - milliseconds
+
+ 
+
+import java.text.ParseException;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+
+import java.util.Scanner;
+
+ 
+
+public class Example2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Scanner s=new Scanner(System.in);
+
+                                System.out.println("Enter birth date:");
+
+                                String dat=s.nextLine(); //dd-MM-yyyy
+
+                               
+
+                                SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+
+                               
+
+                                Date d=null;
+
+                                try {
+
+                                                d=sdf.parse(dat);
+
+                                                System.out.println(d); //Wed Mar 17 10:16:20 IST 2021
+
+                                }
+
+                                catch(ParseException e) {
+
+                                                System.out.println(e);
+
+                                }
+
+                                SimpleDateFormat sdf1=new SimpleDateFormat("MMM, dd yyyy");
+
+                                System.out.println(sdf1.format(d));
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Multithreading
+
+    - Running multiple lines of code in a single program simultaneously with the help of inbuild class called as "Thread"
+
+    - present in java.lang.*
+
+ 
+
+2 types of Thread
+
+   1. Main Thread
+
+        - Wherever PSVM presents, by default a thread will be running called main thread
+
+        - one main method so one main thread
+
+        - main thread will be executed first, then only all the child threads will be executed
+
+        - When child thread will be executed, whenever we block the main thread using sleep(), suspend(), wait() then only child thread will be executed
+
+        - once child thread are completed, it dosent mean the program will terminate, only if main thread is complete the program will terminate
+
+ 
+
+   2. Child thread
+
+        - we have to create child thread, any number of child thread can be created
+
+ 
+
+Syntax:
+
+ 
+
+public class Thread extends Object implements Runnable {
+
+ 
+
+Constructors:
+
+     1. Thread()
+
+     2. Thread(String threadname)
+
+     3. Thread(Runnable r)
+
+     4. Thread(Runnable r, String threadname)  
+
+     5. Thread(ThreadGroup tg, Runnable r)
+
+     6. Thread(ThreadGroup tg, String threadname)
+
+     7. Thread(ThreadGroup tg, Runnable r, String threadname)
+
+ 
+
+Constants
+
+    1. Thread.MAX_PRIORITY = 10
+
+    2. Thread.MIN_PRIORITY = 1
+
+    3. Thread.NORM_PRIORITY = 5
+
+ 
+
+Methods
+
+    1. public static void sleep(long msec) throws InterruptedException
+
+          - used to block the thread for certain msec
+
+          - has to be put inside try/catch
+
+    2. public staic void yield()
+
+    3. public synchronized void start()
+
+    4. public void stop()
+
+    5. public final boolean isAlive()
+
+    6. public final boolean join()
+
+    7. public final void setPriority(int priority)
+
+    8. public int getPriority()
+
+    9. public void interrupt()
+
+    10. public void setName(String name) - set the name for the thread
+
+    11. public String getName() - get the name of the thread
+
+    12. public static Thread currentThread() - view the main thread
+
+    13. String toString()
+
+}
+
+ 
+
+ 
+
+Whenever u print the object of Thread class,
+
+   Thread[threadname(main),threadpriority(5),threadgroupname(main)]
+
+ 
+
+ThreadGroup - grouping the child thread under different name
+
+ 
+
+IllegalMontiorStateException - Unchecked
+
+IllegalThreadStateException - Unchecked
+
+InterruptedException - Checked - is no way related to sleep(), InterruptedException will be called only if u call interrupt(), giving some distrubance to sleeping thread
+
+ 
+
+public class Example3 {
+
+ 
+
+                public static void main(String[] args) {
+
+                   Thread t=Thread.currentThread();
+
+                   System.out.println(t);
+
+                   t.setName("DemoThread");
+
+                   System.out.println(t);
+
+                   try {
+
+                                for(int i=5;i>0;i--)  {
+
+                                                System.out.println(i);
+
+                                                t.interrupt();
+
+                                                Thread.sleep(1000);
+
+                                               
+
+                                }
+
+                   }
+
+                   catch(InterruptedException e) {
+
+                                   System.out.println("Main thread interrupted");
+
+                   }
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Lifecycle of Child Thread - 5 stages
+
+    1. Beginning stage - we create new child thread using start()
+
+    2. Runnable stage - Child thread is created but waiting for execution
+
+    3. Running stage - child thread is executing once main thread is blocked
+
+    4. Blocked stage - if u block ur child thread using sleep()
+
+    5. Dead stage - if u want to kill the thread using stop()
+
+ 
+
+Creation of Child Thread - 2 ways
+
+    1. By implementing Runnable interface
+
+            public void run() - opertion/process of the child thread
+
+   
+
+//This class just acts like child thread class but yet
+
+//the thread is not created. In order to create Thread
+
+//we have to any one of 7 constructor
+
+class NewThread implements Runnable{
+
+                Thread t;
+
+                NewThread(){
+
+                                t=new Thread(this,"Demo thread");
+
+                                System.out.println("Child Thread "+t);//Thread[Demo thread,5,main]
+
+                                t.start(); //it creates new child thread put in Runnable stage and comes to main thread
+
+                }
+
+ 
+
+                @Override
+
+                public void run() {
+
+                                //operation of child thread
+
+                                try {
+
+                                                for(int i=5;i>0;i--) {
+
+                                                                System.out.println("Child thread "+i);
+
+                                                                Thread.sleep(500);                         
+
+                                                }
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Child thread interrupted");
+
+                                }
+
+                                System.out.println("Exiting child thread");
+
+                }
+
+               
+
+}
+
+public class Example4 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                NewThread n=new NewThread();
+
+                               
+
+                                try {
+
+                                                for(int i=5;i>0;i--) {
+
+                                                                System.out.println("Main Thread "+i);
+
+                                                                Thread.sleep(1000);
+
+                                                }
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Main thread interrupted");
+
+                                }
+
+                                System.out.println("Main thread exiting");
+
+                }
+
+ 
+
+}
+
+ 
+
+   2. By extending Thread class
+
+          run() - contains the operation of child thread
+
+ 
+
+class NewThread1 extends Thread {
+
+               
+
+                NewThread1(){
+
+                                super("DemoThread");
+
+                                System.out.println("Child Thread "+this);//Thread[DempThread,5,main]
+
+                                start();
+
+                }
+
+               
+
+                public void run() {
+
+                                try {
+
+                                                for(int i=5;i>0;i--) {
+
+                                                                System.out.println("Child thread "+i);
+
+                                                                Thread.sleep(500);                         
+
+                                                }
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Child thread interrupted");
+
+                                }
+
+                                System.out.println("Exiting child thread");
+
+                }
+
+
+}
+
+public class Example5 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                NewThread1 n=new NewThread1();
+
+                                try {
+
+                                                for(int i=5;i>0;i--) {
+
+                                                                System.out.println("Main Thread "+i);
+
+                                                                Thread.sleep(1000);
+
+                                                }
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Main thread interrupted");
+
+                                }
+
+                                System.out.println("Main thread exiting");
+
+                }
+
+ 
+
+}
+
+ 
+
+isAlive() and join()
+
+    final boolean isAlive() - to check whether the thread is alive or not
+
+    final void join() - if we didnt use sleep() on main thread, then main thread will execute completely and waits at the end of 
+    the program until all child threads are completed
+
+    But we dont want to make main thread to wait at end of the program, we want to main thread to wait in middle of the program for 
+    that we have to put all child thread in join(), then main thread will be waiting at that point itself
+
+ 
+
+class NewThread2 implements Runnable{
+
+                Thread t;
+
+                String tname;
+
+                NewThread2(String name){
+
+                                tname=name;
+
+                  t=new Thread(this,tname);
+
+                  System.out.println("Child Thread "+t); //Thread[one,5,main] Thread[two,5,main] Thread[three,5,main]
+
+                  t.start();  //starts one threads and put in Runnable stage and comes to main method
+
+                }
+
+ 
+
+                @Override
+
+                public void run() {
+
+                                try {
+
+                                                for(int i=5;i>0;i--) {
+
+                                                                System.out.println(tname+" "+i);
+
+                                                                Thread.sleep(1000);
+
+                                                }
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Child thread interrupted");
+
+                                }
+
+                                System.out.println(tname+"exiting");
+
+                }
+
+               
+
+}
+
+public class Example6 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                NewThread2 n=new NewThread2("one");
+
+                                NewThread2 n1=new NewThread2("two");
+
+                                NewThread2 n2=new NewThread2("three");
+
+                               
+
+                                System.out.println(n.t.isAlive()); //true
+
+                                System.out.println(n1.t.isAlive());//true
+
+                                System.out.println(n2.t.isAlive());//true
+
+                               
+
+                                try {
+
+                                                n.t.join();
+
+                                                n1.t.join();
+
+                                                n2.t.join();
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Main Thread interrupted");
+
+                                }
+
+                               
+
+                                System.out.println(n.t.isAlive()); //false
+
+                                System.out.println(n1.t.isAlive()); //false
+
+                                System.out.println(n2.t.isAlive()); //false
+
+                                System.out.println("Main thread exiting");
+
+                }
+
+ 
+
+}
+
+ 
+
+stop() - the thread is completely killed and it cant be reused
+
+yield() - will give the flow to the next consecutive thread, making thread from Runnable to Running and Running to Runnable
+
+ 
+
+Thread.MAX_PRIORITY = 10
+
+Thread.MIN_PRIORITY = 5
+
+Thread.NORM_PRIORITY =1
+
+   - we have set the priority only from 1 to 10
+
+   - public void setPriority(int priority)
+
+   - public int getPriority()
+
+ 
+
+Synchronization
+
+    - when multiple threads are accessing the same resources, the resources should be utilized completely or full fledeged by each thread is called Synchonization
+
+    - Synchornization can be done using "synchronized" keyword which is non access specifier
+
+    - synchronized keyword can be applied to  methods or synchronized block of object
+
+   synchozined(object){
+
+       //synchronized block
+
+   }
+
+ 
+
+class Callme {
+
+                void call(String msg) {
+
+                                System.out.print("["+msg);
+
+                                try {
+
+                                                Thread.sleep(1000);
+
+                                }
+
+                                catch(InterruptedException e) {
+
+                                                System.out.println("Interrupted");
+
+                                }
+
+                                System.out.println("]");
+
+                }
+
+}
+
+class Caller implements Runnable{
+
+                String msg;
+
+                Callme target;
+
+                Thread t;
+
+               
+
+                Caller(Callme targ,String s){
+
+                                target=targ;
+
+                                msg=s;
+
+                                t=new Thread(this);
+
+                                t.start();
+
+                }
+
+ 
+
+                @Override
+
+                public void run() {
+
+                                synchronized(target) {
+
+                                target.call(msg);
+
+                                }
+
+                }
+
+               
+
+}
+
+public class Example8 {
+
+ 
+
+                public static void main(String[] args) {
+
+                    Callme target=new Callme();
+
+                    Caller ob1=new Caller(target,"Hello");
+
+                    Caller ob2=new Caller(target,"Synchronized");
+
+                    Caller ob3=new Caller(target,"World");
+
+                   
+
+                    try {
+
+                                ob1.t.join();
+
+                                ob2.t.join();
+
+                                ob3.t.join();
+
+                    }
+
+                    catch(InterruptedException e) {
+
+                                System.out.println("Interrupted");
+
+                    }
+
+                }
+
+ 
+
+}
+
+ 
+
+Daemon Thread
+
+    - the thread is running in the background even if JVM terminates
+
+    - Garbage collection is an example of Daemon thread
+
+    - If we want to create our own Daemon thread
+
+           void setDaemon(boolean on)
+
+           boolean isDameon() - to check the thread is daemon or not
+
+ 
+
+IllegalThreadStateException
+
+    - if we try to start the thread which is already started
+
+    - if we try to call setDaemon() after starting the thread
+
+ 
+
+ 
+
+package com.day8;
+
+ 
+
+class SampleThread extends Thread{     
+
+                public void run() {
+
+                                System.out.println(Thread.currentThread().getName());
+
+                                System.out.println(Thread.currentThread().isDaemon());
+
+                }
+
+               
+
+}
+
+public class Example10 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                SampleThread s1=new SampleThread();
+
+                                SampleThread s2=new SampleThread();
+
+                                //s1.setDaemon(true);
+
+                                s1.start();
+
+                                s1.setDaemon(true);
+
+                                s2.start();
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+class Sample extends Thread {
+
+                public void run() {
+
+                                System.out.println("Child thread called");
+
+                }
+
+}
+
+public class Example9 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Sample s=new Sample();
+
+                                s.start();
+
+                                s.start();
+
+                }
+
+ 
+
+}

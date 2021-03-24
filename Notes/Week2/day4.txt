@@ -1,0 +1,1168 @@
+ Interthread communication
+
+    - communicate one thread to another thread using wait(), notify()
+
+    - Synchroniztion means complete utilization of resources, consider inside run() we are doing infinite forloop
+
+     public synchronized void run(){
+
+        for(;;){
+
+           sop("hello");
+
+        }
+
+     }
+
+   - But if we want to come out from synchronized block then we use wait() and notify()
+
+   - wait(), notify() present in Object class
+
+   - We have to use wait(), notify() inside synchronized block otherwise compilation errors
+
+   - If we use wait() and notify() in single thread, the thread will waits forever
+
+class Sample implements Runnable{
+
+    public synchonized void run(){
+
+         wait();
+
+         notify();
+
+    }
+
+}
+
+ 
+
+Volatile keyword
+
+    - It is a non access specifier
+
+    - It can be applied only to instance variables
+
+    - used to modify the value of a variable by different thread
+
+
+
+IllegalMonitorStateException - Unchecked
+
+    - Deadlock condition
+
+    - Consider we have two threads X and Y and both contains synchronized method. X thread calls synchronized method of Y thread and 
+      Y thread synchronized method of X thread
+
+ 
+
+java.io.*
+ 1. File Class (To access information about the existing file)
+ 2. Stream Class (To perform IO operation) read and write
+     a) ByteStream (read and write in bytes)
+            1. InputStream class (read in bytes)
+            2. OutputStream class (write in bytes)
+     b) CharacterStream (read and write in char)
+            1. Reader Class (read in char)
+            2. Writer Class (write in char)
+            
+
+ 
+
+
+Files API
+
+  - used to perform input output operation in files
+
+  - present java.io.*
+
+  - IOException  - checked
+
+       - FileNotFoundException - checked
+
+ 
+
+File class
+
+   - used to access information about existing files
+
+ 
+
+Constructor
+
+   1. File(String dirpath)
+
+          File f1=new File("/java/a.txt"); //contain info about a.txt
+
+   2. File(String dirpath, String filename)
+
+          File f2=new File("/java","a.txt");
+
+   3. File(File f)
+
+          File f3=new File(f1);
+
+ 
+
+Methods
+
+   1. String getName()
+
+   2. String getPath()  /java/a.txt
+
+   3. String getAbsolutePath()  c:/java/a.txt
+
+   4. String getParent() /java
+
+   5. boolean exists()
+
+   6. boolean canRead()
+
+   7. boolean canWrite()
+
+   8. boolean isHidden()
+
+   9. boolean isFile()
+
+   10. boolean isDirectory()
+
+   11. boolean isAbsolute()
+
+   12. long lastModified() - return date time from jan 1st 1970 when the file last modified
+
+   13. int length()
+
+   14. void setReadOnly(boolean on)
+
+   15. boolean renameTo(String newname)
+
+ 
+
+import java.io.File;
+
+ 
+
+public class Example2 {
+
+ 
+
+                public static void main(String[] args) {
+
+        File f=new File("C:\\Hibernate\\Example\\src\\com\\day9\\Example2.java");
+
+        System.out.println(f.getName());
+
+        System.out.println(f.getPath());
+
+        System.out.println(f.getAbsolutePath());
+
+        System.out.println(f.getParent());
+
+        System.out.println(f.exists());
+
+        System.out.println(f.canRead());
+
+        System.out.println(f.canWrite());
+
+        System.out.println(f.isHidden());
+
+        System.out.println(f.isFile());
+
+        System.out.println(f.isDirectory());
+
+        System.out.println(f.lastModified());
+
+        System.out.println(f.length());
+
+        System.out.println(f.isAbsolute());
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+ByteStream class
+
+     - used to read and write in bytes
+
+1. InputStream class
+
+      - used to read in bytes
+
+      - Syntax
+
+          public abstract class InputStream extends ByteStream
+
+Constructor
+
+     - InputStream()
+
+Methods
+
+    1. int available() - return the number of bytes available from file pointer position
+
+    2. void reset() - reset the file pointer to original position
+
+    3. long skip(long numbytes) - skip the bytes
+
+    4. int read() - read a single byte, if EOF  is encountered it returns -1
+
+    5. int read(byte[] buf) - read all contents from buf array and it return length     6. int read(byte[] buf, int start, int numbytes)  - read(buf,0,3) and it return length
+
+             
+
+2. OutputStream class
+
+      - used to write in bytes
+
+      - Syntax
+
+           public abstract class OutputStream extends ByteStream
+
+Constructor
+
+     - OutputStream()
+
+Methods
+
+     1. void write(int b) - write only single byte
+
+     2. void write(byte[] buf)
+
+     3. void write(byte[] buy, int start, int numbytes)
+
+     4. void close()
+
+     5. void flush()
+
+ 
+
+1.FileInputStream class
+
+       - public class FileInputStream extends InputStream
+
+       - used to read from the file in the form of bytes, if the file dosent exist means it throws an FileNotFoundException
+
+Constructor
+
+    1. FileInputStream(String filepath)
+
+            FIS f=new FIS("c:/java/a.txt"); //contents
+
+    2. FileInputStream(File f)
+
+            File f1=new File("c:/java/a.txt");
+
+            FIS f2=new FIS(f1);
+
+           
+
+package com.day9;
+
+ 
+
+import java.io.FileInputStream;
+
+import java.io.IOException;
+
+ 
+
+public class Example3 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                try {
+
+                                                FileInputStream f=new FileInputStream("C:\\Hibernate\\Example\\src\\com\\day9\\Example34.java");
+
+                                    int i=f.read();
+
+                                    System.out.println((char)i);
+
+                                  
+
+                                    f.skip(3);
+
+                                    int size=f.available();
+
+                                    System.out.println(size);
+
+                                    int n=size/2;
+
+                                    byte[] buf=new byte[n];
+
+                                    for(int j=0;j<buf.length;j++) {
+
+                                                System.out.println((char)f.read());
+
+                                    }
+
+                                   
+
+                                }
+
+                                catch(IOException e) {
+
+                                                System.out.println(e);
+
+                                }
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+2. FileOutputStream class
+
+       - used to write into file in the form of bytes, in case if file dosent exist it creates new file,and if file already exist it will override the content
+
+       - public class FileOutputStream extends OutputStream
+
+Constructor
+
+     1. FileOutputStream(String filepath)
+
+           FOS f1=new FOS("a.txt");
+
+     2. FileOutputStream(File fileobj)
+
+           File f=new File("a.txt");
+
+           FOS f2=new FOS(f);
+
+     3. FileOutputStream(String filepath,boolean append)
+
+     4. FileOutputStream(File fileobj,boolean append)
+
+ 
+
+3. ByteArrayInputStream class
+
+        - used to read from the byte array in form of bytes
+
+        - public class ByteArrayInputStream extends InputStream
+
+Constructor
+
+    1. ByteArrayInputStream(byte[] buf)
+
+    2. ByteArrayInuptStream(byte[] buf, int start, int numbytes)
+
+ 
+
+import java.io.ByteArrayInputStream;
+
+ 
+
+public class Example5 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                String temp="abc";
+
+                                byte b[]=temp.getBytes();
+
+                                ByteArrayInputStream in=new ByteArrayInputStream(b);
+
+                                for(int i=0;i<2;i++) {
+
+                                                int c;
+
+                                                while((c=in.read()) != -1) {
+
+                                                                if(i==0) {
+
+                                                                                System.out.println((char)c);//abc
+
+                                                                }
+
+                                                                else {
+
+                                                                                System.out.println(Character.toUpperCase((char)c));//ABC
+
+                                                                }
+
+                                                }
+
+                                                System.out.println();
+
+                                                in.reset();
+
+                                }
+
+                }
+
+ 
+
+}
+
+ 
+
+4. ByteArrayOutputStream class
+
+      - used to write in byte array in the form of bytes
+
+      - public class ByteArrayOutputStream extends OutputStream
+
+Constructor
+
+    1. ByteArrayOutputStream() - write all in byte array
+
+    2. ByteArrayOutputStream(int numbyte)
+
+ 
+
+5. FilteredInputStream and FilteredOutputStream
+
+      - we are going to pass another inputstream or outputstream as an argument
+
+   a. BufferedInputStream class
+
+           - read from buffer in the form of bytes
+
+           - BufferedInuptStream(InputStream in)
+
+   b. BufferedOutputStream class
+
+           - write into buffer in bytes
+
+           - BufferedOutputStream(OutputStream o)
+
+   c. DataInputStream class
+
+           - used to read the data in any datatype
+
+       DataInputStream d=new DataInputStream(System.in);
+
+         int i=d.readInt();
+
+         String s=d.readLine();
+
+         double d1=d.readDouble();
+
+   d. DataOutputStream class
+
+          - used to write the data based on any datatype
+
+ 
+
+Character Stream
+
+   - InputStream is replace by Reader
+
+   - OutputStream is replace by Writer
+
+   - byte data type is replace by char data type
+
+   - getBytes() is replace by getChars()
+
+ 
+
+1. FileReader
+
+2. FileWriter
+
+3. CharArrayReader
+
+4. CharArrayWriter
+
+ 
+
+Serialization
+
+   - process of writing the state of information into an object is called Serialization using ObjectOutputStream
+
+   - reading from object is called deserialization using ObjectInputStream
+
+   - That class has to implement Serializable interface which is marker interface
+
+   - Only non static data members are saved via serialization
+
+   - if a class implements Serializable then by default its subclass also implements Serializable
+
+class A implements Serializable {
+
+ 
+
+}
+
+class B extends A{
+
+ 
+
+}
+
+  - But in vice versa condition, when u create object for sub class the non-serializable superclass must run its constructor once again
+
+class A{
+
+  A(){
+
+     sop("1");
+
+  }
+
+}
+
+class B extends A implements Serializable {
+
+   B(){
+
+      sop("2");
+
+   }
+
+}
+
+class Main { PSVM {
+
+    B b=new B();  //121
+
+}
+
+}
+
+
+
+  - Class B has a class A and A class dosent implements Serializable , so any attempt to serialize the instance of B will cause an exception to be thrown
+
+   class A{
+
+
+
+    }
+
+    class B implements Serializable{
+
+      A a=new A();
+
+    }
+
+
+
+class MyClass implements Serializable{
+
+                String s;
+
+                int i;
+
+                double d;
+
+                public MyClass(String s, int i, double d) {
+
+                                super();
+
+                                this.s = s;
+
+                                this.i = i;
+
+                                this.d = d;
+
+                }
+
+                @Override
+
+                public String toString() {
+
+                                return "MyClass [s=" + s + ", i=" + i + ", d=" + d + "]";
+
+                }
+
+
+
+}
+
+public class Example7 {
+
+
+
+                public static void main(String[] args) {
+
+                                try {
+
+                                                MyClass object1=new MyClass("hello",7,2.45);
+
+                                                System.out.println("Object1 "+object1);
+
+                                                FileOutputStream fos=new FileOutputStream("serial");
+
+                                                ObjectOutputStream oos=new ObjectOutputStream(fos);
+
+                                                oos.writeObject(object1);
+
+                                                oos.flush();
+
+                                                oos.close();
+
+                                }
+
+                                catch(Exception e) {
+
+                                                System.out.println(e);
+
+                                }
+
+                                try {
+
+                                                MyClass object2;
+
+                                                FileInputStream fis=new FileInputStream("serial");
+
+                                                ObjectInputStream ois=new ObjectInputStream(fis);
+
+                                                object2=(MyClass)ois.readObject();
+
+                                                ois.close();
+
+                                                System.out.println("Object2 "+object2);
+
+                                }
+
+                                catch(Exception e) {
+
+                                                System.out.println(e);
+
+                                }
+
+                }
+
+
+
+}
+
+
+
+
+
+
+
+transient keyword
+
+    - it is a non access specifier
+
+    - it can be applied only variable
+
+    - if we declare variable to be transient then that variable cannot be serialized (ie) it canbe write into the object
+
+
+
+InputStreamReader - reads in bytes and write in char
+
+
+
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+sop("Enter age");
+
+String s=br.readLine();
+
+int age=Integer.parseInt(s);
+
+
+
+
+
+Java 8 features
+
+
+
+1. Default and static methods in Interface
+
+      - Normally interface contains only abstract methods
+
+      - In JDK1.8, apart from abstract method, interface also contains default and static methods
+
+
+
+public interface interfaceA {
+
+    default public void display() {
+
+                System.out.println("interfaceA default method");
+
+    }
+
+}
+
+public interface interfaceB {
+
+    default public void display() {
+
+                System.out.println("interfaceB default method");
+
+    }
+
+}
+
+class Test implements interfaceA,interfaceB{
+
+ 
+
+                @Override
+
+                public void display() {
+
+                                interfaceA.super.display();
+
+                                interfaceB.super.display();
+
+                }
+
+               
+
+}
+
+public class Example10 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Test t=new Test();
+
+                                t.display();
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+public interface Sample1 {
+
+     void add();
+
+    
+
+     default public void show() {
+
+                 System.out.println("Default method");
+
+     }
+
+     public static void greet() {
+
+                System.out.println("Welcome");
+
+     }
+
+}
+
+class Sample2 implements Sample1{
+
+ 
+
+                @Override
+
+                public void add() {
+
+                                System.out.println("Add method");
+
+                }
+
+               
+
+}
+
+public class Example9 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Sample1 s=new Sample2();
+
+                                s.add();
+
+                                s.show();
+
+                                Sample1.greet();
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+2. Optional class
+
+      - It is final class and used to deal with NullPointerException, present in java.util.*
+
+ 
+
+import java.util.Optional;
+
+ 
+
+public class Example11 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                String str[]=new String[5]; //null
+
+                               
+
+                                //String s=str[2].toLowerCase();
+
+                                //System.out.println(s);
+
+                               
+
+                                Optional<String> opt=Optional.ofNullable(str[2]);
+
+                                if(opt.isPresent()) {
+
+                                                String s=str[2].toLowerCase();
+
+                                                System.out.println(s);
+
+                                }
+
+                                else {
+
+                                                System.out.println("String value is not present");
+
+                                }
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+import java.util.Optional;
+
+ 
+
+public class Example12 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                String[] st=new String[5];
+
+                                //st[2]="Java";
+
+                                Optional<String> opt=Optional.ofNullable(st[2]);
+
+                                if(opt.isPresent()) {
+
+                                                System.out.println(opt.get());
+
+                                }
+
+                                else {
+
+                                                System.out.println(opt.orElse("Value is not present"));
+
+                                }
+
+                }
+
+ 
+
+}
+
+ 
+
+3. DATE API
+
+     - In JDK1.8 present in java.time.* and based on joda time
+
+     - In lower version, date api is mutable
+
+     - In jdk1.8 version, date api is immutable
+
+1. LocalDate - it print only date
+
+2. LocalTime - it print only time
+
+3. LocalDateTime - it print both date and time
+
+ 
+
+ 
+
+import java.time.Clock;
+
+import java.time.DayOfWeek;
+
+import java.time.LocalDate;
+
+import java.time.ZoneId;
+
+import java.time.temporal.ChronoUnit;
+
+ 
+
+public class Example13 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                LocalDate l1=LocalDate.now(); //current date
+
+                                System.out.println(l1);
+
+                               
+
+                                Clock c=Clock.systemDefaultZone();
+
+                                LocalDate l2=LocalDate.now(c);
+
+                                System.out.println(l2); //current date
+
+                               
+
+                                ZoneId z=ZoneId.of("Europe/Paris");
+
+                                LocalDate l3=LocalDate.now(z);
+
+                                System.out.println(l3);
+
+                               
+
+                                LocalDate l4=LocalDate.of(2000,12,13);
+
+                                System.out.println(l4);
+
+                               
+
+                                LocalDate l5=LocalDate.parse("2003-12-06");
+
+                                System.out.println(l5);
+
+                               
+
+                                LocalDate l6=l5.plusDays(4);
+
+                                System.out.println(l6);
+
+                               
+
+                                LocalDate l7=l6.minusYears(10);
+
+                                System.out.println(l7);
+
+                               
+
+                                LocalDate l8=l7.minus(4,ChronoUnit.MONTHS);
+
+                                System.out.println(l8);
+
+                               
+
+                                DayOfWeek d1=LocalDate.parse("2000-02-01").getDayOfWeek();
+
+                                System.out.println(d1);
+
+                               
+
+                                int m1=LocalDate.parse("2000-05-01").getDayOfMonth();
+
+                                System.out.println(m1);
+
+                               
+
+                                LocalDate l9=LocalDate.parse("2000-03-01");
+
+                                System.out.println(l9.isLeapYear());
+
+                               
+
+                                boolean b=LocalDate.parse("2010-01-02").isBefore(LocalDate.parse("1990-02-01"));
+
+                                System.out.println(b);
+
+                               
+
+                                boolean b1=LocalDate.parse("2010-01-02").isAfter(LocalDate.parse("1990-02-01"));
+
+                                System.out.println(b1);
+
+                               
+
+                               
+
+                               
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+import java.time.LocalTime;
+
+import java.time.temporal.ChronoUnit;
+
+ 
+
+public class Example14 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                LocalTime l1=LocalTime.now();
+
+                                System.out.println(l1);
+
+                               
+
+                                LocalTime l2=LocalTime.parse("09:30");
+
+                                System.out.println(l2);
+
+                               
+
+                                LocalTime l3=LocalTime.of(9, 45);
+
+                                System.out.println(l3);
+
+                               
+
+                                LocalTime l4=l3.plusHours(2);
+
+                                System.out.println(l4);
+
+                               
+
+        LocalTime l5=l3.minusHours(2);
+
+        System.out.println(l5);
+
+       
+
+        LocalTime l6=l3.minus(3, ChronoUnit.MINUTES);
+
+        System.out.println(l6);
+
+       
+
+        System.out.println(LocalTime.MAX);
+
+        System.out.println(LocalTime.MIN);
+
+                }
+
+ 
+
+}
+
+ 
+
+import java.time.LocalDate;
+
+import java.time.LocalDateTime;
+
+import java.time.LocalTime;
+
+import java.time.ZoneId;
+
+import java.util.Calendar;
+
+import java.util.Date;
+
+ 
+
+public class Example15 {
+
+ 
+
+                public static void main(String[] args) {
+
+                   LocalDateTime l1=LocalDateTime.now();
+
+                   System.out.println(l1);
+
+                  
+
+                   LocalDateTime l2=LocalDateTime.
+
+                                                   of(LocalDate.now(),LocalTime.now());
+
+                   System.out.println(l2);
+
+                  
+
+                   LocalDateTime l3=LocalDateTime.parse("2000-03-12T09:20:24");
+
+                   System.out.println(l3);
+
+                  
+
+                   LocalDate l4=l3.toLocalDate(); //convert LocalDateTime to LocalDate
+
+                   System.out.println(l4);
+
+                  
+
+                   LocalTime l5=l3.toLocalTime(); //convert LocalDateTime to LocalTime
+
+                   System.out.println(l5);
+
+                  
+
+                   Date d=new Date(); //java.util.Date to JDK1.8 date
+
+                   LocalDateTime l6=LocalDateTime.ofInstant(d.toInstant(),ZoneId.systemDefault());
+
+                   System.out.println(l6);
+
+                  
+
+                   //Calendar to jdk1.8
+
+                   Calendar c=Calendar.getInstance();
+
+                   LocalDateTime l7=LocalDateTime.ofInstant(c.toInstant(),ZoneId.systemDefault());
+
+                   System.out.println(l7);
+
+                  
+
+                   
+
+                }
+
+ 
+
+}

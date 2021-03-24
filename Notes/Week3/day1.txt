@@ -1,0 +1,705 @@
+Streams API
+
+    - contains sequence/collection of objects from a source which support some aggregrate operation in a sequentail manner
+      using lambda expression
+
+    - present java.util.stream.*
+
+    - 2 types of operations
+
+        1. Intermediate operation
+
+           - return Stream itself, it does not actually perform any operation instead it creates new Stream
+
+           - filter(), map(),flatMap(), distinct(), sorted(), peek(), limit(), skip()
+
+        2. Terminal operation
+
+              - it will transverse stream to produce single result
+
+              - toArray(), count(), min(), max(), noneMatch(), anyMatch(),allMatch(), findFirst(), forEach(),collect(),reduce()
+
+
+
+Create a stream - Intermediate operation - Terminal operation
+
+
+
+If we use terminal operation, then stream will be closed actually, if we try to operation on closed stream we get IllegalStateException
+
+
+
+1. Creation of Stream - 2ways
+
+      1. stream() - used to get a sequential stream from the array or list or set
+
+      2. of() - we can create our own sequence of stream
+
+
+
+a.String s[]=new String[]{"a,"b","c"}; //source
+
+  Stream<String> st=Arrays.stream(s);
+
+ 
+
+b. List<String> l=new ArrayList<>();  //source
+
+   l.add("one");
+
+   l.add("two");
+
+   l.add("three");
+
+Stream<String> st=l.stream();
+
+ 
+
+c. Stream<String> st1=Stream.of("one","two","30,"four");
+
+ 
+
+import java.util.ArrayList;
+
+import java.util.Arrays;
+
+import java.util.List;
+
+import java.util.stream.Stream;
+
+ 
+
+public class Example1 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                String arr[]=new String[]{"AA","BB","CC"};
+
+                                Stream<String> st=Arrays.stream(arr);
+
+                               
+
+                                //st.forEach((s)->System.out.println(s));
+
+                                st.forEach(System.out::println);
+
+                               
+
+                                List<String> l=new ArrayList<>();
+
+                                l.add("A");
+
+                                l.add("B");
+
+                                l.add("C");
+
+                                Stream<String> st1=l.stream();
+
+                                st1.forEach(System.out::println);
+
+                               
+
+                                Stream<String> st2=Stream.of("X","Y","Z");
+
+                                st2.forEach((s)->System.out.println(s));
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+filter(),anyMatch(), allMatch(), noneMatch(), distinct(), count()
+
+ 
+
+public class Example2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                List<String> l=new ArrayList<>();
+
+                                l.add("Ram");
+
+                                l.add("Babu");
+
+                                l.add("Condy");
+
+                                l.add("Sam");
+
+                                l.add("Babu");
+
+                               
+
+                                Stream<String> st=l.stream();  //created stream
+
+                                Stream<String> st1=st.distinct();  //intermediate operation
+
+                                long count=st1.count();  //terminal operation
+
+                                System.out.println(count); //4
+
+                               
+
+                                long count1=l.stream().distinct().count();
+
+                                System.out.println(count1);
+
+                               
+
+                                boolean b1=l.stream().distinct().anyMatch((s2)->s2.startsWith("Ra"));
+
+                                System.out.println(b1);
+
+                               
+
+                                List<Student> l1=new ArrayList<>();
+
+                                l1.add(new Student("PK",23));
+
+                                l1.add(new Student("KK",26));
+
+                                l1.add(new Student("MK",23));
+
+                                l1.add(new Student("SK",21));
+
+                                l1.add(new Student("RK",40));
+
+                                l1.add(new Student("BK",30));
+
+                                l1.add(new Student("DK",80));
+
+                               
+
+                                Stream<Student> st2=l1.stream().filter(s->s.getAge()>25);
+
+                                st2.forEach(System.out::println);
+
+                               
+
+                                boolean b2=l1.stream().allMatch(s->s.getName().contains("K"));
+
+                                System.out.println(b2);
+
+                               
+
+                                boolean b3=l1.stream().anyMatch(s->s.getName().contains("B"));
+
+                                System.out.println(b3);
+
+                               
+
+                                boolean b4=l1.stream().noneMatch(s->s.getName().contains("A"));
+
+                                System.out.println(b4);
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+map(), flatmap(), collect(), reduce()
+
+   map() - takes one Function as an argument and returns a new stream consisting of the result generated by applying the passed function to all the elts
+
+   flatMap() -  takes one Function as an argument and returns a new stream and then the new result is copied to another new stream which will return the value of method
+
+ 
+
+public class Example3 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Integer a[]=new Integer[]{1,2,3,4,5};
+
+                               
+
+                                List<Integer> l=Arrays.asList(a);
+
+                               
+
+                                Stream<Integer> st=l.stream().map(e-> e*e);
+
+                                st.forEach(System.out::println);
+
+                               
+
+                                List<Integer> l2=l.stream().map(e-> e*3).collect(Collectors.toList());
+
+                                System.out.println(l2);
+
+                               
+
+                               
+
+                    List<Integer> l3=l.stream().flatMap(e->Stream.of(e*2)).collect(Collectors.toList());
+
+                                System.out.println(l3);
+
+                               
+
+                                Set<String> hs=new HashSet<>();
+
+                                hs.add("Penny");
+
+                                hs.add("Shaun");
+
+                                hs.add("Neil");
+
+                               
+
+                                Set<String> set1=hs.stream().map(e->e.toUpperCase()).collect(Collectors.toSet());
+
+                                System.out.println(set1);
+
+                               
+
+                                List<Integer> l4=new ArrayList<>();
+
+                                l4.add(10);
+
+                                l4.add(20);
+
+                                l4.add(30);
+
+                               
+
+                                Integer i=l4.stream().reduce(100, (x,y)->x+y);
+
+                                System.out.println(i);
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+sorted()
+
+ 
+
+public class Example4 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                List<String> l=Arrays.asList("9","A","Z","1","B","4","a","c");
+
+                               
+
+                                List<String> l1=l.stream().sorted().collect(Collectors.toList());
+
+                                System.out.println(l1);
+
+       
+
+                                System.out.println("In reverse order");
+
+                                List<String> l2=l.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+
+                                System.out.println(l2);
+
+                               
+
+                                List<Student> l3=new ArrayList<>();
+
+                                l3.add(new Student("PK",23));
+
+                                l3.add(new Student("KK",26));
+
+                                l3.add(new Student("MK",23));
+
+                                l3.add(new Student("SK",21));
+
+                                l3.add(new Student("RK",40));
+
+                                l3.add(new Student("BK",30));
+
+                                l3.add(new Student("DK",80));
+
+                               
+
+                                List<Student> l4=l3.stream().sorted(Comparator.comparingInt(Student::getAge))
+
+                                                                .collect(Collectors.toList());
+
+                    System.out.println(l4);
+
+                   
+
+                    List<Student> l5=l3.stream().sorted(Comparator.comparingInt(Student::getAge).reversed())
+
+                                                .collect(Collectors.toList());
+
+                    System.out.println(l5);
+
+                   
+
+                    List<Student> l6=l3.stream().sorted(Comparator.comparing(Student::getName))
+
+                                                .collect(Collectors.toList());
+
+                    System.out.println(l6);
+
+               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Other options to create Streams
+
+builder() - used to build to stream
+
+generate() - create to infinite stream
+
+iterate()
+
+ 
+
+public class Example5 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                Stream<String> st1=Stream.<String>builder().add("KK").add("PK").add("MK").build();
+
+                                st1.forEach(System.out::println);
+
+                               
+
+                                Stream<String> st2=Stream.generate(()->"Hello").limit(3);
+
+                                st2.forEach(System.out::println);
+
+                               
+
+                                Stream<Integer> st3=Stream.iterate(10,i->i+2).limit(10);
+
+                                st3.forEach(System.out::println);
+
+                               
+
+                                IntStream st4=IntStream.range(1,6);//start to end-1
+
+                                st4.forEach(System.out::println);
+
+                               
+
+                                IntStream st5=IntStream.rangeClosed(1,6);//start to end
+
+                                st5.forEach(System.out::println);
+
+                               
+
+                                IntStream st6="abcd".chars();
+
+                                st6.forEach(System.out::println);
+
+                               
+
+                                Random r=new Random();
+
+                                DoubleStream d=r.doubles(5);
+
+                                d.forEach(System.out::println);
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ParallelStream
+
+      - which allows the operation in parallel mode
+
+ 
+
+public class Example6 {
+
+ 
+
+                public static void main(String[] args) {
+
+                               
+
+                                List<Student> l=Arrays.asList(new Student("TK",23), new Student("PK",34),
+
+                                                                new Student("GK",25), new Student("MK",35),
+
+                                                                new Student("BK",20), new Student("JK",30));
+
+                               
+
+                                Stream<Student> st=l.parallelStream();
+
+                                System.out.println(st.isParallel());
+
+                               
+
+                                boolean b1=st.map(p->p.getAge()*2).anyMatch(p->p>50);
+
+                                System.out.println(b1);
+
+                               
+
+                                IntStream i1=IntStream.range(1,6).parallel();
+
+                                System.out.println(i1.isParallel());
+
+                               
+
+                                IntStream i2=i1.sequential();
+
+                                System.out.println(i2.isParallel());
+
+
+                }
+
+
+}
+
+
+Optional findFirst() - return the first element of Stream
+
+Optional findAny() - return any element of Stream
+
+
+public class Example7 {
+
+
+                public static void main(String[] args) {
+
+                                List<Integer> l= Arrays.asList(1,2,3,2,1);
+
+
+                                Optional<Integer> opt=l.stream().findFirst();
+
+                                if(opt.isPresent()) {
+
+                                                System.out.println(opt.get());
+
+                                }
+
+                                else {
+
+                                                System.out.println("No value is present");
+
+                                }
+
+
+                                Optional<Integer> opt1=l.stream().filter(x -> (x>1)).findFirst();
+
+                                if(opt1.isPresent()) {
+
+                                                System.out.println(opt1.get());
+
+                                }
+
+                                else {
+
+                                                System.out.println("No value is present");
+
+                                }
+
+
+                                Optional<Integer> opt2=l.stream().filter(x -> (x>1)).findAny();
+
+                                if(opt2.isPresent()) {
+
+                                                System.out.println(opt2.get());
+
+                                }
+
+                                else {
+
+                                                System.out.println("No value is present");
+
+                                }
+
+                }
+
+
+}
+
+
+
+log4j Framework
+
+    - we use System.out.println() to write log statement and it will printed in console
+
+    - we cant store log messages in any permanent places
+
+
+    - It is an open source provided by Apache to pring log messages and we can store the previous messages
+
+    - present org.apache.log4j.*
+
+    - Used in Java, but Java dosent know what is log4j, we will download external log4j jar file inside ur project
+
+
+
+Log4j Component
+
+1. Logger class
+
+      - used to initialize Logger class with some logger methods to print log messages
+
+     Syntax: static Logger log=Logger.getLogger("Example.class");
+
+
+Methods:
+
+1. info()
+
+2. debug()
+
+3. warn()
+
+4. error()
+
+5. fatal()
+
+
+
+2. Level class
+
+    debug < info < warn < error < fatal
+
+
+
+Fatal has higher priority
+
+
+
+3. Appender class
+
+       - used to write log messages in file or console or database
+
+1. ConsoleAppender
+
+2. FileAppender
+
+3. JDBCAppender
+
+4. SocketAppender
+
+
+
+4. Layout class
+
+      - in what format we want to print log messages
+
+1. PatternLayout
+
+2. HTMLLayout
+
+3. XMLLayout
+
+4. SimpleLayout
+
+
+
+1. BasicConfigurator.configure() - to print log messages in console
+
+
+
+0 - time elapsed from start of prg in milliseconds - %-4r
+
+[main] - main thread
+
+DEBUG - Logger level
+
+com.day11.Example8 - class name
+
+Debug message - log message
+
+
+We want configure the loggers in properties file or xml file
+
+
+
+import org.apache.log4j.Logger;
+
+import org.apache.log4j.PropertyConfigurator;
+
+
+public class Example9 {
+
+
+                static Logger log=Logger.getLogger(Example9.class);
+
+                public static void main(String[] args) {
+
+                PropertyConfigurator.configure("log4j.properties");
+
+     log.debug("Debug message");
+
+     log.info("Info message");
+
+     log.warn("Warn message");
+
+     log.error("Error message");
+
+     log.fatal("Fatal message");
+
+                }
+}
+
+
+log4j.rootLogger=DEBUG, CA, FA
+
+
+log4j.appender.CA=org.apache.log4j.ConsoleAppender
+
+log4j.appender.CA.layout=org.apache.log4j.PatternLayout
+
+log4j.appender.CA.layout.ConversionPattern=%-4r [%t] %-5p %c %x - %m%n
+
+
+log4j.appender.FA=org.apache.log4j.FileAppender
+
+log4j.appender.FA.File=message.log
+
+log4j.appender.FA.layout=org.apache.log4j.PatternLayout
+
+log4j.appender.FA.layout.ConversionPattern=%-4r [%t] %-5p %c %x - %m%n
+
+
+log4j.appender.FA.Threshold=WARN
