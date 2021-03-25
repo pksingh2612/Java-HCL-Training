@@ -1,0 +1,46 @@
+SQL Baisc Commands
+-------------------
+
+how to check all database in mysql
+> SHOW DATABASES;
+
++--------------------+
+| Database           |
++--------------------+
+| handson            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+switch to sepcific database
+> USE <database-name>
+
+How do I show the schema of a table in a MySQL database
+> DESCRIBE <yourDatabasename>.<yourTableName>;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| EmpNo     | decimal(5,0) | YES  | UNI | NULL    |       |
+| ProjId    | varchar(5)   | YES  |     | NULL    |       |
+| LastName  | varchar(30)  | NO   |     | NULL    |       |
+| FirstName | varchar(30)  | YES  |     | NULL    |       |
+| HireDate  | date         | YES  |     | NULL    |       |
+| Language  | varchar(15)  | YES  |     | NULL    |       |
+| TaskNo    | decimal(2,0) | YES  |     | NULL    |       |
+| Privilege | varchar(25)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+
+Showing all table
+> SHOW TABLES;
+
+How to insert single row in table.
+> INSERT INTO table(column1, column2,...)
+VALUES (value1, value2,...);
+
+How to insert multiple row in table.
+>INSERT INTO table(column1, column2,...)
+VALUES (value1, value2,...),(value1, value2,...),(value1, value2,...);
+
+

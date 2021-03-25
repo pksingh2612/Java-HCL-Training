@@ -1,0 +1,587 @@
+Complete the following assignment:
+
+a)       Create the table PROGRAMMER with the given information using SQL CREATE TABLE command:
+
+Attribute Name                              Description/Data Type/Constraint
+
+EmpNo                                       Employee’s unique ID. Max. 5 characters should be numeric
+
+ProjId                                      Project in which programmer participates. Max. 5 characters should be varchar
+
+LastName                                    Surname of employee. Max. 30 characters. Required.
+
+FirstName                                   Employee’s first name. Max. 30 characters.
+
+HireDate                                    Date on which employee was hired. Date data type.
+
+Language                                    Programming language used by programmer. Max. 15 characters
+
+TaskNo                                      Number of the task associated with the project. Numeric column, max. 2 digits
+
+Privilege                                   Type of privilege given to programmer. Max. 25 characters.
+
+
+Solution:
+
+CREATE TABLE programmer
+(
+    EmpNo NUMERIC(5) UNIQUE,
+    ProjId VARCHAR(5),
+    LastName VARCHAR(30) NOT NULL,
+    FirstName VARCHAR(30),
+    HireDate DATE,
+    Language VARCHAR(15),
+    TaskNo NUMERIC(2),
+    Privilege VARCHAR(25)
+);
+
+> DESCRIBE handson.programmer;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| EmpNo     | decimal(5,0) | YES  | UNI | NULL    |       |
+| ProjId    | varchar(5)   | YES  |     | NULL    |       |
+| LastName  | varchar(30)  | NO   |     | NULL    |       |
+| FirstName | varchar(30)  | YES  |     | NULL    |       |
+| HireDate  | date         | YES  |     | NULL    |       |
+| Language  | varchar(15)  | YES  |     | NULL    |       |
+| TaskNo    | decimal(2,0) | YES  |     | NULL    |       |
+| Privilege | varchar(25)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+
+
+b)      Insert the following data into the PROGRAMMER table:
+
+
+EmpNo   LastName    FirstName   HireDate    ProjId  Language    TaskNo  Privilege
+
+201      Gupta       Saurav     1/1/95       NPR      VB         52      Secret
+
+390      Ghosh       Pinky      1/05/93      KCW      Java       11      Top Secret
+
+789     Agarwal     Praveen     08/31/98     Rnc      VB         11      Secret
+
+134     Chaudhury   Supriyo     07/15/95     TIPPS    C++        52      Secret
+
+896     Jha         Ranjit      06/15/97     KCW      Java       10     Top Secret
+
+345     John        Peter       11/15/99     TIPPS    Java       52
+
+563     Anderson    Andy        08/15/94     NITTS    C++        89     confidential
+
+
+Solution:
+
+INSERT INTO programmer(EmpNo,LastName,FirstName,HireDate,ProjId,Language,TaskNo,Privilege) VALUES
+    (201,'Gupta','Saurav','1995-01-01','NPR','VB',52,'Secret'),
+    (390,'Ghosh','Pinky','1993-01-05','KCW','Java',11,'Top Secret'),
+    (789,'Agarwal','Praveen','1998-08-31','Rnc','VB',11,'Secret'),
+    (134,'Chaudhury','Supriyo','1995-07-15','TIPPS','C++',52,'Secret'),
+    (896,'Jha','Ranjit','1997-06-15','KCW','Java',10,'Top Secret'),
+    (345,'John','Peter','1999-11-15','TIPPS','Java',52,''),
+    (563,'Anderson','Andy','1994-08-15','NITTS','C++',89,'confidential');
+
+One Query "how to insert date in a particular format in sql"
+
+> SELECT * FROM programmer;
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+| EmpNo | ProjId | LastName  | FirstName | HireDate   | Language | TaskNo | Privilege    |
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+|   201 | NPR    | Gupta     | Saurav    | 1995-01-01 | VB       |     52 | Secret       |
+|   390 | KCW    | Ghosh     | Pinky     | 1993-01-05 | Java     |     11 | Top Secret   |
+|   789 | Rnc    | Agarwal   | Praveen   | 1998-08-31 | VB       |     11 | Secret       |
+|   134 | TIPPS  | Chaudhury | Supriyo   | 1995-07-15 | C++      |     52 | Secret       |
+|   896 | KCW    | Jha       | Ranjit    | 1997-06-15 | Java     |     10 | Top Secret   |
+|   345 | TIPPS  | John      | Peter     | 1999-11-15 | Java     |     52 |              |
+|   563 | NITTS  | Anderson  | Andy      | 1994-08-15 | C++      |     89 | confidential |
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+
+
+
+
+c)      Create a table WEATHER with following data:
+
+City	       State	       High	     Low
+
+Calcutta	 West Bengal	    105	     90
+Trivandrum	 Kerala	            101	     92
+Mumbai	     Maharashtra	    88	     69
+Bangalore	 Karnataka	        77	     60
+New Delhi		                80	     72
+
+Solution:
+
+CREATE TABLE weather
+(
+    City VARCHAR(30) NOT NULL UNIQUE,
+    State VARCHAR(30) UNIQUE,
+    High NUMERIC(30) NOT NULL UNIQUE,
+    Low NUMERIC(30) NOT NULL UNIQUE
+);
+
+> DESCRIBE handson.weather;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| City  | varchar(30)   | NO   | PRI | NULL    |       |
+| State | varchar(30)   | YES  | UNI | NULL    |       |
+| High  | decimal(30,0) | NO   | UNI | NULL    |       |
+| Low   | decimal(30,0) | NO   | UNI | NULL    |       |
++-------+---------------+------+-----+---------+-------+
+
+> INSERT INTO weather
+  VALUES ('Calcutta','West Bengal',105,90),
+          ('Trivandrum','Kerala',101,92),
+          ('Mumbai','Maharashtra',88,69),
+          ('Bangalore','Karnataka',77,60),
+          ('New Delhi','',80,72);
+
+> SELECT * FROM weather;
++------------+-------------+------+-----+
+| City       | State       | High | Low |
++------------+-------------+------+-----+
+| Bangalore  | Karnataka   |   77 |  60 |
+| Calcutta   | West Bengal |  105 |  90 |
+| Mumbai     | Maharashtra |   88 |  69 |
+| New Delhi  |             |   80 |  72 |
+| Trivandrum | Kerala      |  101 |  92 |
++------------+-------------+------+-----+
+
+
+d)  Create a table BOOKS with the following data
+
+BookId	Title	TopicId	   Publisher	            Place of Publication       Price	 PurchaseDate	    ShelfNo
+			                  Name
+8293	DBMS	DB1	        Prentice Hall	            Mumbai	                255	     01-01-1995	         S11
+5645	DBMS	DB1	        Pearson Education	        Mumbai	                655	     01-05-1993	         S12
+6565	C	    C1	        TMH	                        Mumbai	                840	     08/31/98	         S66
+6567	C++	    Cplus1	    ABC Publishers	            Delhi	                300	     07/15/95	         S77
+4576	JAVA	JAVA1	    Guru Govind Publications	Delhi	                500	     06/15/97	         S87
+3433	OOPS	OOPS1	    Dave Publishers	            Pune	                600	     11/15/99	         S56
+4655	SAD	    SAD1	    Sajan Publications	        Cochin	                700	     08/15/94	         S76
+
+
+Note:
+
+* The primary keys and other keys could be assumed if not mentioned.
+
+*  When inserting values try using all the 3 different ways to insert data into the table
+
+Complete the following exercise:
+
+Solution:
+CREATE TABLE books
+(
+    BookId NUMERIC(4) PRIMARY KEY,
+    Title VARCHAR(30) NOT NULL,
+    TopicId VARCHAR(30) NOT NULL,
+    Publisher_Name VARCHAR(50) NOT NULL,
+    Place_of_Publication VARCHAR(30) NOT NULL,
+    Price NUMERIC(3) NOT NULL,
+    PurchaseDate DATE NOT NULL,
+    ShelfNo VARCHAR(3) NOT NULL UNIQUE
+);
+
+> DESCRIBE handson.books;
++----------------------+--------------+------+-----+---------+-------+
+| Field                | Type         | Null | Key | Default | Extra |
++----------------------+--------------+------+-----+---------+-------+
+| BookId               | decimal(4,0) | NO   | PRI | NULL    |       |
+| Title                | varchar(30)  | NO   |     | NULL    |       |
+| TopicId              | varchar(30)  | NO   |     | NULL    |       |
+| Publisher_Name       | varchar(50)  | NO   |     | NULL    |       |
+| Place_of_Publication | varchar(30)  | NO   |     | NULL    |       |
+| Price                | decimal(3,0) | NO   |     | NULL    |       |
+| PurchaseDate         | date         | NO   |     | NULL    |       |
+| ShelfNo              | varchar(3)   | NO   | UNI | NULL    |       |
++----------------------+--------------+------+-----+---------+-------+
+Insertion in 3 different ways
+
+#1.
+> INSERT INTO books (BookId, Title, TopicId,Publisher_Name,Place_of_Publication,Price,PurchaseDate,ShelfNo)
+  VALUES (8293, 'DBMS','DB1', 'Prentice Hall', 'Mumbai',255,'1995-01-01','S11');
+
+
+> SELECT * FROM books;
++--------+-------+---------+----------------+----------------------+-------+--------------+---------+
+| BookId | Title | TopicId | Publisher_Name | Place_of_Publication | Price | PurchaseDate | ShelfNo |
++--------+-------+---------+----------------+----------------------+-------+--------------+---------+
+|   8293 | DBMS  | DB1     | Prentice Hall  | Mumbai               |   255 | 1995-01-01   | S11     |
++--------+-------+---------+----------------+----------------------+-------+--------------+---------+
+
+#2.
+> INSERT INTO books
+  VALUES (5645,'DBMS','DB1','Pearson Education','Mumbai',655,'1993-05-01','S12');
+
+> SELECT * FROM books;
++--------+-------+---------+-------------------+----------------------+-------+--------------+---------+
+| BookId | Title | TopicId | Publisher_Name    | Place_of_Publication | Price | PurchaseDate | ShelfNo |
++--------+-------+---------+-------------------+----------------------+-------+--------------+---------+
+|   5645 | DBMS  | DB1     | Pearson Education | Mumbai               |   655 | 1993-05-01   | S12     |
+|   8293 | DBMS  | DB1     | Prentice Hall     | Mumbai               |   255 | 1995-01-01   | S11     |
++--------+-------+---------+-------------------+----------------------+-------+--------------+---------+
+
+#3.
+> INSERT INTO books(BookId, Title, TopicId,Publisher_Name,Place_of_Publication,Price,PurchaseDate,ShelfNo)
+  VALUES (6565,'C','C1','TMH','Mumbai',840,'1998-08-31','S66'),
+         (6567,'C++','Cplus1','ABC Publishers','Delhi',300,'1995-07-15','S77'),
+         (4576,'JAVA','JAVA1','Guru Govind Publications','Delhi',500,'1997-06-15','S87'),
+         (3433,'OOPS','OOPS1','Dave Publishers','Pune','600','1999-11-15','S56'),
+         (4655,'SAD','SAD1','Sajan Publications','Cochin',700,'1994-08-15','S76');
+
+> SELECT * FROM books;
++--------+-------+---------+--------------------------+----------------------+-------+--------------+---------+
+| BookId | Title | TopicId | Publisher_Name           | Place_of_Publication | Price | PurchaseDate | ShelfNo |
++--------+-------+---------+--------------------------+----------------------+-------+--------------+---------+
+|   3433 | OOPS  | OOPS1   | Dave Publishers          | Pune                 |   600 | 1999-11-15   | S56     |
+|   4576 | JAVA  | JAVA1   | Guru Govind Publications | Delhi                |   500 | 1997-06-15   | S87     |
+|   4655 | SAD   | SAD1    | Sajan Publications       | Cochin               |   700 | 1994-08-15   | S76     |
+|   5645 | DBMS  | DB1     | Pearson Education        | Mumbai               |   655 | 1993-05-01   | S12     |
+|   6565 | C     | C1      | TMH                      | Mumbai               |   840 | 1998-08-31   | S66     |
+|   6567 | C++   | Cplus1  | ABC Publishers           | Delhi                |   300 | 1995-07-15   | S77     |
+|   8293 | DBMS  | DB1     | Prentice Hall            | Mumbai               |   255 | 1995-01-01   | S11     |
++--------+-------+---------+--------------------------+----------------------+-------+--------------+---------+
+
+e)       Write SQL queries to:
+
+         i.            Saurav Gupta is assigned a different project with id NITTS and he would work with C++ now. Update this change in the PROGRAMMER table.
+
+         ii.            The books on DBMS are shifted to shelf with number S10. Please update this detail in BOOKS table.
+
+       iii.            Supriyo Chaudhury has resigned his job. Incorporate this change in the table PROGRAMMER.
+
+      iv.            A new column to state the nature of the climate with either of the value (rainy, cloudy, sunny, snow) is to be added in the WEATHER Table.
+
+      v.            Delete the table WEATHER from database.
+
+solution:
+i.
+>  SELECT * FROM programmer;
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+| EmpNo | ProjId | LastName  | FirstName | HireDate   | Language | TaskNo | Privilege    |
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+|   201 | NPR    | Gupta     | Saurav    | 1995-01-01 | VB       |     52 | Secret       |
+|   390 | KCW    | Ghosh     | Pinky     | 1993-01-05 | Java     |     11 | Top Secret   |
+|   789 | Rnc    | Agarwal   | Praveen   | 1998-08-31 | VB       |     11 | Secret       |
+|   134 | TIPPS  | Chaudhury | Supriyo   | 1995-07-15 | C++      |     52 | Secret       |
+|   896 | KCW    | Jha       | Ranjit    | 1997-06-15 | Java     |     10 | Top Secret   |
+|   345 | TIPPS  | John      | Peter     | 1999-11-15 | Java     |     52 |              |
+|   563 | NITTS  | Anderson  | Andy      | 1994-08-15 | C++      |     89 | confidential |
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+
+> UPDATE programmer SET ProjId = 'NITTS', Language = 'C++' WHERE LastName = 'Gupta' and FirstName='Saurav';
+> SELECT * FROM programmer;
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+| EmpNo | ProjId | LastName  | FirstName | HireDate   | Language | TaskNo | Privilege    |
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+|   201 | NITTS  | Gupta     | Saurav    | 1995-01-01 | C++      |     52 | Secret       |
+|   390 | KCW    | Ghosh     | Pinky     | 1993-01-05 | Java     |     11 | Top Secret   |
+|   789 | Rnc    | Agarwal   | Praveen   | 1998-08-31 | VB       |     11 | Secret       |
+|   134 | TIPPS  | Chaudhury | Supriyo   | 1995-07-15 | C++      |     52 | Secret       |
+|   896 | KCW    | Jha       | Ranjit    | 1997-06-15 | Java     |     10 | Top Secret   |
+|   345 | TIPPS  | John      | Peter     | 1999-11-15 | Java     |     52 |              |
+|   563 | NITTS  | Anderson  | Andy      | 1994-08-15 | C++      |     89 | confidential |
++-------+--------+-----------+-----------+------------+----------+--------+--------------+
+
+ii.
+> Question not clear
+
+iii.
+> DELETE FROM programmer WHERE LastName='Chaudhury' and FirstName='Supriyo';
+> SELECT * FROM programmer;
++-------+--------+----------+-----------+------------+----------+--------+--------------+
+| EmpNo | ProjId | LastName | FirstName | HireDate   | Language | TaskNo | Privilege    |
++-------+--------+----------+-----------+------------+----------+--------+--------------+
+|   201 | NITTS  | Gupta    | Saurav    | 1995-01-01 | C++      |     52 | Secret       |
+|   390 | KCW    | Ghosh    | Pinky     | 1993-01-05 | Java     |     11 | Top Secret   |
+|   789 | Rnc    | Agarwal  | Praveen   | 1998-08-31 | VB       |     11 | Secret       |
+|   896 | KCW    | Jha      | Ranjit    | 1997-06-15 | Java     |     10 | Top Secret   |
+|   345 | TIPPS  | John     | Peter     | 1999-11-15 | Java     |     52 |              |
+|   563 | NITTS  | Anderson | Andy      | 1994-08-15 | C++      |     89 | confidential |
++-------+--------+----------+-----------+------------+----------+--------+--------------+
+
+iv.
+> SELECT * FROM weather;
+> ALTER TABLE weather ADD Climate varchar(40) NOT NULL  AFTER Low;
+> UPDATE weather SET Climate = 'rainy' WHERE City = 'Bangalore';
+> UPDATE weather SET Climate = 'cloudy' WHERE City = 'Calcutta';
+> UPDATE weather SET Climate = 'sunny' WHERE City = 'Mumbai';
+> UPDATE weather SET Climate = 'snow' WHERE City = 'New Delhi';
+> SELECT * FROM weather;
++------------+-------------+------+-----+---------+
+| City       | State       | High | Low | Climate |
++------------+-------------+------+-----+---------+
+| Bangalore  | Karnataka   |   77 |  60 | rainy   |
+| Calcutta   | West Bengal |  105 |  90 | cloudy  |
+| Mumbai     | Maharashtra |   88 |  69 | sunny   |
+| New Delhi  |             |   80 |  72 | snow    |
+| Trivandrum | Kerala      |  101 |  92 |         |
++------------+-------------+------+-----+---------+
+
+v.
+> DROP TABLE weather;
+> SHOW TABLES;
++-------------------+
+| Tables_in_handson |
++-------------------+
+| books             |
+| programmer        |
++-------------------+
+
+
+
+f. Create a following tables
+
+CUSTOMER Table Schema:
+COLUMN NAME	    DESCRIPTION	       DATATYPE	        SIZE	   CONSTRAINTS
+CUSTID	        Customer Id	       Number		                Primary Key
+FNAME	        First Name	       Character	     30
+LNAME	        Last Name	       Character	     30
+ADDRESS	        Customer Address   Character	     50
+PHONENO	        Phone	            Number		                Not Null
+CITY	        City	           Character	     20
+COUNTRY	        Country	           Character	     20
+DATEFIRSTPURCHASED	    Date of the first
+                purchase by the     Date
+                customer
+SUPPLIERID	    Supplier
+                Information	        Number		                Foreign Key
+
+
+
+
+Data for CUSTOMER table:
+
+CUSTID	FNAME	LNAME	    ADDRESS	                                  PHONENO	      CITY	    COUNTRY	DATEFIRSTPURCHASED	SUPPLIERID
+1001	Das	    Jeyaseelan	119, park Avenue, II street,	          9841093428	Coimbatore	India	10-Jan-04	            1
+2001	Gopi	Govindraj	241, I floor, Kamaraj street, Madippakkam 9444124590	Chennai	    India	25-Mar-05	            4
+1201	Dilip	Kishore	    43, II Avenue, Anna Nagar	              9997234534	Bangalore	India	20-Aug-04	            2
+1300	Aanand	Chowdhury	42/1 sector 1, II Street	              9841054348	Bangalore	India	15-May-05	            2
+1220	Chandra	Nagarajan	83, lal bagh	                          98410672356	Bangalore	India	12-Feb-06	            4
+1221	Abhishek	Kumar	13,kishori park,	                      94447623901	Chennai	    India	15-May-04	            1
+1320	Nikhil	Pandit	    218, alwaanya street	                  94448923091	Salem	    India	21-Apr-06	            3
+1222	Meenu	Monica	    C11, church road	                      98410563421	Trichy	    India	30-Aug-04	            1
+1225	Pavan	Kumar	    128/A, North Mada Street	              99934782103	maduari	    India	18-Aug-04	            4
+
+
+
+SUPPLIER Table Schema:
+
+COLUMN NAME	    DESCRIPTION	            DATATYPE	    SIZE	    CONSTRAINTS
+SUPPLIERID	    Supplier Id	             Number		                Primary Key
+SNAME	        Supplier Name	        Character	     30
+SCITY	        Supplier City	        Character	     30
+SPHONE	        Supplier Phone	         Number		                 Not Null
+EMAIL	        Email id of Supplier	Character	     50	          Unique
+
+
+Data for SUPPLIER table:
+
+SUPPLIERID	SNAME	SCITY	SPHONE	EMAIL
+1	Dilip	Chennai	8999900000	dilip@abc.co.in
+2	Tarun	Madurai	8999911111	tarun@xyz.com
+3	Naresh	Coimbatore	8999922222	g.naresh@xyzl.com
+4	Ganesan	Trichy	8999933333	Ganesan_83@ijk.com
+
+ORDERS Table Schema:
+
+COLUMN NAME	DESCRIPTION	DATATYPE	SIZE	CONSTRAINTS
+ORDERID	Order Number	Number		Primary Key
+ORDERDATE	Date of Order	Date
+CUSTID	Customer Identity	Number
+QUANTITY	Quantity Ordered	Number		Check (Quantity >0)
+ITEMID	Item Code	Number		Foreign Key
+
+
+Data for ORDERS Table:
+ORDERID	ORDERDATE	CUSTID	QUANTITY	ITEMID
+1	12-Jan-04	1001	30	25
+2	06-May-05	1202	38	24
+3	16-Dec-06	1220	10	22
+4	21-May-04	1233	12	21
+
+
+
+ITEMS Table Schema:
+
+COLUMN NAME	DESCRIPTION	DATATYPE	SIZE	CONSTRAINTS
+ITEMID	Item Code	Number		Primary Key
+ITEMNAME	Item Name	Character	35	Not Null
+SUPPLIERID	Supplier Code	Number		Foreign Key
+MINQTY	Minimum Qty that can be ordered	Number		Not Null
+MAXQTY	Maximum Qty that can be ordered	Number		Not Null
+Price	Price per unit	Number(5,2)
+
+
+Data for ITEMS Table:
+
+ITEMID	ITEMNAME	SUPPLIERID	MINQTY	MAXQTY
+20	    Pears Soap  	4	7	20
+21	V.V.D. Coconut oil 200 ml	2	8	15
+22	Ponds powder 400g	3	6	25
+23	Reynolds pen- blue	1	10	30
+24	Reynolds pen- black	1	10	30
+25	Mysore sandal soap	4	7	25
+26	Fair & lovely cream- 50g	3	5	15
+27	Rexono deo spary	2	5	20
+28	Dove soap	4	7	15
+
+Solution:
+
+CREATE TABLE customer
+(
+    CUSTID NUMERIC PRIMARY KEY,
+    FNAME VARCHAR(30),
+    LNAME VARCHAR(30),
+    ADDRESS VARCHAR(50),
+    PHONENO NUMERIC NOT NULL,
+    CITY VARCHAR(20),
+    COUNTRY VARCHAR(20),
+    DATEFIRSTPURCHASED DATE,
+    SUPPLIERID NUMERIC,
+    FOREIGN KEY (SUPPLIERID) REFERENCES supplier(SUPPLIERID)
+);
+
+CREATE TABLE supplier
+(
+    SUPPLIERID NUMERIC PRIMARY KEY,
+    SNAME VARCHAR(30),
+    SCITY VARCHAR(30),
+    SPHONE NUMERIC NOT NULL,
+    EMAIL VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE orders
+(
+    ORDERID NUMERIC PRIMARY KEY,
+    ORDERDATE DATE,
+    CUSTID NUMERIC,
+    QUANTITY NUMERIC,
+    ITEMID NUMERIC,
+    CONSTRAINT chk_QUANTITY CHECK (QUANTITY>0),
+    FOREIGN KEY (ITEMID) REFERENCES items(ITEMID)
+);
+
+CREATE TABLE items
+(
+    ITEMID NUMERIC PRIMARY KEY,
+    ITEMNAME VARCHAR(35) NOT NULL,
+    SUPPLIERID NUMERIC,
+    MINQTY NUMERIC NOT NULL,
+    MAXQTY NUMERIC NOT NULL,
+    Price NUMERIC(5,2),
+    FOREIGN KEY (SUPPLIERID) REFERENCES supplier(SUPPLIERID)
+);
+
+> SHOW TABLES;
++-------------------+
+| Tables_in_handson |
++-------------------+
+| books             |
+| customer          |
+| items             |
+| orders            |
+| programmer        |
+| supplier          |
++-------------------+
+
+> DESCRIBE handson.items;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| ITEMID     | decimal(10,0) | NO   | PRI | NULL    |       |
+| ITEMNAME   | varchar(35)   | NO   |     | NULL    |       |
+| SUPPLIERID | decimal(10,0) | YES  | MUL | NULL    |       |
+| MINQTY     | decimal(10,0) | NO   |     | NULL    |       |
+| MAXQTY     | decimal(10,0) | NO   |     | NULL    |       |
+| Price      | decimal(5,2)  | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+
+> DESCRIBE handson.supplier;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| SUPPLIERID | decimal(10,0) | NO   | PRI | NULL    |       |
+| SNAME      | varchar(30)   | YES  |     | NULL    |       |
+| SCITY      | varchar(30)   | YES  |     | NULL    |       |
+| SPHONE     | decimal(10,0) | NO   |     | NULL    |       |
+| EMAIL      | varchar(50)   | YES  | UNI | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+
+> DESCRIBE handson.orders;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| ORDERID   | decimal(10,0) | NO   | PRI | NULL    |       |
+| ORDERDATE | date          | YES  |     | NULL    |       |
+| CUSTID    | decimal(10,0) | YES  |     | NULL    |       |
+| QUANTITY  | decimal(10,0) | YES  |     | NULL    |       |
+| ITEMID    | decimal(10,0) | YES  | MUL | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+
+> DESCRIBE handson.customer;
++--------------------+---------------+------+-----+---------+-------+
+| Field              | Type          | Null | Key | Default | Extra |
++--------------------+---------------+------+-----+---------+-------+
+| CUSTID             | decimal(10,0) | NO   | PRI | NULL    |       |
+| FNAME              | varchar(30)   | YES  |     | NULL    |       |
+| LNAME              | varchar(30)   | YES  |     | NULL    |       |
+| ADDRESS            | varchar(50)   | YES  |     | NULL    |       |
+| PHONENO            | decimal(10,0) | NO   |     | NULL    |       |
+| CITY               | varchar(20)   | YES  |     | NULL    |       |
+| COUNTRY            | varchar(20)   | YES  |     | NULL    |       |
+| DATEFIRSTPURCHASED | date          | YES  |     | NULL    |       |
+| SUPPLIERID         | decimal(10,0) | YES  | MUL | NULL    |       |
++--------------------+---------------+------+-----+---------+-------+
+
+
+Insertion data into Customer table:
+> INSERT INTO customer(CUSTID, FNAME, LNAME,ADDRESS,PHONENO,CITY,COUNTRY,DATEFIRSTPURCHASED,SUPPLIERID)
+  VALUES (1001,'Das','Jeyaseelan','119park Avenue, II street',9841093428,'Coimbatore','India','2004-01-10',1),
+         (2001,'Gopi','Govindraj','241, I floor, Kamaraj street, Madippakkam',9444124590,'Chennai','India','2005-03-25',4),
+         (1201,'Dilip','Kishore','43, II Avenue, Anna Nagar',9997234534,'Bangalore','India','2004-08-20',2),
+         (1300,'Aanand','Chowdhury','42/1 sector 1, II Street',9841054348,'Bangalore','India','2005-05-15',2),
+         (1201,'Chandra','Kishore','83, lal bagh',98410672356,'Bangalore','India','2006-02-12',4),
+         (1221,'Abhishek','Kumar','13,kishori park',94447623901,'Chennai','India','2004-05-15',1),
+         (1320,'Nikhil','Pandit','218, alwaanya street',94448923091,'Salem','India','2006-04-21',3),
+         (1222,'Meenu','Monica','C11, church road',98410563421,'Trichy','India','2004-08-30',1),
+         (1225,'Kumar','Kishore','128/A, North Mada Street',99934782103,'maduari','India','2004-08-18',4);
+
+Insertion data into Supplier table:
+> INSERT INTO supplier(SUPPLIERID,SNAME,SCITY,SPHONE,EMAIL)
+  VALUES (1,'Dilip','Chennai',8999900000,'dilip@abc.co.in'),
+         (2,'Tarun','Madurai',8999911111,'tarun@xyz.com'),
+         (3,'Naresh','Coimbatore',8999922222,'g.naresh@xyzl.com'),
+         (4,'Ganesan','Trichy',8999933333,'Ganesan_83@ijk.com');
+
+Insertion data into Orders table:
+> INSERT INTO orders(ORDERID,ORDERDATE,CUSTID,QUANTITY,ITEMID)
+  VALUES (1,'2004-01-12',1001,30,25),
+         (2,'2005-05-06',1202,38,24),
+         (3,'2006-12-16',1220,10,22),
+         (4,'2004-05-21',1233,12,21);
+
+Insertion data into Items table:
+> INSERT INTO items(ITEMID,ITEMNAME,SUPPLIERID,MINQTY,MAXQTY)
+  VALUES (20,'Pears Soap',4,7,20),
+         (21,'V.V.D. Coconut oil 200 ml',2,8,15),
+         (22,'Ponds powder 400g',3,6,25),
+         (23,'Reynolds pen- blue',1,10,30);
+         (24,'Reynolds pen- black',1,10,30),
+         (25,'Mysore sandal soap',4,7,25),
+         (26,'Fair & lovely cream- 50g',3,5,15),
+         (27,'Rexono deo spary',2,5,20),
+         (28,'Dove soap',4,7,15);
+
+
+g)       Write SQL queries to
+      v. Display all customers from Chennai.
+      vi. Display the details of all customers who purchased from the supplier 2.
+      vii. Display CUSTID, FNAME, LNAME of all customers whose purchase date is after January 2005.
+      viii. Display the details of all suppliers who are from location Coimbatore.
+      ix. Display the details of all suppliers whose name stars with G.
+      x. Display the details of all customers, who do not have the alphabet e in their LNAME.
+      xi. Display the details of the entire customer whose first date of purchase is in 2006 and arrange it in descending order.
+      xii. Display the details of all the orders where the quantity is less than 35.
+      xiii. Display the details of the items supplied by supplier 4.
+      xiv. Display the details of all items where SUPPLIERID is 3 and the MINQTY is greater than 7 order by ITEMID.
