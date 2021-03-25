@@ -35,12 +35,168 @@ Madrid	Spain	Europe	40.24	N	3.41	W
 
 Complete the following exercise:
 
-1.                   For all the different countries contained in the WORLDCITY table, display their names and the continent in which they are located. Make sure that no country name is duplicated.
+1.  For all the different countries contained in the WORLDCITY table, display their names and the continent in which they are located. Make sure that no country name is duplicated.
 
-1.                   Write an SQL query to display the list of the city and country for all the cities that begin with letter R.
+1.  Write an SQL query to display the list of the city and country for all the cities that begin with letter R.
 
-2.                   Write an SQL query to display the list of the city and country for all the cities that end with letter A.
+2.  Write an SQL query to display the list of the city and country for all the cities that end with letter A.
 
-3.                   Write an SQL query to display the list of the city and country for all the cities that begin with letter M and have exactly six letters in them.
+3.  Write an SQL query to display the list of the city and country for all the cities that begin with letter M and have exactly six letters in them.
 
-4.                   Write an SQL query to display the list of the city and country for all the cities that contain an A as the second letter.
+4.  Write an SQL query to display the list of the city and country for all the cities that contain an A as the second letter.
+
+
+
+Solution:
+
+CREATE TABLE worldcity
+(
+    City VARCHAR(30),
+    Country VARCHAR(30),
+    Continent VARCHAR(30),
+    Latitude NUMERIC(5,2),
+    NorthSouth VARCHAR(1),
+    Longitude NUMERIC(5,2),
+    EastWest VARCHAR(1)
+);
+
+> DESCRIBE handson.worldcity;
+
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| City       | varchar(30)  | YES  |     | NULL    |       |
+| Country    | varchar(30)  | YES  |     | NULL    |       |
+| Continent  | varchar(30)  | YES  |     | NULL    |       |
+| Latitude   | decimal(5,2) | YES  |     | NULL    |       |
+| NorthSouth | varchar(1)   | YES  |     | NULL    |       |
+| Longitude  | decimal(5,2) | YES  |     | NULL    |       |
+| EastWest   | varchar(1)   | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+> INSERT INTO worldcity(City,Country,Continent,Latitude,NorthSouth,Longitude,EastWest)
+  VALUES ('Athens','Greece','Europe',37.59,'N',23.44,'E'),
+         ('Atlanta','United States','North America',33.45,'N',84.23,'W'),
+         ('Dallas','United States','North America',32.47,'N',96.47,'W'),
+         ('Nashville','United States','North America',36.09,'N',86.46,'W'),
+         ('Victoria','Canada','North America',48.25,'N',123.21,'W'),
+         ('Peterborough','Canada','North America',44.18,'N',79.18,'W'),
+         ('Vancouver','Canada','North America',49.18,'N',123.04,'W'),
+         ('Toledo','United States','North America',41.39,'N',83.82,'W'),
+         ('Warsaw','Poland','Europe',52.15,'N',21,'E'),
+         ('Lima','Peru','South America',12.03,'S',77.03,'W'),
+         ('Rio De Janeiro','Brazil','South America',22.43,'S',43.13,'W'),
+         ('Santiago','Chile','South America',33.27,'S',70.4,'W'),
+         ('Bogota','Colombia','South America',4.36,'N',74.05,'W'),
+         ('Buenos Aires','Argentina','South America',34.36,'S',58.28,'W'),
+         ('Quito','Ecuador','South America',0.13,'S',78.3,'W'),
+         ('Caracas','Venezuela','South America',10.3,'N',66.56,'W'),
+         ('Madras','India','Asia',28.36,'N',77.12,'E'),
+         ('Bombay','India','Asia',18.58,'N',72.5,'E'),
+         ('Manchester','England','Europe',51.3,'N',0,''),
+         ('Moscow','Russia','Europe',55.45,'N',37.35,'E'),
+         ('Paris','France','Europe',48.52,'N',2.2,'E'),
+         ('Shenyang','China','Asia',41.48,'N',123.27,'E'),
+         ('Cairo','Egypt','Africa',30.03,'N',31.15,'E'),
+         ('Tripoli','Lybia','Africa',32.54,'N',13.11,'E'),
+         ('Beijing','China','Asia',39.56,'N',116.24,'E'),
+         ('Rome','Italy','Europe',41.54,'N',12.29,'E'),
+         ('Tokyo','Japan','Asia',35.42,'N',139.46,'E'),
+         ('Sydney','Australia','Australia',33.52,'S',151.13,'E'),
+         ('Sparta','Greece','Europe',37.05,'N',22.27,'E'),
+         ('Madrid','Spain','Europe',40.24,'N',3.41,'W');
+
+1.
+
+> SELECT DISTINCT Country, Continent FROM worldcity;
+mysql> SELECT DISTINCT Country, Continent FROM worldcity;
++---------------+---------------+
+| Country       | Continent     |
++---------------+---------------+
+| Greece        | Europe        |
+| United States | North America |
+| Canada        | North America |
+| Poland        | Europe        |
+| Peru          | South America |
+| Brazil        | South America |
+| Chile         | South America |
+| Colombia      | South America |
+| Argentina     | South America |
+| Ecuador       | South America |
+| Venezuela     | South America |
+| India         | Asia          |
+| England       | Europe        |
+| Russia        | Europe        |
+| France        | Europe        |
+| China         | Asia          |
+| Egypt         | Africa        |
+| Lybia         | Africa        |
+| Italy         | Europe        |
+| Japan         | Asia          |
+| Australia     | Australia     |
+| Spain         | Europe        |
++---------------+---------------+
+
+> SELECT city,country FROM worldcity WHERE city like 'R%';
++----------------+---------+
+| city           | country |
++----------------+---------+
+| Rio De Janeiro | Brazil  |
+| Rio De Janeiro | Brazil  |
+| Rio De Janeiro | Brazil  |
+| Rome           | Italy   |
++----------------+---------+
+
+
+> SELECT city,country FROM worldcity WHERE city like '%A';
++----------+---------------+
+| city     | country       |
++----------+---------------+
+| Atlanta  | United States |
+| Victoria | Canada        |
+| Lima     | Peru          |
+| Atlanta  | United States |
+| Victoria | Canada        |
+| Lima     | Peru          |
+| Atlanta  | United States |
+| Victoria | Canada        |
+| Lima     | Peru          |
+| Bogota   | Colombia      |
+| Sparta   | Greece        |
++----------+---------------+
+
+> SELECT city,country FROM worldcity WHERE city like 'M_____';
++--------+---------+
+| city   | country |
++--------+---------+
+| Madras | India   |
+| Moscow | Russia  |
+| Madrid | Spain   |
++--------+---------+
+
+> SELECT city,country FROM worldcity WHERE city like '_A%';
++------------+---------------+
+| city       | country       |
++------------+---------------+
+| Dallas     | United States |
+| Nashville  | United States |
+| Vancouver  | Canada        |
+| Warsaw     | Poland        |
+| Santiago   | Chile         |
+| Dallas     | United States |
+| Nashville  | United States |
+| Vancouver  | Canada        |
+| Warsaw     | Poland        |
+| Santiago   | Chile         |
+| Dallas     | United States |
+| Nashville  | United States |
+| Vancouver  | Canada        |
+| Warsaw     | Poland        |
+| Santiago   | Chile         |
+| Caracas    | Venezuela     |
+| Madras     | India         |
+| Manchester | England       |
+| Paris      | France        |
+| Cairo      | Egypt         |
+| Madrid     | Spain         |
++------------+---------------+
