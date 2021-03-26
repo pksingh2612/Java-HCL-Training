@@ -100,7 +100,6 @@ public class Example1 {
 
                                 System.out.println(df5.format(d));
 
-                               
 
                 }
 
