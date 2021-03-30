@@ -1,0 +1,275 @@
+
+
+
+
+Exercise 1.3
+
+Create a Registration Form with the following components:
+
+􀂉 User ID (Label and TextField) (textfield name=userid)
+
+􀂉 First Name (Label and TextField) (textfield name=firstname)
+
+􀂉 Last Name (Label and TextField) (textfield name=lastname)
+
+􀂉 Address (Label and Multyline TextField) (textfield name=address)
+
+􀂉 Country (Label and List Box)(List box name=country)
+
+􀂉 Phone (Label and TextField) (textfield name=phone)
+
+􀂉 Zip Code (Label and TextField) (textfield name=zipcode)
+
+􀂉 Gender (Label and Radio Button) (radiobutton name=gender)
+
+􀂉 Button for Submit ( name: submit)
+
+􀂉 Button for Reset (name: reset)
+
+Submit the war file
+
+Additional Information:
+
+Please note the following:
+
+􀂉 Title of registration form page: Registration Form.
+
+􀂉 The name of the elements are exactly same as of specified in the question. For
+
+Example the submit button should be declared as <input type=submit
+
+name=submit>.
+
+􀂉 When the submit button is clicked, a new page should be displayed with
+
+following specifications:
+
+o Title for the new page: HtmlPage.
+
+o The page should display the text “Your Data have been
+
+uploaded” in the body of the page.
+
+􀂉 Include the home html page in the welcome list of web.xml file.
+
+􀂉 Example: Suppose the name of the html page is HomePage.html
+
+<welcome-file-list>
+
+<welcome-file>HomePage.html</welcome-file>
+
+</welcome-file-list>
+
+Exercise 1.4 (Optional)
+
+(10 Marks)
+
+Generate the following output by using the appropriate HTML commands:
+
+Planet Name Year Length Day Length
+
+Mercury 88 days 59 days
+
+Venus 225 days 243 days
+
+Earth 365 days 24 hrs
+
+Mars 765 days 24.6 hrs
+
+Submit a document containing:
+
+􀃖 The program code
+
+􀃖 Output Screenshot
+
+Exercise 1.5
+
+Design an HTML page to display the following output:
+
+a) <PRE>
+
+The PRE command uses a preset format from a device used
+
+to create a file, especially in cases of a word
+
+processor created document. It is an easy way to
+
+convert text documents to Web documents. Check your
+
+code by inserting <PRE> tag in your document.
+
+b) <LIST>
+
+Lists can be either order or unordered. Unordered lists
+
+use symbols for display, ordered lists use numbers.
+
+Example: (Ordered List)
+
+i. Circle (default)
+
+ii. Square
+
+iii. Moon
+
+Example: (UnOrdered List)
+
+i. One
+
+ii. Two
+
+iii. Three
+
+Additional Information:
+
+Please note the following:
+
+􀂉 The title of the page must be FormatterTags.
+
+􀂉 The file name must be FormatterTags.html.
+
+Exercise 1.6
+
+Design a Web page. The page must contain the following elements:
+
+i. A couple of paragraphs of normal text
+
+ii. A line with bold formatting
+
+iii. A horizontal line which is green in color
+
+iv. A colored background
+
+v. A text, which is center aligned
+
+vi. An image, which is located at the top right corner of the page
+
+Exercise 1.7
+
+Design a Web page. The page must contain the following elements:
+
+i. Some text in italics format
+
+ii. A text which is colored in blue
+
+iii. A mailto link
+
+iv. An image of size 300*300 in size
+
+v. Another image that is a link to page called MyImages.html which has lot of
+
+images in the pages
+
+Submit a document containing:
+
+􀃖 Program Code
+
+􀃖 Output Screenshot
+
+Exercise 1.8
+
+Complete the following assignment:
+
+i. Design a Web page called First.html. The page must contain the following
+
+elements:
+
+􀂉 First.html should have a link to a second page called Second.html on
+
+your Web site.
+
+ii. The Second.html must contain:
+
+􀂉 Short description of yourself. Do not provide your full name, address, or
+
+phone number.
+
+􀂉 A collection of links (in a bulleted list) to sites that contain information about
+
+your hobbies or subjects that interests you
+
+􀂉 A background image
+
+􀂉 Links to search engines such as Google, MSN, and so on
+
+􀂉 A horizontal line that is 300 pixels long and 15 pixels high
+
+Submit a document containing:
+
+􀃖 Program Code
+
+􀃖 Output Screenshot
+
+Exercise 1.9
+
+Complete the following assignment:
+
+i. Design a login page with the following components and name it as
+
+Login.html and it should reside in a folder called Ex1_9:
+
+􀂉 Two Labels (with captions Login and Password)
+
+􀂉 One TextField (for Login)
+
+􀂉 One Password Field (For Password)
+
+􀂉 One Submit button
+
+􀂉 One Reset button
+
+􀂉 One Hyperlink called New user Register
+
+ii. Clicking the Submit button of Login.html page should invoke the
+
+Success.html page, which you have to create and it should reside in a
+
+folder called Ex1_9. The Success.html should have the text Success and
+
+a link to the login page, that is, Login.html.
+
+Clicking the hyperlink “New user Registration” should invoke the registration
+
+form named Registration.html and it should reside in a folder called Ex1_9.
+
+iv. The registration page should have the following components:
+
+􀂉 User ID (Label and TextField)
+
+􀂉 First Name (Label and TextField)
+
+􀂉 Last Name (Label and TextField)
+
+􀂉 Address (Label and Multiline TextField)
+
+􀂉 Country (Label and List Box)
+
+􀂉 Phone (Label and TextField)
+
+􀂉 Zip Code (Label and TextField)
+
+􀂉 Gender (Label and Radio Button)
+
+􀂉 Button for Submit
+
+􀂉 Button for Reset
+
+Please note the following:
+
+􀂉 Adhere to strict naming convention of the file names given to you including
+
+punctuation and case of the letter.
+
+􀂉 The title tag of the Login.html page should have <title>HTML
+
+Page</title>.
+
+􀂉 The title tag of the Registration.html page should have <title>HTML
+
+Page</title>.
+
+􀂉 The title tag of the Success.html page should have <title>HTML
+
+Page</title>.
+
+􀂉 The output produced by your program should be a HTML page.

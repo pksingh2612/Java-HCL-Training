@@ -1,0 +1,34 @@
+Exercise 1.8
+
+Complete the following assignment:
+
+i. Design a Web page called First.html. The page must contain the following
+
+elements:
+
+􀂉 First.html should have a link to a second page called Second.html on
+
+your Web site.
+
+ii. The Second.html must contain:
+
+􀂉 Short description of yourself. Do not provide your full name, address, or
+
+phone number.
+
+􀂉 A collection of links (in a bulleted list) to sites that contain information about
+
+your hobbies or subjects that interests you
+
+􀂉 A background image
+
+􀂉 Links to search engines such as Google, MSN, and so on
+
+􀂉 A horizontal line that is 300 pixels long and 15 pixels high
+
+Submit a document containing:
+
+􀃖 Program Code
+
+􀃖 Output Screenshot
+

@@ -1,0 +1,55 @@
+Create a Registration Form with the following components:
+
+􀂉 User ID (Label and TextField) (textfield name=userid)
+
+􀂉 First Name (Label and TextField) (textfield name=firstname)
+
+􀂉 Last Name (Label and TextField) (textfield name=lastname)
+
+􀂉 Address (Label and Multyline TextField) (textfield name=address)
+
+􀂉 Country (Label and List Box)(List box name=country)
+
+􀂉 Phone (Label and TextField) (textfield name=phone)
+
+􀂉 Zip Code (Label and TextField) (textfield name=zipcode)
+
+􀂉 Gender (Label and Radio Button) (radiobutton name=gender)
+
+􀂉 Button for Submit ( name: submit)
+
+􀂉 Button for Reset (name: reset)
+
+Submit the war file
+
+Additional Information:
+
+Please note the following:
+
+􀂉 Title of registration form page: Registration Form.
+
+􀂉 The name of the elements are exactly same as of specified in the question. For
+
+Example the submit button should be declared as <input type=submit
+
+name=submit>.
+
+􀂉 When the submit button is clicked, a new page should be displayed with
+
+following specifications:
+
+o Title for the new page: HtmlPage.
+
+o The page should display the text “Your Data have been
+
+uploaded” in the body of the page.
+
+􀂉 Include the home html page in the welcome list of web.xml file.
+
+􀂉 Example: Suppose the name of the html page is HomePage.html
+
+<welcome-file-list>
+
+<welcome-file>HomePage.html</welcome-file>
+
+</welcome-file-list>
