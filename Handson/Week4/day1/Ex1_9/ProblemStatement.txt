@@ -1,0 +1,73 @@
+Exercise 1.9
+
+Complete the following assignment:
+
+i. Design a login page with the following components and name it as
+
+Login.html and it should reside in a folder called Ex1_9:
+
+􀂉 Two Labels (with captions Login and Password)
+
+􀂉 One TextField (for Login)
+
+􀂉 One Password Field (For Password)
+
+􀂉 One Submit button
+
+􀂉 One Reset button
+
+􀂉 One Hyperlink called New user Register
+
+ii. Clicking the Submit button of Login.html page should invoke the
+
+Success.html page, which you have to create and it should reside in a
+
+folder called Ex1_9. The Success.html should have the text Success and
+
+a link to the login page, that is, Login.html.
+
+Clicking the hyperlink “New user Registration” should invoke the registration
+
+form named Registration.html and it should reside in a folder called Ex1_9.
+
+iv. The registration page should have the following components:
+
+􀂉 User ID (Label and TextField)
+
+􀂉 First Name (Label and TextField)
+
+􀂉 Last Name (Label and TextField)
+
+􀂉 Address (Label and Multiline TextField)
+
+􀂉 Country (Label and List Box)
+
+􀂉 Phone (Label and TextField)
+
+􀂉 Zip Code (Label and TextField)
+
+􀂉 Gender (Label and Radio Button)
+
+􀂉 Button for Submit
+
+􀂉 Button for Reset
+
+Please note the following:
+
+􀂉 Adhere to strict naming convention of the file names given to you including
+
+punctuation and case of the letter.
+
+􀂉 The title tag of the Login.html page should have <title>HTML
+
+Page</title>.
+
+􀂉 The title tag of the Registration.html page should have <title>HTML
+
+Page</title>.
+
+􀂉 The title tag of the Success.html page should have <title>HTML
+
+Page</title>.
+
+􀂉 The output produced by your program should be a HTML page.

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<HEAD>
+    <TITLE>Display Address</TITLE>
+    <style>
+        a{
+            text-align: center;
+        }
+    </style>
+</HEAD>
+
+<body>
+    <form action="Submitted.html">
+        <label>Name</label><br>
+        <input type="text" name="name"><br>
+
+        <label>Address</label><br>
+        <Textarea name="address"></Textarea><br>
+
+        <label>City</label><br>
+        <input type="text" name="city"><br>
+
+        <label>Postal Code</label><br>
+        <select>
+            <option value="PC1">PC1</option>
+            <option value="PC2">PC2</option>
+            <option value="PC3">PC3</option>
+        </select>
+
+        <label>TransportMode</label><br>
+        <input type="radio" name="transportmode" value="Bus"> Bus<br>
+        <input type="radio" name="transportmode" value="Car"> Car<br>
+        <input type="radio" name="transportmode" value="Cycle"> Cycle<br>
+        <input type="radio" name="transportmode" value="others"> others<br>
+
+        <label> Skillsets</label>
+        <input type="checkbox" name="skillsets"><br>
+
+        <label>Email</label><br>
+        <input type="text" name="email"><br>
+
+        <label>About Yourself</label><br>
+        <Textarea name="aboutyourself"></Textarea><br>
+
+        <input type="submit" name="submit" value="submit">
+        <input type="submit" name="reset" value="reset"><br>
+    </form>
+</body>
+
+</html>

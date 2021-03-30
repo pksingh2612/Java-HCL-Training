@@ -58,7 +58,7 @@ DBMS
 
 4. eg:MS Access, Visual Foxpro
 
- 
+
 
 RDBMS
 
@@ -70,7 +70,7 @@ RDBMS
 
 4. eg: Oracle, MySQL, SQL Server, DB2, Sybase, Postgress SQL
 
- 
+
 
 DBMS -- set of programs to access the data
 
@@ -78,7 +78,7 @@ DBMS -- set of programs to access the data
 
   2. PL/SQL
 
- 
+
 
 Data model - represent semantic features of data
 
@@ -351,7 +351,7 @@ Last_Name varchar(30),
 
 First_Name varchar(30));
 
- 
+
 
 CREATE TABLE customers
 
@@ -371,7 +371,7 @@ CREATE TABLE customers
 
 );
 
- 
+
 
 CREATE TABLE contacts
 
@@ -387,11 +387,11 @@ CREATE TABLE contacts
 
 );
 
- 
+
 
 ALTER TABLE contacts AUTO_INCREMENT = 50;
 
- 
+
 
 CREATE TABLE departments
 
@@ -403,9 +403,7 @@ CREATE TABLE departments
 
 );
 
- 
 
- 
 
 CREATE TABLE employees
 
@@ -438,9 +436,7 @@ Customer_SID integer references CUSTOMER(SID),
 
 Amount double);
 
- 
 
- 
 
 CREATE TABLE Persons
 
@@ -460,10 +456,6 @@ CONSTRAINT chk_Person CHECK (P_Id>0 AND City='Sandnes')
 
 )
 
- 
-
- 
-
 CREATE TABLE Student
 
 (Student_ID integer Unique,
@@ -474,9 +466,6 @@ First_Name varchar (30),
 
 Score integer DEFAULT 80);
 
- 
-
- 
 
 CREATE TABLE Customer
 
@@ -486,11 +475,7 @@ Last_Name varchar(30),
 
 First_Name varchar(30));
 
- 
 
- 
-
- 
 
 CREATE TABLE Persons
 
@@ -938,19 +923,19 @@ SELECT * FROM suppliers
 
 WHERE supplier_name like 'Hew%';
 
- 
+
 
 SELECT * FROM suppliers
 
 WHERE supplier_name like '%bob%';
 
- 
+
 
 SELECT * FROM suppliers
 
 WHERE supplier_name not like 'T%';
 
- 
+
 
 SELECT * FROM suppliers
 
