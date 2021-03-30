@@ -1,0 +1,527 @@
+CSS - Cascading Style Sheet
+
+  -- to provide some styles for ur page
+
+  -- 3 types
+
+      1. External CSS - we create all style in separate file with .css extension and linked to HTML program using <link>, it can applied to any html prg
+
+      2. Internal CSS - it can applied to all elements of that particular HTML using <style>
+
+      3. Inline style - it can applied only to particular element of html page using style attribute
+
+ 
+
+Order of execution
+
+1. Inline style sheet
+
+2. Internal CSS
+
+3. External CSS
+
+ 
+
+Syntax:
+
+    selector { key:value; key:value;}
+
+  eg: h1 { background-color:red;}
+
+ 
+
+Color
+
+1. normal color
+
+2. in hexadecimal code #00ff00
+
+3. in rgb(0,0,0), rgb(255,255,255), rgb(100,50,255)
+
+ 
+
+CSS Selectors
+
+  -- in order select the elements and apply css
+
+1. ID selector
+
+     -- uniquely identify the elt using id attribute
+
+     -- using # operator
+
+ 
+
+2. Class selector
+
+     -- want to apply style for group of elements using class attribute
+
+     -- using . operator
+
+ 
+
+3. Pseudocolumn
+
+      -- predefined properties for certain elements
+
+      -- using : operator
+
+a - :link,:visited,:hover,:active
+
+input - :focus
+
+ 
+
+4. Group selector
+
+      -- if we want to apply common styles for multiple elements
+
+      -- using , operator
+
+ 
+
+5. descendant selector
+
+      -- indicates the element should be descendant (it should be inside the element) of that particular elt
+
+      -- using space operator
+
+ 
+
+6. child selector
+
+     -- indicates the element should be child of that particular elet
+
+     -- using > symbol
+
+<p>
+
+<i>hello</i>
+
+  <i>hello</i>
+
+  <ol>
+
+    <li><i>hello</i></li>
+
+    <li><i>hello</i></li>
+
+  </ol>
+
+</p>
+
+ 
+
+p i { color:blue; }
+
+p > i {color:blue;}
+
+ 
+
+ 
+
+p:first-child { color: blue}
+
+p:last-child { color:blue }
+
+p: nth-child(3) {color:blue}
+
+p:nth-last-child(2) {color:blue}
+
+<p>Hello</p>
+
+<p>Hello</p>
+
+<p>Hello</p>
+
+<p>Hello</p>
+
+<p>Hello</p>
+
+ 
+
+id selector - #
+
+class selector - .
+
+group selector - ,
+
+descendant selector - space
+
+child selector - >
+
+universal selector - *
+
+Adjacent sibling selectors - +
+
+General sibling selectors - ~
+
+Attribute selector - []
+
+[title]
+
+[title="value"]
+
+[title~="hello"] - select all elts with title attribute that contains a space separated list of word called hello
+
+[title|="hello"] - select all elts with title attribute starting with specified value called hello, it can a single word or separated by -
+
+[title^="hello"] - select all elts with title attribute begins with a specified value
+
+[title$="hello"] - select all elts with title attribute ends with specified value
+
+[title*="hello"]- select all elts with title attribute that contains word hello
+
+ 
+
+ 
+
+DTD - Document Type Defination
+
+   -- legal building block of XML elements and attributes
+
+   -- which contains, what is the root elt of xml document, how many child elt it can contain, how many times the element can occur in XML document
+
+ 
+
+2 types
+
+1. Internal DTD - DTD presents in same XML file
+
+<!DOCTYPE rooteltname [element name]>
+
+2. External DTD - DTD is created in separate file with .dtd extension and accessed inside the xml program using
+
+<!DOCTYPE rooteltname SYSTEM "filename">
+
+ 
+
+Building block of DTD
+
+1. DTD Elements
+
+Syntax:
+
+   <!ELEMENT eltname (elt category) > -- () indicates which order child element should display
+
+ 
+
+   <!ELEMENT eltname EMPTY>
+
+ 
+
+   <!ELEMENT eltname (#PCDATA)>
+
+ 
+
+   <!ELEMENT eltname ANY> -- contain ANY elements
+
+ 
+
+   <!ELEMENT eltname (childeltname) > - declaring only one occurance of the elt
+
+ 
+
+   <!ELEMENT eltname (childeltname+)> -- minimum one occurance of elt
+
+ 
+
+  <!ELEMENT eltname (childeltname*)> - zero or more occurance of elt
+
+ 
+
+  <!ELEMENT eltname (childeltname?)> - zero or one occurance of elt
+
+ 
+
+  <!ELEMENT eltname (to,from,subject,msg|body,abc)> -- either or content
+
+ 
+
+2. DTD attributes
+
+Syntax:
+
+<!ATTLIST eltname attribute-name attribute-type attribute-value>
+
+ 
+
+Types of attribute-type
+
+1. CDATA - value is character data
+
+2. Enumerated - provides a list of possible value and user use any one value from that list
+
+3. ID - used to identify elements, unique value
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mountains SYSTEM "newfile.dtd">
+
+<mountains>
+
+<mountain m_id="m100">
+
+<name>himalayas</name>
+
+</mountain>
+
+<mountain m_id="m101">
+
+<name>mt everest</name>
+
+</mountain>
+
+</mountains>
+
+ 
+
+ 
+
+<!ELEMENT mountains (mountain*)>
+
+<!ELEMENT mountain (name)>
+
+<!ATTLIST mountain m_id ID #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+
+ 
+
+4. IDREF - used to refer ID value of another elt in the document
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE employees SYSTEM "newfile.dtd">
+
+<employees>
+
+  <employee emp_id="e1000" mgr_id="m1000">
+
+     <firstname>Ram</firstname>
+
+     <lastname>kumar</lastname>
+
+  </employee>
+
+   <employee emp_id="e1001" mgr_id="m1002">
+
+     <firstname>Sam</firstname>
+
+     <lastname>kumar</lastname>
+
+  </employee>
+
+    <employee emp_id="e1002" >
+
+     <firstname>Sam</firstname>
+
+     <lastname>kumar</lastname>
+
+  </employee>
+
+</employees>
+
+ 
+
+<!ELEMENT employees (employee*)>
+
+<!ELEMENT employee (firstname,lastname)>
+
+<!ATTLIST employee emp_id ID #REQUIRED
+
+                   mgr_id IDREF #IMPLIED>
+
+<!ELEMENT firstname (#PCDATA)>
+
+<!ELEMENT lastname (#PCDATA)>
+
+ 
+
+5.IDREFS - used to refer ID values of more than one element
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE individuals SYSTEM "newfile.dtd">
+
+<individuals>
+
+<individual individual_id="i1000" parent_id="i1002 i1003">
+
+  <firstname>Ram</firstname>
+
+  <lastname>Kumar</lastname>
+
+</individual>
+
+<individual individual_id="i1002" parent_id="i1000 i1003">
+
+  <firstname>Sam</firstname>
+
+  <lastname>Kumar</lastname>
+
+</individual>
+
+<individual individual_id="i1003">
+
+  <firstname>Raj</firstname>
+
+  <lastname>Kumar</lastname>
+
+</individual>
+
+</individuals>
+
+ 
+
+<!ELEMENT individuals (individual*)>
+
+<!ELEMENT individual (firstname,lastname)>
+
+<!ATTLIST individual individual_id ID #REQUIRED
+
+                     parent_id IDREFS #IMPLIED>
+
+<!ELEMENT firstname (#PCDATA)>
+
+<!ELEMENT lastname  (#PCDATA)>                 
+
+                 
+
+6. NMTOKEN - mix of name character but cannot contain spaces
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mountains SYSTEM "newfile.dtd">
+
+<mountains>
+
+<mountain country="NZ">
+
+<name>himalayas</name>
+
+</mountain>
+
+<mountain country="AU">
+
+<name>mt everest</name>
+
+</mountain>
+
+</mountains>
+
+ 
+
+<!ELEMENT mountains (mountain*)>
+
+<!ELEMENT mountain (name)>
+
+<!ATTLIST mountain country NMTOKEN #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+
+ 
+
+7. NMTOKENS - allows attribute multiple value separated by space
+
+ 
+
+ 
+
+Types of attributevalue
+
+1. defaultvalue - u can provide some default value
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mountains SYSTEM "newfile.dtd">
+
+<mountains>
+
+<mountain country="N Z">
+
+<name>himalayas</name>
+
+<age>25</age>
+
+<age>25</age>
+
+<age>25</age>
+
+</mountain>
+
+<mountain>
+
+<name>mt everest</name>
+
+ 
+
+</mountain>
+
+</mountains>
+
+ 
+
+<!ELEMENT mountains (mountain*)>
+
+<!ELEMENT mountain (name,age*)>
+
+<!ATTLIST mountain country NMTOKENS "A U">
+
+<!ELEMENT name (#PCDATA)>
+
+ 
+
+2. #REQUIRED - The attribute should complusory provided
+
+<!ELEMENT mountains (mountain*)>
+
+<!ELEMENT mountain (name,age*)>
+
+<!ATTLIST mountain country NMTOKENS #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+
+ 
+
+3. #IMPLIED - The attribute is optional
+
+<!ELEMENT mountains (mountain*)>
+
+<!ELEMENT mountain (name,age*)>
+
+<!ATTLIST mountain country NMTOKENS #IMPLIED>
+
+<!ELEMENT name (#PCDATA)>
+
+ 
+
+4. #FIXED "value" -- the attribute has fixed value
+
+<!ELEMENT mountains (mountain*)>
+
+<!ELEMENT mountain (name,age*)>
+
+<!ATTLIST mountain country NMTOKENS #FIXED "DEN">
+
+<!ELEMENT name (#PCDATA)>
+
+ 
+
+3. Entity reference -- shortcut to variables
+
+<!ENTITY entityname "entityvalue">
+
+ 
+
+4. PCDATA  - Parsed Character data
+
+     - which means it has to be evaluated by XML parsers
+
+Parsers are used to validate the XML document
+
+5. CDATA - Character data
+
+    - which means it is not to be evaluated by XML parsers

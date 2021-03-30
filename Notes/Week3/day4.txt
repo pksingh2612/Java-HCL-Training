@@ -1,0 +1,745 @@
+Aggregrate function/Group function
+
+   -- used to group the values
+
+   -- will ignore the null values
+
+   -- sum(), avg(), min(), max(),count(), stddev(),mean(),median()
+
+   -- date datatype - min(), max(), count()
+
+
+Select COUNT(*) from suppliers;
+
+COUNT(*)
+
+--------
+
+20
+
+
+Select COUNT(sup_id) from suppliers;
+
+COUNT(sup_id)
+
+-------------
+
+20
+
+
+SELECT COUNT(*) as "number of employees"
+
+FROM employees
+
+WHERE salary > 25000;
+
+
+number of employees
+
+--------
+
+20
+
+ 
+
+SELECT COUNT(*)  "number of employees"
+
+FROM employees
+
+WHERE salary > 25000;
+
+ 
+
+number of employees
+
+--------
+
+20
+
+ 
+
+SELECT COUNT(*)  numberofemployees
+
+FROM employees
+
+WHERE salary > 25000;
+
+ 
+
+numberofemployees
+
+--------
+
+20
+
+ 
+
+SELECT COUNT(DISTINCT department) as "Unique departments"
+
+FROM employees
+
+WHERE salary > 25000;
+
+ 
+
+SELECT SUM(salary) as "Total Salary"
+
+FROM employees
+
+WHERE salary > 25000;
+
+ 
+
+SELECT SUM(DISTINCT salary) as "Total Salary"
+
+FROM employees
+
+WHERE salary > 25000;
+
+ 
+
+SELECT SUM(sales * 0.10) as "Commission"
+
+FROM order_details;
+
+ 
+
+SELECT MIN(salary) as "Lowest salary"
+
+FROM employees;
+
+ 
+
+SELECT MAX(salary) as "Highest salary"
+
+FROM employees;
+
+ 
+
+ 
+
+order by clause
+
+    -- used for sorting purpose
+
+    -- it will always present in last of select stmt
+
+select - from - where - group by - having - order by
+
+    -- by default it is ascending
+
+    -- ORDER BY 2 DESC; 2 represent from the select list
+
+    -- If we sort on two columns, by default it sort only by first column, in first column if there is any repetition for those city columns alone the state is sorted in ascending order
+
+ 
+
+SELECT supplier_city
+
+FROM suppliers
+
+WHERE supplier_name = 'IBM'
+
+ORDER BY supplier_city;
+
+ 
+
+ 
+
+SELECT supplier_city
+
+FROM suppliers
+
+WHERE supplier_name = 'IBM'
+
+ORDER BY supplier_city DESC;
+
+ 
+
+Supplier
+
+sup_id supplier_name supplier_city age dob
+
+ 
+
+SELECT supplier_city,age,dob
+
+FROM suppliers
+
+WHERE supplier_name = 'IBM'
+
+ORDER BY 2 DESC;
+
+ 
+
+SELECT supplier_city, supplier_state
+
+FROM suppliers
+
+WHERE supplier_name = 'IBM'
+
+ORDER BY supplier_city DESC, supplier_state ASC;
+
+ 
+
+ 
+
+supplier_city   supplier_state
+
+  chennai          ABC
+
+  chengalpat       Tamilnadu
+
+  chennai          Tamilnadu
+
+  salem            Tamilnadu
+
+ 
+
+ 
+
+group by clause
+
+   -- used to group values of the tables based on some aggregate function
+
+  
+
+Employee
+
+empid   ename   dept     salary
+
+1        A       HR       4000
+
+2        B       Sales    5000
+
+3        C       HR       6000
+
+4        D       Finance  10000
+
+5        E       Sales    5000
+
+6        F       Finance  8000
+
+7        G       HR       10000
+
+ 
+
+We want to calculate the total sum of salary in each dept?
+
+select dept, sum(salary) from employee group by dept;
+
+ 
+
+dept       sum(salary)
+
+----       -----------
+
+HR           20000
+
+Sales        10000
+
+Finance      18000
+
+ 
+
+Having clause
+
+   -- used to exclude the result from group by clause
+
+select dept, sum(salary) from employee group by dept having
+
+sum(salary)>15000;
+
+dept       sum(salary)
+
+----       -----------
+
+HR           20000
+
+Finance      18000
+
+ 
+
+Subquery
+
+   -- select query inside another select query
+
+   -- subquery is used to retrive data based on unknown condition
+
+   -- inner query will be executed first, based on the output outer query will be executed
+
+   -- 2 types
+
+       1. Single row subquery -- inner query returns only single row, then it is evaluated with outer query using =,!=,>,<,>=,<=
+
+       2. Multi row subquery -- inner query returns multiple rows and it is evaluated with outer query using in, not in, exists, not exists, all, any
+
+ 
+
+create table emp (eid int primary key, efirstname char(15), elastname char(15), ecity char(25));
+
+insert emp values (001, 'rama', 'krishnan', 'coimbatore');
+
+insert emp values (002, 'radha','krishnan', 'salem');
+
+insert emp values (003, 'balaji','s', 'madurai');
+
+insert emp values (004, 'moideen', 'babu', 'salem');
+
+insert emp values (005, 'alagiri','ajay', 'chennai');
+
+insert emp values (006, 'krishna','kumar', 'madurai');
+
+select * from emp;
+
+ 
+
+drop table dept;
+
+create table dept (did int primary key, empid int references emp(eid), dname char(20), dsal float);
+
+insert dept values (1001,001, 'acc', 5000);
+
+insert dept values (1001,002, 'man', 10000);
+
+insert dept values (1002,003, 'acc', 5000);
+
+insert dept values (1002,004, 'man', 10000);
+
+insert dept values (1003,005, 'civ', 12000);
+
+insert dept values (1003,006, 'civ', 15000);
+
+select * from dept;
+
+ 
+
+select * from emp;
+
+select * from dept;
+
+ 
+
+select * from emp where eid = (select empid from dept where dsal=12000);
+
+ 
+
+in
+
+ 
+
+select * from emp where eid in (select empid from dept where dsal<10000);
+
+ 
+
+ 
+
+Any
+
+select * from emp where eid > any (select empid from dept where dsal<10000);
+
+ 
+
+ 
+
+All
+
+ 
+
+select * from emp where eid > all (select empid from dept where dsal<10000);
+
+ 
+
+select * from dept
+
+ 
+
+ 
+
+All
+
+ 
+
+select * from emp where eid = all (select empid from dept where dsal>12000);
+
+ 
+
+ 
+
+exists
+
+ 
+
+select * from emp where exists (select * from dept where dsal=16000);
+
+ 
+
+ 
+
+select * from emp where exists  (select * from dept where dsal=12000);
+
+ 
+
+ 
+
+select * from emp where exists (select * from dept where dsal=5000);
+
+ 
+
+ 
+
+not exists
+
+ 
+
+select * from emp where not exists (select * from dept where dsal=3000);
+
+select * from emp where not exists (select * from dept where dsal=5000);
+
+ 
+
+Join
+
+  -- at the time of displaying we can join the tables
+
+Types
+
+1. Equi join
+
+     -- we join the table based on some equality condition
+
+      emp                                          dept                                          
+
+ename    deptid                     deptid    dname
+
+Pat        10                         10       Sales
+
+Sat        20                         20       Admin
+
+Pack       10                         30       HR
+
+Mack        -                         40       Operations
+
+ 
+
+select e.ename,d.dname from emp e, dept d where e.deptid=d.deptid;
+
+ 
+
+e.ename    d.dname
+
+Pat          Sales
+
+Sat          Admin
+
+Pack         Sales
+
+ 
+
+Inner join
+
+   -- similar to equi join
+
+select e.ename,d.dname from emp e inner join dept d on e.deptid=d.deptid;
+
+ 
+
+e.ename    d.dname
+
+Pat          Sales
+
+Sat          Admin
+
+Pack         Sales
+
+ 
+
+Outer join
+
+   -- will display both matched and unmatched column
+
+3 types
+
+1. Left outer join
+
+     -- all rows from left table + only matched rows from right table
+
+ 
+
+select e.ename,d.dname from emp e left join dept d on e.deptid=d.deptid;
+
+ 
+
+e.ename    d.dname
+
+Pat          Sales
+
+Sat          Admin
+
+Pack         Sales
+
+Mack          -
+
+ 
+
+2. Right outer join
+
+     -- all rows from right table + only matched rows from left table
+
+ 
+
+select e.ename,d.dname from emp e right join dept d on e.deptid=d.deptid;
+
+ 
+
+e.ename    d.dname
+
+Pat          Sales
+
+Sat          Admin
+
+Pack         Sales
+
+-            HR
+
+-           Operation
+
+ 
+
+3. Full outer join
+
+       -- all matched and unmatched rows from both the table
+
+       -- in mysql there is no full outer join
+
+ 
+
+select e.ename,d.dname from emp e left join dept d on e.deptid=d.deptid
+
+union
+
+select e.ename,d.dname from emp e right join dept d on e.deptid=d.deptid;
+
+ 
+
+4. Cross join
+
+       -- cartesian product of two table
+
+ 
+
+emp                     dept
+
+A      B          C     D     E
+
+1      2          5     6     7
+
+3      4          8     9     10
+
+                  11    12    13
+
+ 
+
+select * from emp,dept;
+
+    or
+
+select * from emp cross join dept;
+
+ 
+
+A             B             C             D             E
+
+1              2              5              6              7
+
+1              2              8              9              10
+
+1              2              11           12           13
+
+3              4              5              6              7
+
+3              4              8              9              10
+
+3              4              11           12           13
+
+ 
+
+5.Self join
+
+    -- we are going the table within the same table
+
+ 
+
+mysql> select * from emp;
+
+ 
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+
+      7788 SCOTT      ANALYST         7566 09-DEC-82       3000                    20
+
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+
+      7876 ADAMS      CLERK           7788 12-JAN-83       1100                    20
+
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+ 
+
+14 rows selected.
+
+ 
+
+ 
+
+mysql> SELECT e.ename  ' works as '  IFNULL(m.ename, ' the shareholders')
+
+  2  FROM emp e, emp m
+
+  3  WHERE e.mgr = m.empno;
+
+ 
+
+E.ENAME 'WORKSAS' IFNULL(M.ENAME,'THES
+
+-------------------------------------
+
+FORD works as JONES
+
+SCOTT works as JONES
+
+JAMES works as BLAKE
+
+TURNER works as BLAKE
+
+MARTIN works as BLAKE
+
+WARD works as BLAKE
+
+ALLEN works as BLAKE
+
+MILLER works as CLARK
+
+ADAMS works as SCOTT
+
+CLARK works as KING
+
+BLAKE works as KING
+
+JONES works as KING
+
+SMITH works as FORD
+
+
+
+
+JDBC Connectivity
+
+Java DataBase Connectivity is used to connect the Java application to Database, and it is made up of Native C Library.
+
+So whatever the request coming from Java will be handle by database using external drivers called JDBC drivers
+
+4 types JDBC Drivers:
+
+TYPE I Driver or JDBC-ODBC Drivers:
+The TYPE I Driver translates all JDBC calls into ODBC calls, and sends them to the ODBC Driver.  
+It is a platform dependent (only windows), since it depends upon the external ODBC source.  
+It is not a pure Java Driver. Slowest of all.
+
+            Advantage:
+
+ü  It allows access to almost any database, since the database is ODBC Driver already available.
+
+            Limitation:
+
+ü  It is not portable, since it is not made up of Java.
+
+ü  A performance is seen as a JDBC call goes through to the bridge the ODBC Driver, then to the database, and vice versa.  They are the slowest of the all database.
+
+ü  The client system must contain the ODBC Driver.
+
+ü  It is not suitable for Web applications.
+
+ 
+
+ 
+
+TYPE II or Native API partly Java Driver:
+In a Type 2 driver, JDBC API calls are converted into native C/C++ API calls, which are unique to the database. 
+These drivers are typically provided by the database vendors and used in the same manner as the JDBC-ODBC Bridge. 
+The vendor-specific driver must be installed on each client machine.
+
+            Advantage:
+
+The TYPE II Driver typically offers a better performance than TYPE I Driver, since it uses the Native DB API.
+
+            Limitation:
+
+ü  Native API must be installed in the client system, and hence TYPE II Drivers cannot be used for internet.
+
+ü  It is not portable, since it is not made up of Java.
+
+ü  If we change the, database we have to change the Native API as it is specific to database.
+
+ü  It is not thread safe.
+
+The Oracle Call Interface (OCI) driver is an example of a Type 2 driver.
+
+
+
+TYPE III or Network Protocol All Java Driver:
+The TYPE II database requests are passed through the network through the middle tier server, and then the middle tier server translates the requests to the database.
+
+Advantage:
+
+ü  The driver is server based, so there is no need for any vendor database library to be present on the client machine.
+
+ü  The driver is fully written in Java and hence portable.
+
+ü  It is suitable for Web Applications.
+
+ü  The TYPE III Driver typically provides support for features like logging, load balancing, auditing and catching.
+
+ü  Driver is very flexible and allows access to multiple databases.
+
+Limitation:
+
+ü  It requires another server application to install and maintain, transfering the record set may take longer, since the data comes through the backend server.
+
+
+
+TYPE IV or Native Protocol All Java Driver:
+In a Type 4 driver, a pure Java-based driver communicates directly with the vendor's database through socket connection. 
+This is the highest performance driver available for the database and is usually provided by the vendor itself.
+
+
+Advantage:
+
+ü  It is made up of Java, so Portable.  It is used for Web application, platform independent.
+
+ü  It is the fastest among all types of Drivers, since it directly communicates with the database.
+
+ü  No special software is installed on the client or server.
+
