@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<input type="button" value="click" onClick="show()">
+
+<p id="demo"></p>
+
+<script>
+
+function show(){
+
+   var str;
+
+  var p=prompt("Enter ur name","sam");
+
+   if(p==null){
+
+        str="You cancelled";
+
+   } else {
+
+        str="Your name is "+p;
+
+       }
+
+   document.getElementById("demo").innerHTML=str;
+
+}
+
+</script>
+
+</body>
+
+</html>

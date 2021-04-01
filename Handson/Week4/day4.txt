@@ -1,0 +1,206 @@
+1.Create a html file named hello.html containing an input box for entering name and
+
+a ‘submit’ button. Create a HttpServlet named com.pack.PostServlet. On
+
+submitting a name in the hello.html file the control should go to the PostServlet,
+
+which should display “Hello +name entered in the input box of hello.html
+
+
+
+Solution
+-----------
+
+hello.html
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="ISO-8859-1">
+
+<title>Hello Page</title>
+
+</head>
+
+<body>
+
+<form action="http://localhost:8080/MyFirstEEProject/PostServlet">
+
+Name: <input type="text" name="name"/>
+
+<input type="submit" value="Submit">
+
+</form>
+
+</body>
+
+</html>
+
+PostServlet
+-------------
+
+package com.pack;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class PostServlet
+ */
+@WebServlet("/PostServlet")
+public class PostServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PostServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+
+        PrintWriter pw=response.getWriter();
+
+        String name=request.getParameter("name");
+
+        pw.println("Hello "+name+"<br/>");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+}
+
+
+
+
+
+3. Create two servlets named com.pack.SourceServlet and
+
+com.pack.DestinationServlet.In SourceServlet, create the html code
+
+for the title ‘Source Servlet’ and the content “This is Source Servlet” .On accessing
+
+DestinationServlet it should display on the browser “This is Source Servlet.
+
+This is Destination Servlet”. The first sentence should come from
+
+SourceServlet.
+
+
+
+Solution
+----------
+
+SourceServlet.java
+--------------------
+package com.pack;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class SourceServlet
+ */
+@WebServlet("/SourceServlet")
+public class SourceServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SourceServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
+		pw.println("<title>Source Servlet</title>");
+		pw.print("This is Source Servlet.");
+		RequestDispatcher rd = request.getRequestDispatcher("/DestinationServlet");
+		rd.include(request,response);
+		pw.close();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+}
+
+
+DestinationServlet.java
+--------------------------
+
+package com.pack;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class DestinationServlet
+ */
+@WebServlet("/DestinationServlet")
+public class DestinationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DestinationServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		   response.setContentType("text/html");
+		   PrintWriter pw=response.getWriter();
+		   pw.println(" This is Destination Servlet .");
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+}

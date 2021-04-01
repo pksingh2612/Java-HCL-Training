@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<input type="button" value="click" onClick="show()">
+
+<p id="demo"></p>
+
+<script>
+
+function show(){
+
+   var str;
+
+   if(confirm("Do you want to continue?")){
+
+        str="You clicked ok";
+
+   } else {
+
+        str="You clicked cancel";
+
+       }
+
+   document.getElementById("demo").innerHTML=str;
+
+}
+
+</script>
+
+</body>
+
+</html>

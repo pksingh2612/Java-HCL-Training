@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+<p>List:</p>
+
+<ul>
+
+<li>Apple</li>
+
+<li>Grapes</li>
+
+<li>Oranges</li>
+
+</ul>
+
+<input type="button" value="click" onClick="show()"/>
+
+<p id="demo"></p>
+
+<script>
+
+function show(){
+
+  var x=document.getElementsByTagName("li");
+
+document.getElementById("demo").innerHTML=x[1].innerHTML;
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -182,7 +182,7 @@ DTD - Document Type Defination
 
    -- which contains, what is the root elt of xml document, how many child elt it can contain, how many times the element can occur in XML document
 
- 
+
 
 2 types
 
@@ -194,7 +194,6 @@ DTD - Document Type Defination
 
 <!DOCTYPE rooteltname SYSTEM "filename">
 
- 
 
 Building block of DTD
 
@@ -204,11 +203,9 @@ Syntax:
 
    <!ELEMENT eltname (elt category) > -- () indicates which order child element should display
 
- 
 
    <!ELEMENT eltname EMPTY>
 
- 
 
    <!ELEMENT eltname (#PCDATA)>
 

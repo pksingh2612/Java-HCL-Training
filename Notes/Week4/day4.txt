@@ -1,0 +1,1237 @@
+import javax.servlet.http.*
+
+Interface
+
+1. HttpServletRequest
+
+      -- used to read data from client HTTP request
+
+Syntax:
+
+  public interface HttpServletRequest extends ServletRequest
+
+
+Methods
+
+1. String getParameter(String name)
+
+      -- used to get a single parameter value from html page to servlet prg
+
+2. String[] getParameterValues(String name)
+
+      -- used to get multiple value from the html page to servlet prg
+
+      -- eg: checkbox
+
+
+3. Enumeration getParameterNames()
+
+      -- used only for printing all parameter values at a time
+
+
+4. String getProtocol() - version of the protocol
+
+5. String getScheme() - name of the protocol
+
+6. String getRemoteAddr() - returns the server name
+
+7. int getServerPort() - returns port no
+
+8. String getContextPath() - returns project name
+
+9. String getServletPath() - returns servlet url pattern
+
+10. String getQueryString() - returns the value append between ?nd &
+
+11. String getPathInfo() - returns the path located after the servlet path and before the query string
+
+12. String getRequestURI () = contextpath+servletpath+pathinfo
+
+
+
+first.html
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<form action="http://localhost:8080/J2EEProject/ThirdServlet">
+
+Name: <input  type="text" name="n1"><br/>
+
+Age: <input  type="text" name="n2"><br/>
+
+Salary: <input  type="text" name="n3"><br/>
+
+Gender:
+
+<input type="radio" name="gen" value="male">Male
+
+<input type="radio" name="gen" value="female">Female
+
+<input type="radio" name="gen" value="other">Other
+
+<br/>
+
+Hobbies:
+
+<input type="checkbox" name="hobby" value="dance">Dancing
+
+<input type="checkbox" name="hobby" value="sing">Singing
+
+<input type="checkbox" name="hobby" value="play">Playing
+
+<input type="checkbox" name="hobby" value="swim">Swimming
+
+<br/>
+
+<input type="submit" value="Click">
+
+</form>
+
+</body>
+
+</html>
+
+ 
+
+ThirdServlet.java
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+import java.util.Enumeration;
+
+ 
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class ThirdServlet
+
+*/
+
+//@WebServlet("/ThirdServlet")
+
+public class ThirdServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public ThirdServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                String name=request.getParameter("n1");
+
+                                pw.println(name+"<br/>");
+
+                                int age=Integer.parseInt(request.getParameter("n2"));
+
+                                pw.println(age+"<br/>");
+
+                                double sal=Double.parseDouble(request.getParameter("n3"));
+
+                                pw.println(sal+"<br/>");
+
+                                String gen=request.getParameter("gen");
+
+                                pw.println(gen+"<br/>");
+
+                                String[] hob=request.getParameterValues("hobby");
+
+                                for(String str:hob)
+
+                                                pw.println(str+"<br/>");
+
+                                pw.println(request.getProtocol()+"<br/>");
+
+                                pw.println(request.getScheme()+"<br/>");
+
+                                pw.println(request.getRemoteAddr()+"<br/>");
+
+                                pw.println(request.getServerName()+"<br/>");
+
+                                pw.println(request.getServerPort()+"<br/>");
+
+                                pw.println(request.getContextPath()+"<br/>");
+
+                                pw.println(request.getServletPath()+"<br/>");
+
+                                pw.println(request.getQueryString()+"<br/>");
+
+                                pw.println(request.getRequestURI()+"<br/>");
+
+                                pw.close();
+
+                }
+
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                pw.println("Is post method"+"<br/>");
+
+                                String name=request.getParameter("n1");
+
+                                pw.println(name+"<br/>");
+
+                                int age=Integer.parseInt(request.getParameter("n2"));
+
+                                pw.println(age+"<br/>");
+
+                                double sal=Double.parseDouble(request.getParameter("n3"));
+
+                                pw.println(sal+"<br/>");
+
+                                String gen=request.getParameter("gen");
+
+                                pw.println(gen+"<br/>");
+
+                                String[] hob=request.getParameterValues("hobby");
+
+                                for(String str:hob)
+
+                                                pw.println(str+"<br/>");
+
+                                pw.println("Using Enumeration"+"<br/>");
+
+                                Enumeration e =request.getParameterNames();
+
+                                while(e.hasMoreElements()){
+
+                                                   String s1=(String)e.nextElement();
+
+                                                   String s2=request.getParameter(s1);
+
+                                                   pw.println(s1+"="+s2+"<br/>");
+
+                                }
+
+                                pw.close();
+
+                }
+
+
+}
+
+
+13. RequestDispatcher getRequestDispatcher(String url)
+
+RequestDispatcher  interface
+
+    - used to dispatch/redirect the request from one servlet program to other program like HTML, JSP and servlets
+
+
+RequestDispatcher rd=request.getRequestDispatcher("a.html/a.jsp/url pattern");
+
+
+Methods
+
+1. forward()
+
+     -- forward the requests to another page and does not return back to the calling page
+
+     -- forward takes place on server side, so as client we cant see anything in the url to which it has redirected. So this method is used for success condition
+
+     -- forward redirects only within the application
+
+2. inculde()
+
+     -- include() will include the output of another page and returns back to the calling page
+
+
+Headers
+
+  -- whenever the client gives the request to server, certain default infomation will be transferred between client and server, those default info is called headers
+
+  -- certain headers will have String as value, certain will have int as value and certain headers have date as value
+
+  -- The different headers are
+
+1. accept - the file type the browser eg:text/html
+
+2. accept-language - language the broswer accept. en-us (default)
+
+3. accept-charset - default character encoding - ISO-8859-1
+
+4. accept-encoding - the type of encoding browser uses eg: gzip
+
+5. host - represent server name and portno
+
+6. user-agent - type of browser client uses
+
+7. connection: keep-alive
+
+
+14. String getHeader(String headername)
+
+    - return single header that takes string as value
+
+15. int getIntHeader(String headername)
+
+    - return single header that takes int as value
+
+16. long getDateHeader(String headername)
+
+   - return single header that takes date as value
+
+17. Enumeration getHeaderNames()
+
+   -- used only to print all header at a time
+
+18.Enumeration getHeaders(String headername)
+
+   -- if single header contains multiple values
+
+
+package com.pack;
+
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+import java.util.Enumeration;
+
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+
+* Servlet implementation class HeaderServlet
+
+*/
+
+//@WebServlet("/HeaderServlet")
+
+public class HeaderServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public HeaderServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                pw.println(request.getHeader("accept-language")+"<br/>");
+
+                                pw.println(request.getHeader("host"));
+
+                                pw.println("<br/>");
+
+                                Enumeration e=request.getHeaderNames();
+
+                    while(e.hasMoreElements()){
+
+                                String s1=(String)e.nextElement();
+
+                                String s2=request.getHeader(s1);
+
+                                pw.println(s1+" = "+s2+"<br/>");
+
+                    }
+
+                    pw.println("<br/>");
+
+                    Enumeration e1=request.getHeaders("user-agent");
+
+                    while(e1.hasMoreElements()){
+
+                                pw.println(e1.nextElement()+"<br/>");
+
+                    }
+
+                }
+
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                }
+
+
+}
+
+
+Attribute methods
+
+   -- if we want transfer some value in background without enduser knowledge
+
+   -- 4 attribute methods present for 3 objects
+
+1. HttpServletRequest
+
+       -- if we set an attribute using request object we can get the attribute only to which page the request is transferred using RequestDispatcher
+
+2. HttpSession
+
+3. ServletContext
+
+     -- if we set an attribute using context object we can get the attribute throughout the application
+
+
+19. void setAttribute(String name, Object value)
+
+       -- used to set an attribute
+
+20. Object getAttribute(String name)
+
+       -- used to return an attribute
+
+21. Enumeration getAttributeNames()
+
+       -- used to print all attribute at a time
+
+22. void removeAttribute(String name)
+
+       -- want to remove the value for an attribute
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<form action="http://localhost:8080/J2EEProject/SixthServlet">
+
+Name: <input type="text" name="name"/>
+
+Address: <input type="text" name="addr">
+
+<input type="submit">
+
+</form>
+
+</body>
+
+</html>
+
+
+package com.pack;
+
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+
+* Servlet implementation class SixthServlet
+
+*/
+
+//@WebServlet("/SixthServlet")
+
+public class SixthServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public SixthServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                String sname=request.getParameter("name");
+
+                                String saddress=request.getParameter("addr");
+
+                                //request.setAttribute("ename",sname);
+
+                                //request.setAttribute("eaddr", saddress);
+
+                                RequestDispatcher rd=request.getRequestDispatcher("/SeventhServlet");
+
+                                rd.forward(request, response);
+
+                }
+
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                }
+
+
+}
+
+
+
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.WebServlet;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class SeventhServlet
+
+*/
+
+@WebServlet("/SeventhServlet")
+
+public class SeventhServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public SeventhServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                  response.setContentType("text/html");
+
+                  PrintWriter pw=response.getWriter();
+
+                  pw.println(request.getAttribute("ename")+"<br/>");
+
+                  pw.println(request.getAttribute("eaddr")+"<br/>");
+
+                  request.removeAttribute("eaddr");
+
+                  pw.println(request.getAttribute("eaddr"));
+
+                  pw.close();
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+23. String getMethod()
+
+       -- if servlet prg contains service(), it will invoke only service() whether it is get or post request
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<form method="post" action="http://localhost:8080/J2EEProject/EightServlet">
+
+<input type="submit">
+
+</form>
+
+</body>
+
+</html>
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.WebServlet;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class EightServlet
+
+*/
+
+@WebServlet("/EightServlet")
+
+public class EightServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public EightServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                PrintWriter pw=response.getWriter();
+
+                                pw.println("Inside doGet method");
+
+                                pw.close();
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                PrintWriter pw=response.getWriter();
+
+                                pw.println("Inside doPost method");
+
+                                pw.close();
+
+                }
+
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                PrintWriter pw=response.getWriter();
+
+                                pw.println("Inside service method");
+
+                                String s=request.getMethod(); //GET/POST
+
+                                if(s.equals("GET"))
+
+                                                doGet(request,response);
+
+                                else
+
+                                                doPost(request,response);
+
+                }
+
+}
+
+
+24. Cookie[] getCookies()
+
+25. HttpSession getSession()
+
+26. HttpSession getSession(boolean value)
+
+27. String getRequestedSessionId()
+
+28. boolean isRequestedSessionIdFromCookie()
+
+29. boolean isRequestedSessionIdFromUrl()
+
+30. boolean isRequestedSessionIdIsValid()
+
+ 
+
+ 
+
+2. HttpServletResponse interface
+
+     -- used to write data to http client request
+
+Syntax:
+
+public interface HttpServletResponse extends ServletResponse
+
+ 
+
+Methods
+
+1. void setContentType(String type)
+
+2. void setContentLength(int length)
+
+3. PrintWriter getWriter() throws IOException - write in char
+
+4. BufferedOutputStream getOutputStream() throws IOException - write in bytes
+
+5. void setHeader(String headername, String value)
+
+6. void setIntHeader(String headername, int value)
+
+7. void setDateHeader(String headername, long value)
+
+8. void sendRedirect(String url)
+
+     -- used to redirect from one page to another page, but redirection takes place on client place, so it is used in error case
+
+     -- redirect() can access outside the application
+
+9. void encodeUrl(String url)
+
+      -- normally session  id is stored in cookies, but certian browser dosent support cookie, in that case session id is stored in url
+
+     -- if we want send session id in url
+
+ 
+
+3. ServletConfig interface
+
+      -- used to access initialization parameter inside the servlet program which defined in web.xml using <init-param> or @WebInitParam
+
+      -- initialization parameter are the parameter which accessed only by a particular servlet program
+
+Syntax:
+
+  public interface ServletConfig
+
+ 
+
+ServletConfig getServletConfig()
+
+ 
+
+Methods
+
+1. String getInitParameter(String name)
+
+      -- used to access single initialization parameter
+
+2. Enumeration getInitParameterNames()
+
+      -- used to print all init parameter at a time
+
+ 
+
+<web-app>
+
+<servlet>
+
+    <servlet-name>TenthServlet</servlet-name>
+
+    <servlet-class>com.pack.TenthServlet</servlet-class>
+
+    <init-param>
+
+       <param-name>email</param-name>
+
+       <param-value>xyz.com</param-value>
+
+    </init-param>
+
+    <init-param>
+
+       <param-name>website</param-name>
+
+       <param-value>abc.com</param-value>
+
+    </init-param>
+
+  </servlet>
+
+  <servlet-mapping>
+
+    <servlet-name>TenthServlet</servlet-name>
+
+    <url-pattern>/TenthServlet</url-pattern>
+
+  </servlet-mapping>
+
+</web-app>
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+import java.util.Enumeration;
+
+ 
+
+import javax.servlet.ServletConfig;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class TenthServlet
+
+*/
+
+/*@WebServlet(
+
+                                urlPatterns = { "/TenthServlet" },
+
+                                initParams = {
+
+                                                                @WebInitParam(name = "email", value = "xyz.com"),
+
+                                                                @WebInitParam(name = "website", value = "abc.com")
+
+                                })*/
+
+public class TenthServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public TenthServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                    ServletConfig sc=getServletConfig();
+
+                    String s1=sc.getInitParameter("email");
+
+                    pw.println(s1+"<br/>");
+
+                    String s2=sc.getInitParameter("website");
+
+                    pw.println(s2+"<br/>");
+
+                    Enumeration e=sc.getInitParameterNames();
+
+                    while(e.hasMoreElements()){
+
+                                String s3=(String)e.nextElement();
+
+                                String s4=sc.getInitParameter(s3);
+
+                                pw.println(s3+" = "+s4+"<br/>");
+
+                    }
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+4. ServletContext interface
+
+     -- used to access application parameter inside the servlet program which is configured in web.xml using <context-param>
+
+     -- application parameter is accessed by all the servlet program
+
+Syntax:
+
+public interface ServletContext
+
+ 
+
+ServletContext getServletContext()
+
+ 
+
+Methods
+
+1. String getInitParameter(String name)
+
+2. Enumeration getInitParameterNames()
+
+3. void setAttribute(String name, Object value)
+
+       -- used to set an attribute
+
+4. Object getAttribute(String name)
+
+       -- used to return an attribute
+
+5. Enumeration getAttributeNames()
+
+       -- used to print all attribute at a time
+
+6. void removeAttribute(String name)
+
+<web-app>
+
+<context-param>
+
+  <param-name>mark</param-name>
+
+  <param-value>87</param-value>
+
+  </context-param>
+
+  <context-param>
+
+  <param-name>state</param-name>
+
+  <param-value>Tamilnadu</param-value>
+
+  </context-param>
+
+</web-app>
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletContext;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.WebServlet;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class EleventhServlet
+
+*/
+
+@WebServlet("/EleventhServlet")
+
+public class EleventhServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public EleventhServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                ServletContext sc1=getServletContext();
+
+                                String s1=sc1.getInitParameter("mark");
+
+                                pw.println(s1+"<br/>");
+
+                                String s2=sc1.getInitParameter("state");
+
+                                pw.println(s2+"<br/>");
+
+                                sc1.setAttribute("myMark", s1);
+
+                                pw.println("<a href='http://localhost:8080/J2EEProject/NinethServlet'>Click</a>");
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+                }
+
+
+}

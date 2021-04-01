@@ -886,11 +886,6 @@ Your browser does not support the audio element.
 
 <br/><br/>
 
- 
-
- 
-
- 
 
 <form name="form1" method="get/post"
 
@@ -972,7 +967,7 @@ checked> I have a car
 
 <br/><br/>
 
- 
+
 
 <select>
 

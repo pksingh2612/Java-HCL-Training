@@ -1,0 +1,817 @@
+Javascript
+
+   --  used to create dynamic webpages
+
+   --  used to write client side validation
+
+   -- called as event driven programming language
+
+   -- <script> either in body section or head section
+
+   -- JS can be written independently or inside a function
+
+   -- function is invoked by generating an event
+
+   -- 2 types
+
+         . Internal Java script - script in written  same HTML page using <script>
+
+         . External JS - script is written separately with .js extension and linked to html prg using <script>
+
+    <script src="sample.js"></script>
+
+
+Print in Javacsript
+
+1. document.write("hello");
+
+2. console.log("hello");
+
+3. innerHTML
+
+
+DOM - Document Object model
+
+    -- convert html as tree like structure and we navigate into the tree to manipulate the html elemnets
+
+document.getElementById(String id)
+
+document.getElementsByClassName(String name)
+
+document.getElementsByTagName(String name)
+
+
+
+A to A4 program should here.
+
+
+Event Name(description)
+
+1. onAbort  -- An image failed to load.
+2. onBeforeUnload -- The user is navigating away from a page.
+3. onBlur -- A form field lost the focus(User moved to another field)
+4. onChange -- The contents of a field has changed.
+5. onClick -- User clicked on this item.
+6. onDblClick -- User double-clicked on this item.
+7. onError -- An error occurred while loading an image.
+8. onFocus -- User just moved into this form element.
+9. onKeyDown -- A key was pressed.
+10. onKeyPress -- A key was pressed or released.
+11. onKeyUp -- A key was released.
+12. onLoad -- This object (iframe, image, script) finished loading.
+13. onMouseDown -- A mouse button was pressed.
+14. onMouseMove -- The mouse moved.
+15. onMouseOut -- A mouse moved off of this element.
+16. onMouseOver -- The mouse moved over this element.
+17. onMouseUp -- The mouse button was released.
+18. onReset -- A form reset button was pressed.
+19. onResize -- The window or frame was resized.
+20. onSelect -- Text has been selected.
+21. onSubmit -- A form's submit button has been pressed.
+22. onUnload -- The user is navigating away from a page.
+
+
+
+Comments in JS
+
+1. Single line comment //
+
+2. Multi line comment /*   */
+
+B to B1.html should be here.
+
+
+Popub boxes
+
+1. alert box - provide alert info to enduser
+
+alertBox.html see.
+
+
+2. Confirm box
+
+      -- used to verify the user accept or not
+      -- two button OK and cancel, if u click OK it returns true and if u click cancel it returns false
+
+
+
+     confirmBox.html see
+
+
+3. Prompt box
+
+      -- if we want to get input from user
+      -- 2 button OK and cancel button, if u click ok it returns value and if u click cancel it returns null
+
+     promptBox.html see
+     promptBox1.html see
+
+
+JS Variables
+
+1. We can define any variable in JS using "var" keyword
+
+     var x;
+
+2. By default, if we didnt initialize the variable it contains undefined
+
+3. one statement, multiple variable
+
+     var x=10, y="hello";
+
+4. If we redeclare the same variable, it does not lost its data
+
+     var x=10;
+
+     var y=15;
+
+     var x;
+
+     var y1;
+
+     alert(x); //10
+
+     alert(y1);  //undefined
+
+
+JS Datatypes
+
+1. JS does support datatypes, depending upon the value its datatype is fixed
+
+var x=10; //number
+
+var y=3.14; //number
+
+var x="hello"; //string
+
+var z=true; //boolean
+
+var a=["ab","bc","cd"];  //arrays
+
+
+2. typeof statement is used return of datatype of variable
+
+var x=10;
+
+typeof x; //number
+
+var u="hello";
+
+typeof u; //string
+
+var z=" ";
+
+typeof z;//string
+
+var r;
+
+typeof r; //undefined
+
+var a=[10,20,30];
+
+typeof a; //object
+
+
+3. JS object -- contains key value pair
+
+var p={fname:"ram",lname:"kumar",age:20};
+
+typeof p; //object
+
+p=null;
+
+typeof p; //object
+
+var x=p.fname;
+
+typeof x; //string
+
+var y=p["lname"]
+
+typeof y; //strring
+
+JS operator
+
+1. +,-,*,/,%,++,--
+
+2. ==(check the value),===(check the value and datatype),>,<,>=,<=
+
+
+var a=25;
+
+var b="25";
+
+alert(a==b); //true
+
+alert(a===b); //false
+
+
+alert(null===undefined); //false
+
+alert(null==undefined); //true
+
+
+var s="16"+20+4;
+
+alert(s); 16204
+
+var x=20+4+"16";
+
+alert(x); 2416
+
+
+function show(){
+
+
+}
+
+
+Anonymous function - function without any name
+
+var a=function(){       //a is called as function
+
+    return "ehllo";
+
+};
+
+var b=a; //b is also function
+
+var c=b(); invoking the function//c is variable
+
+
+Variable scope
+
+1. if we declare a variable outside the function it has global scope
+
+2. If we declare a variable inside the function it has local scope
+
+3. If we declare a variable without var keyword inside a function it has global scope
+
+
+Special keywords
+
+1. NaN - not a number - isNaN()
+
+2. null
+
+3. infinity
+
+4. undefined
+
+
+forin - to print objects one by one
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<script type='text/javascript'>
+
+
+function formValidator(){
+
+                // Make quick references to our fields
+
+                var firstname = document.getElementById('firstname');
+
+                var addr = document.getElementById('addr');
+
+                var zip = document.getElementById('zip');
+
+                var state = document.getElementById('state');
+
+                var username = document.getElementById('username');
+
+                var email = document.getElementById('email');
+
+
+                // Check each input in the order that it appears in the form!
+
+                if(isAlphabet(firstname, "Please enter only letters for your name")){
+
+                                if(isAlphanumeric(addr, "Numbers and Letters Only for Address")){
+
+                                                if(isNumeric(zip, "Please enter a valid zip code")){
+
+                                                                if(madeSelection(state, "Please Choose a State")){
+
+                                                                                if(lengthRestriction(username, 6, 8)){
+
+                                                                                                if(emailValidator(email, "Please enter a valid email address")){
+
+                                                                                                                return true;
+
+                                                                                                }
+
+                                                                                }
+
+                                                                }
+
+                                                }
+
+                                }
+
+                }
+
+                return false;
+
+}
+
+
+function notEmpty(elem, helperMsg){
+
+                if(elem.value.length == 0){
+
+                                alert(helperMsg);
+
+                                elem.focus(); // set the focus to this input
+
+                                return false;
+
+                }
+
+                return true;
+
+}
+
+
+function isNumeric(elem, helperMsg){
+
+                var numericExpression = /^[0-9]+$/;
+
+                if(elem.value.match(numericExpression)){
+
+                                return true;
+
+                }else{
+
+                                alert(helperMsg);
+
+                                elem.focus();
+
+                                return false;
+
+                }
+
+}
+
+
+function isAlphabet(elem, helperMsg){
+
+                var alphaExp = /^[a-zA-Z]+$/;
+
+                if(elem.value.match(alphaExp)){
+
+                                return true;
+
+                }else{
+
+                                alert(helperMsg);
+
+                                elem.focus();
+
+                                return false;
+
+                }
+
+}
+
+
+function isAlphanumeric(elem, helperMsg){
+
+                var alphaExp = /^[0-9a-zA-Z]+$/;
+
+                if(elem.value.match(alphaExp)){
+
+                                return true;
+
+                }else{
+
+                                alert(helperMsg);
+
+                                elem.focus();
+
+                                return false;
+
+                }
+
+}
+
+
+function lengthRestriction(elem, min, max){
+
+                var uInput = elem.value;
+
+                if(uInput.length >= min && uInput.length <= max){
+
+                                return true;
+
+                }else{
+
+                                alert("Please enter between " +min+ " and " +max+ " characters");
+
+                                elem.focus();
+
+                                return false;
+
+                }
+
+}
+
+
+function madeSelection(elem, helperMsg){
+
+                if(elem.value == "Please Choose"){
+
+                                alert(helperMsg);
+
+                                elem.focus();
+
+                                return false;
+
+                }else{
+
+                                return true;
+
+                }
+
+}
+
+
+function emailValidator(elem, helperMsg){
+
+                var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+
+                if(elem.value.match(emailExp)){
+
+                                return true;
+
+                }else{
+
+                                alert(helperMsg);
+
+                                elem.focus();
+
+                                return false;
+
+                }
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<form onsubmit='return formValidator()' novalidate>
+
+First Name: <input type='text' id='firstname' /><br />
+
+Address: <input type='text' id='addr' /><br />
+
+Zip Code: <input type='text' id='zip' /><br />
+
+State: <select id='state'>
+
+                <option>Please Choose</option>
+
+                <option>AL</option>
+
+                <option>CA</option>
+
+                <option>TX</option>
+
+                <option>WI</option>
+
+</select><br />
+
+Username(6-8 characters): <input type='text' id='username' /><br />
+
+Email: <input type='email' id='email' /><br />
+
+<input type='submit' value='Check Form' />
+
+</form>
+
+</body>
+
+</html>
+
+
+
+J2EE
+
+Used to develop web oriented, secured, multithreaded application
+ 
+
+Any application we develop is based on Client – Server architecture
+
+ 
+
+Client – used to raise the request to server, many clients
+
+ 
+
+Server – used to process the request and give response. Only one server
+
+2 types
+
+Web server – used to handle only http request and http response like Apache Tomcat, Jetty etc
+Application Server – in order to handle http request there is a need for extra service like Firewall,
+FTP, DNS, DHCP etc, that all provide by application server. For eg: Jboss, Oracle iPlanet, BEA weblogic, IBM Websphere
+
+
+Directory Structure:
+
+     Project
+
+            -------- Java Resources
+
+            ------ src     - contains all Java files related to the project
+
+            -------- WebContent   - contains all HTML, CSS, JS, JSP, image files related to the project
+
+            ------- WEB-INF
+
+                     ----lib        - contains all external jar files related to the project
+
+                     ---- web.xml   - called as deployment descriptor which contains entire info about the project and first file invoked when server starts
+
+
+Business logic layer – reside on server side to write business logic.
+
+
+J2EE Components
+
+   1. Servlets
+
+   2. JSP
+
+   3. EJB
+
+
+Servlets
+
+   -- It is a java program used to write business logic processing
+
+
+2 types of Servlets
+
+1. GenericServlet
+
+       -- protocol independent, it can be used for any type of protocol
+
+       -- Syntax:
+
+        public abstract class GenericServlet extends Object implements Servlet, ServletConfig
+
+       -- import javax.servlet.*;
+
+
+Life cycle of GenericServlet
+
+1. public void init(ServletConfig sc) throws IOException
+
+      -- optional, used for initialization purpose and it is invoked first and only once in the lifecycle of program
+
+2. public void service(ServletRequest req,ServletResponse res) throws ServletException, IOException
+
+     -- mandatory, used to write business logic
+
+3. public void destroy()
+
+      -- optional, used for deallocation of memory
+
+
+2. HttpServlet
+
+      -- protocol dependent, used only for http protocol
+
+      -- Syntax:
+
+   public abstract class HttpServlet extends GenericServlet
+
+      -- import javax.servlet.http.*;
+
+
+Lifecycle of HttpServlet
+
+1.init()
+
+   -- optional, used for initialization purpose and it is invoked first and only once in the lifecycle of program
+
+2. public void doGet(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+                      or
+
+   public void doPost(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+                      or
+
+   public void doPut(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+                      or
+
+   public void doDelete(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+                      or
+
+   public void doHead(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+                      or
+
+   public void doTrace(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+                      or
+
+   public void service(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException
+
+   -- mandatory, used to write business logic processing
+
+3.destroy()
+
+    -- optional, used for deallocation of memory
+
+
+doGet()
+
+1. If we have html prog without method attribute or we dont have a html program at all in that case it is get request then we have to write the logic inside doGet()
+
+2. In doGet() the parameters are transferred in the URL between ? and & (ie) query string
+
+3. doGet() can transfer only 2GB of data so doGet() is used for fetching purpose only
+
+
+
+doPost()
+
+1. We should have html program with method="post", then it is post request then we have write logic inside doPost()
+
+2. In doPost() the parameters are directly transferred from one page to another page through headers
+
+3. doPost() transfers unlimited data, so doPost() is used for storing purpose
+
+
+
+Step 1:
+
+Once u create servlet program
+
+1. comment @WebServlet line
+
+2. remove everything from doPost() and doGet()
+
+
+
+Step 2: write business logic
+
+response.setContentType("text/html"); - we can use html tags in servlet program
+
+PrintWriter pw=response.getWriter(); - used to print output on browser
+
+
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class FirstServlet
+
+*/
+
+//@WebServlet("/FirstServlet")
+
+public class FirstServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public FirstServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                pw.println("<b>Hello World</b>");
+
+                                System.out.println("Welcome to servlets");
+
+                                pw.close();
+
+                }
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
+                }
+
+
+}
+
+
+
+http://localhost:8080/projectname/url-pattern
+
+ 
+
+http://localhost:8080/J2EEProject/com/pack/FirstServlet
+
+ 
+
+http://localhost:8080/J2EEProject/a/b/c/d/e/f/g/h/FirstServlet
+
+ 
+
+Step 3:
+
+Whenever u create a Servlet prg, it should be configured in web.xml
+
+ 
+
+<web-app>
+
+<servlet>
+
+   <servlet-name>FirstServlet</servlet-name>
+
+   <servlet-class>com.pack.FirstServlet</servlet-class>
+
+</servlet>
+
+<servlet-mapping>
+
+   <servlet-name>FirstServlet</servlet-name>
+
+   <url-pattern>/FirstServlet</url-pattern>
+
+</servlet-mapping>
+
+</web-app>
+
+
+
+Step 4:
+
+Run the servelet program
+
+http://localhost:8080/projectname/url pattern
+
+ 
+
+http://localhost:8080/J2EEProject/FirstServlet
+
+ 
+
+Instead of configuring in web.xml u can use @WebServlet
