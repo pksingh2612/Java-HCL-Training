@@ -1,0 +1,869 @@
+4. ServletContext interface
+
+     -- used to access application parameter inside the servlet program which is configured in web.xml using <context-param>
+
+     -- application parameter is accessed by all the servlet program
+
+Syntax:
+
+public interface ServletContext
+
+ 
+
+ServletContext getServletContext()
+
+ 
+
+Methods
+
+1. String getInitParameter(String name)
+
+2. Enumeration getInitParameterNames()
+
+3. void setAttribute(String name, Object value)
+
+       -- used to set an attribute
+
+4. Object getAttribute(String name)
+
+       -- used to return an attribute
+
+5. Enumeration getAttributeNames()
+
+       -- used to print all attribute at a time
+
+6. void removeAttribute(String name)
+
+<web-app>
+
+<context-param>
+
+  <param-name>mark</param-name>
+
+  <param-value>87</param-value>
+
+  </context-param>
+
+  <context-param>
+
+  <param-name>state</param-name>
+
+  <param-value>Tamilnadu</param-value>
+
+  </context-param>
+
+</web-app>
+
+ 
+
+5. HttpSession interface
+
+       - J2EE used to develop web oriented appl based on HTTP which is stateless protocol which means we can transfer data from only one page to next page
+
+       - But if we want to transfer data to multiple pages then we use concept called HttpSession used to maintain stability or persistent of web page by providing unique session id, until u click logout or close ur browser (the session will expire)
+
+       - HttpSession will be used only in user authentication (ie) username,passw          - If we want to create new Session, then we go
+
+           HttpSession hs=request.getSession();
+
+                      or
+
+           HttpSession hs=request.getSession(true);
+
+       - Normally session will stored in Cookies, certain browser dosent support cookies so session id will store in url
+
+ 
+
+       - HttpSession interface is used to access extra information about the session
+
+ 
+
+Methods
+
+1. String getId() - return session id
+
+2. long getLastAccessedTime() - return date and time in msec when the session is last accessed
+
+3. long getCreationTime() - return date and time in msec when the session is created
+
+4. boolean isNew() - check whether session is newly created or not
+
+5. If we set an attribute using session object, then we get an attribute in the page which is participated in the session                
+
+   void setAttribute(String name, Object value)
+
+   Object getAttribute(String name)
+
+   void removeAttribute(String name)
+
+   Enumeration getAttributeNames()
+
+6. void invalidate() - used to expire the session in logout button
+
+7. If we want to make session to time out after certain time
+
+      2 ways
+
+        1. we can set the timeout in seconds
+
+              - void setMaxInactiveInterval(long sec)
+
+        2. we can set timeout in minutes then we configure in web.xml
+
+            <web-app>
+
+                <session-config>
+
+                    <session-timeout>10</session-timeout>
+
+                </session-config>
+
+            </web-app>
+
+ 
+
+ 
+
+6. SingleThreadModel interface
+
+       - By default all servlets are multithreaded (ie) it accepts multiple request
+
+       - If we want to make servlet to accept only single request then we implement SingleThreadModel which is a marker interface
+
+ 
+
+public class Example extends HttpServlet implement SingleThreadModel {
+
+ 
+
+}
+
+ 
+
+ 
+
+Cookie class
+
+   - temporary storage of internet files which contains name of webpage, domain, path, expiry date and session id
+
+ 
+
+3 steps
+
+1. create object for Cookie class
+
+      Cookie(String name,String  value)
+
+2. Add the cookie at the time of response using void addCookie(Cookie c)
+
+3. Retrieve the cookie info using Cookie[] getCookies()
+
+ 
+
+ 
+
+Filter interface
+
+   - It is a java program, used to write preprocessing of request and postprocessing of response (ie) before request reaches the server we want to do preprocessing and before response reaches the client we want to do postprocessing
+
+   - it is a class that implements Filter
+
+ 
+
+Methods
+
+  1. init()
+
+  2. doFilter() - preprocessing of request and postprocessing of response
+
+  3. destroy()
+
+ 
+
+  - Filter program also configured in web.xml using <filter> or @WebFilter
+
+ 
+
+Listeners interface
+
+   -- used to write extra processing of request and response
+
+   -- It is java program, configured in web.xml using or @WebListener
+
+<listener>
+
+   <listener-class>classname</listener-class>
+
+</listener>
+
+ 
+
+Types of Listeners
+
+1. ServletContextListener interface
+
+        - if we want to do extra processing at the time server startup and server shutdown
+
+Methods
+
+1. public void contextInitialized(ServletContextEvent s)
+
+           --  extra processing at the time server startup
+
+2. public void contextDestroyed(ServletContextEvent s)
+
+         -- extra processing at the time server shutdown
+
+ 
+
+<web-app>
+
+<context-param>
+
+     <param-name>furniture</param-name>
+
+     <param-value>table</param-value>
+
+  </context-param>
+
+</web-app>
+
+ 
+
+package com.pack;
+
+ 
+
+import javax.servlet.ServletContext;
+
+import javax.servlet.ServletContextEvent;
+
+import javax.servlet.ServletContextListener;
+
+ 
+
+/**
+
+* Application Lifecycle Listener implementation class MyContextListener
+
+*
+
+*/
+
+//@WebListener
+
+public class MyContextListener implements ServletContextListener {
+
+ 
+
+    /**
+
+     * Default constructor.
+
+     */
+
+    public MyContextListener() {
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+     * @see ServletContextListener#contextDestroyed(ServletContextEvent)
+
+     */
+
+    public void contextDestroyed(ServletContextEvent arg0)  {
+
+         // TODO Auto-generated method stub
+
+    }
+
+ 
+
+                /**
+
+     * @see ServletContextListener#contextInitialized(ServletContextEvent)
+
+     */
+
+    public void contextInitialized(ServletContextEvent arg0)  {
+
+        ServletContext sc=arg0.getServletContext();
+
+        String fur=sc.getInitParameter("furniture");
+
+        sc.setAttribute("type", fur);
+
+    }
+
+               
+
+}
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletContext;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.WebServlet;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+ 
+
+/**
+
+* Servlet implementation class ContextServlet
+
+*/
+
+@WebServlet("/ContextServlet")
+
+public class ContextServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public ContextServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                   response.setContentType("text/html");
+
+                   PrintWriter pw=response.getWriter();
+
+                   ServletContext sc=getServletContext();
+
+                   pw.println(sc.getAttribute("type"));
+
+                   pw.close();
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+2. HttpSessionListener interface
+
+       - used to do extra processing at the time of session created and destroyed
+
+ 
+
+Methods
+
+1. public void sessionCreated(HttpSessionEvent h)
+
+        -- extra processing at the time of session created
+
+2. public void sessionDestroyed(HttpSessionEvent h)
+
+        -- extra processing at the time of session destroy
+
+ 
+
+package com.pack;
+
+ 
+
+import javax.servlet.annotation.WebListener;
+
+import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpSessionEvent;
+
+import javax.servlet.http.HttpSessionListener;
+
+ 
+
+/**
+
+* Application Lifecycle Listener implementation class MySessionListener
+
+*
+
+*/
+
+@WebListener
+
+public class MySessionListener implements HttpSessionListener {
+
+ 
+
+    /**
+
+     * Default constructor.
+
+     */
+
+    public MySessionListener() {
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+     * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
+
+     */
+
+    public void sessionCreated(HttpSessionEvent arg0)  {
+
+        HttpSession hs=arg0.getSession();
+
+        System.out.println("Session created: "+hs);
+
+        hs.setAttribute("dog","labrador");
+
+        hs.setAttribute("name","moti");
+
+    }
+
+ 
+
+                /**
+
+     * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
+
+     */
+
+    public void sessionDestroyed(HttpSessionEvent arg0)  {
+
+        HttpSession hs=arg0.getSession();
+
+        System.out.println("Session destroyed "+hs);
+
+        System.out.println(hs.getAttribute("dog"));
+
+        System.out.println(hs.getAttribute("name"));
+
+    }
+
+               
+
+}
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.WebServlet;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpSession;
+
+ 
+
+/**
+
+* Servlet implementation class SessionListenerServlet
+
+*/
+
+@WebServlet("/SessionListenerServlet")
+
+public class SessionListenerServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public SessionListenerServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                HttpSession hs=request.getSession();
+
+                                pw.println(hs.getAttribute("dog"));
+
+                                pw.println(hs.getAttribute("name"));
+
+                                hs.invalidate();
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                               
+
+                }
+
+ 
+
+}
+
+ 
+
+3. HttpSessionAttributeListener interface
+
+      -- used to do extra processing at the time of set a new attribute to session object, remove the attribute from session object, replace the old attribute in session object
+
+ 
+
+1. public void attributeAdded(HttpSessionBindingEvent h)
+
+           to do extra processing at the time of set a new attribute to session object
+
+2.  public void attributeRemoved(HttpSessionBindingEvent h)
+
+           to do extra processing at the time of removing attribute from session object
+
+3. public void attributeReplaced(HttpSessionBindingEvent h)
+
+           to do extra processing at the time of replacing a old attribute in session object
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import javax.servlet.annotation.WebListener;
+
+import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpSessionAttributeListener;
+
+import javax.servlet.http.HttpSessionBindingEvent;
+
+ 
+
+import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
+
+ 
+
+/**
+
+* Application Lifecycle Listener implementation class SessionAttributeListener
+
+*
+
+*/
+
+@WebListener
+
+public class SessionAttributeListener implements HttpSessionAttributeListener {
+
+ 
+
+    /**
+
+     * Default constructor.
+
+     */
+
+    public SessionAttributeListener() {
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+     * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
+
+     */
+
+    public void attributeAdded(HttpSessionBindingEvent arg0)  {
+
+        HttpSession hs=arg0.getSession();
+
+        System.out.println("Attribute added "+hs);
+
+        System.out.println(arg0.getName()+" "+arg0.getValue());
+
+    }
+
+ 
+
+                /**
+
+     * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
+
+     */
+
+    public void attributeRemoved(HttpSessionBindingEvent arg0)  {
+
+                HttpSession hs=arg0.getSession();
+
+        System.out.println("Attribute removed "+hs);
+
+        System.out.println(arg0.getName()+" "+arg0.getValue());
+
+    }
+
+ 
+
+                /**
+
+     * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
+
+     */
+
+    public void attributeReplaced(HttpSessionBindingEvent arg0)  {
+
+        HttpSession hs=arg0.getSession();
+
+        System.out.println("Attribute replaced "+hs);
+
+        System.out.println(arg0.getName()+" "+arg0.getValue());
+
+    }
+
+               
+
+}
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+
+ 
+
+import javax.servlet.ServletException;
+
+import javax.servlet.annotation.WebServlet;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpSession;
+
+ 
+
+/**
+
+* Servlet implementation class SessionAttributeServlet
+
+*/
+
+@WebServlet("/SessionAttributeServlet")
+
+public class SessionAttributeServlet extends HttpServlet {
+
+                private static final long serialVersionUID = 1L;
+
+      
+
+    /**
+
+     * @see HttpServlet#HttpServlet()
+
+     */
+
+    public SessionAttributeServlet() {
+
+        super();
+
+        // TODO Auto-generated constructor stub
+
+    }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+                                response.setContentType("text/html");
+
+                                PrintWriter pw=response.getWriter();
+
+                                HttpSession hs=request.getSession();
+
+                                hs.setAttribute("dog", "german");
+
+                                hs.setAttribute("name", "pinky");
+
+                                hs.setAttribute("age", 4);
+
+                                pw.println(hs.getAttribute("dog"));
+
+                                pw.println(hs.getAttribute("name"));
+
+                                pw.println(hs.getAttribute("age"));
+
+                                hs.removeAttribute("name");
+
+                                hs.invalidate();
+
+                }
+
+ 
+
+                /**
+
+                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+
+                */
+
+                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+4. ServletContextAttributeListener
+
+ 
+
+1. public void attributeAdded(ServletContextEvent h)
+
+           to do extra processing at the time of set a new attribute to context object
+
+2.  public void attributeRemoved(ServletContextEvent h)
+
+           to do extra processing at the time of removing attribute from context object
+
+3. public void attributeReplaced(ServletContextEvent h)
+
+           to do extra processing at the time of replacing a old attribute in context object
+
+ 
+
+5. HttpServletRequestAttributeListener
+
+ 
+
+1. public void attributeAdded(HttpServletRequestEvent h)
+
+           to do extra processing at the time of set a new attribute to request object
+
+2.  public void attributeRemoved(HttpServletRequestEvent h)
+
+           to do extra processing at the time of removing attribute from request object
+
+3. public void attributeReplaced(HttpServletRequestEvent h)
+
+           to do extra processing at the time of replacing a old attribute in request object

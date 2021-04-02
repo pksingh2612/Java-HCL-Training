@@ -299,7 +299,8 @@ Methods
 
 Headers
 
-  -- whenever the client gives the request to server, certain default infomation will be transferred between client and server, those default info is called headers
+  -- whenever the client gives the request to server, certain default infomation will be transferred between client and server,
+     those default info is called headers
 
   -- certain headers will have String as value, certain will have int as value and certain headers have date as value
 
@@ -453,7 +454,8 @@ Attribute methods
 
 1. HttpServletRequest
 
-       -- if we set an attribute using request object we can get the attribute only to which page the request is transferred using RequestDispatcher
+       -- if we set an attribute using request object we can get the attribute only to which page 
+          the request is transferred using RequestDispatcher
 
 2. HttpSession
 
@@ -723,17 +725,13 @@ public class SeventhServlet extends HttpServlet {
 
 </html>
 
- 
 
 package com.pack;
-
- 
 
 import java.io.IOException;
 
 import java.io.PrintWriter;
 
- 
 
 import javax.servlet.ServletException;
 
@@ -745,7 +743,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
- 
+
 
 /**
 
@@ -878,13 +876,16 @@ Methods
 
 8. void sendRedirect(String url)
 
-     -- used to redirect from one page to another page, but redirection takes place on client place, so it is used in error case
+     -- used to redirect from one page to another page, 
+     but redirection takes place on client place, so 
+     it is used in error case
 
      -- redirect() can access outside the application
 
 9. void encodeUrl(String url)
 
-      -- normally session  id is stored in cookies, but certian browser dosent support cookie, in that case session id is stored in url
+      -- normally session  id is stored in cookies, but certian browser dosent support 
+      cookie, in that case session id is stored in url
 
      -- if we want send session id in url
 
@@ -892,7 +893,8 @@ Methods
 
 3. ServletConfig interface
 
-      -- used to access initialization parameter inside the servlet program which defined in web.xml using <init-param> or @WebInitParam
+      -- used to access initialization parameter inside the servlet program which defined in web.xml using <init-param> or
+         @WebInitParam
 
       -- initialization parameter are the parameter which accessed only by a particular servlet program
 
@@ -1080,158 +1082,3 @@ public class TenthServlet extends HttpServlet {
 
  
 
-4. ServletContext interface
-
-     -- used to access application parameter inside the servlet program which is configured in web.xml using <context-param>
-
-     -- application parameter is accessed by all the servlet program
-
-Syntax:
-
-public interface ServletContext
-
- 
-
-ServletContext getServletContext()
-
- 
-
-Methods
-
-1. String getInitParameter(String name)
-
-2. Enumeration getInitParameterNames()
-
-3. void setAttribute(String name, Object value)
-
-       -- used to set an attribute
-
-4. Object getAttribute(String name)
-
-       -- used to return an attribute
-
-5. Enumeration getAttributeNames()
-
-       -- used to print all attribute at a time
-
-6. void removeAttribute(String name)
-
-<web-app>
-
-<context-param>
-
-  <param-name>mark</param-name>
-
-  <param-value>87</param-value>
-
-  </context-param>
-
-  <context-param>
-
-  <param-name>state</param-name>
-
-  <param-value>Tamilnadu</param-value>
-
-  </context-param>
-
-</web-app>
-
- 
-
-package com.pack;
-
- 
-
-import java.io.IOException;
-
-import java.io.PrintWriter;
-
- 
-
-import javax.servlet.ServletContext;
-
-import javax.servlet.ServletException;
-
-import javax.servlet.annotation.WebServlet;
-
-import javax.servlet.http.HttpServlet;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.HttpServletResponse;
-
- 
-
-/**
-
-* Servlet implementation class EleventhServlet
-
-*/
-
-@WebServlet("/EleventhServlet")
-
-public class EleventhServlet extends HttpServlet {
-
-                private static final long serialVersionUID = 1L;
-
-      
-
-    /**
-
-     * @see HttpServlet#HttpServlet()
-
-     */
-
-    public EleventhServlet() {
-
-        super();
-
-        // TODO Auto-generated constructor stub
-
-    }
-
- 
-
-                /**
-
-                * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-
-                */
-
-                protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-                                response.setContentType("text/html");
-
-                                PrintWriter pw=response.getWriter();
-
-                                ServletContext sc1=getServletContext();
-
-                                String s1=sc1.getInitParameter("mark");
-
-                                pw.println(s1+"<br/>");
-
-                                String s2=sc1.getInitParameter("state");
-
-                                pw.println(s2+"<br/>");
-
-                                sc1.setAttribute("myMark", s1);
-
-                                pw.println("<a href='http://localhost:8080/J2EEProject/NinethServlet'>Click</a>");
-
-                }
-
- 
-
-                /**
-
-                * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-
-                */
-
-                protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-                }
-
-
-}
