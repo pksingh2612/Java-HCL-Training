@@ -1,0 +1,963 @@
+JAVA SERVER PAGE EXERCISE
+-----------------------------
+
+
+#1
+Problem Statement:
+Create a JSP named syntax.jsp which contains a textbox and a submit button named ‘OK’. 
+After entering a string into the textbox and on submitting the jsp the control should be passed on to a new jsp named result.jsp, 
+which should display the string entered in the textbox of syntax.jsp.Do this by using JSP expression.
+
+
+
+Deliverables Expected:
+
+A war file named syntax1.war containing two jsp pages ‘syntax.jsp’ and ‘result.jsp’ and a Web.xml file.
+
+
+Tips:
+
+Form submitting
+Use JSP expression: <%= %>
+Use JSP implicit object request
+
+
+solution(#1)
+------------
+
+syntax.jsp
+------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8080/MyFirstEEProject/result.jsp">
+		Text Box: <input type="text" name="textBox"> <br/>
+		<input type="submit" value="OK">
+	</form>
+</body>
+</html>
+
+
+result.jsp
+-----------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%=request.getParameter("textBox") %><br/>
+</body>
+</html>
+
+
+
+#2
+Problem Statement:
+Create a JSP named syntax.jsp, which contains a textbox and a submit button named ‘OK’. After entering a string into the textbox and
+on submitting the jsp the control should be passed on to a new jsp named result.jsp which should display
+the string entered in the textbox of syntax.jsp. Do this by using JSP scriplet.
+
+Deliverables Expected:
+
+A war file named syntax2.war containing two jsp pages ‘syntax.jsp’ and ‘result.jsp’ and a Web.xml file.
+
+Tips:
+
+Form submitting
+Use JSP scriplet: <% %>
+Use JSP implicit object request
+
+solution(#2)
+---------------
+
+
+syntax.jsp
+------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8080/MyFirstEEProject/result.jsp">
+		Text Box: <input type="text" name="textBox"> <br/>
+		<input type="submit" value="OK">
+	</form>
+</body>
+</html>
+
+
+result.jsp
+-----------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<% String s= request.getParameter("textBox");
+	out.println(s);
+	%>
+</body>
+</html>
+
+
+
+#3
+3.Problem Statement:
+
+Create a JSP named syntax.jsp, which prints the following line:
+
+“You are visiting the page for: 1 time “when the page is loaded.
+ On each subsequent refreshing of the page the no should be increased by one. 
+ For instance, if you are refreshing it for the 10th time then it should display “You are visiting the page for: 10  time”
+
+
+Deliverables Expected:
+
+A war file named syntax3.war containing one jsp pages ‘syntax.jsp’ and a Web.xml file.
+
+
+Tips:
+
+Use JSP declaration: <%! %>
+
+Solution (#3)
+--------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%! int j=0; %>
+	<% if(j==1){ %>
+	<%="You are visiting the page for: 1 time" %>
+	<%} %>
+	<% if(j==10){ %>
+	<%="You are visiting the page for: 10 time" %>
+	<%} %>
+</body>
+</html>
+
+
+#4
+4.Problem Statement:
+
+Create a Java Class com.cts.PerformTask. Containing a method doTask(), which returns a String “hello world”. 
+Call this function from result.JSP page using scriplet. Full package name should not be used inside the scriplet
+ while calling the method. Do this using import attribute of page directive.
+
+
+Deliverables Expected:
+
+A war file named page1.war containing one JSP page ‘result.JSP’ , com.cts.PerformTask and a Web.xml file.
+
+Tips:
+
+Use <%@ page import=””%>
+
+Solution(#4)
+---------------
+
+PerformTask.class
+--------------------------
+package com.cts;
+
+public class PerformTask {
+	public String doTask() {
+		return "hello world";
+	}
+}
+
+
+result.jsp
+------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import="com.cts.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<% PerformTask pt = new PerformTask();
+	out.println(pt.doTask());
+	%>
+</body>
+</html>
+
+
+5.Problem Statement:
+
+Create a JSP named page.JSP. Set an attribute named ‘age’ with value ‘22’ in the session scope using scriplet within page.JSP. 
+Try retrieving and printing the same value using session implicit variable. Now set the session attribute of page directive to false and study the difference
+
+Deliverables Expected:
+
+A war file named page2.war containing one JSP page ‘page.JSP’ and a web.xml file.
+
+Tips:
+
+Use <%@ page session=””%>
+Use JSP implicit object session
+
+
+solution(#5)
+------------
+
+page.jsp
+---------
+#A
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%session.setAttribute("age",22); %>
+	
+	<%= session.getAttribute("age") %>
+</body>
+</html>
+
+#B
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" session="false" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%session.setAttribute("age",22); %>
+	<%= session.getAttribute("age") %>
+</body>
+</html>
+
+When i run #A program then it prints 22 but when i run #B program its show compliation error and also shown http status 500 - internal server error.
+
+
+
+#6
+6.Problem Statement:
+
+Create a JSP named page.JSP which generates a divide by zero (For example: 10/0) error using scriplet.
+On executing the scriplet due to the the divide by zero error the control should pass to a new file ‘error.JSP’
+which should display ‘’ java.lang.ArithmeticException: / by zero”
+
+
+Deliverables Expected:
+
+A war file named page3.war containing two JSP pages ‘page.JSP’ ,error.JSP and a web.xml file.
+
+Tips:
+
+Use <%@ page erroPage=””%>
+Use <%@ page isErroPage=””%>
+Use exception implicit variable
+
+Solution(#6)
+-------------
+
+page.jsp
+----------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" errorPage="error.jsp"  %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%! int i=10; %>
+	<% int j=i/0; %>
+</body>
+</html>
+
+error.jsp
+-----------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" isErrorPage="true" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%= exception %> <br/>
+
+<%= exception.getMessage() %>
+
+</body>
+</html>
+
+
+#7
+7.Problem Statement:
+Age processing application retrieves name and age from the user.
+It submits the age as number to another JSP, which prints the age in words.
+
+Deliverables Expected:
+
+Two JSP pages
+
+Tips:
+Apply JSP XML declarations
+
+Solution(#7)
+--------------
+
+FirstHandson.jsp
+-------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/SecondHandson.jsp">
+		Name: <input type="text" name="name"> <br/>
+		Age: <input type="text" name="age"> <br/>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
+
+SecondHandson.jsp
+------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import="com.cts.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%= request.getParameter("name") %><br/>
+	<%
+	    int age= Integer.parseInt(request.getParameter("age"));
+		PerformTask pt = new PerformTask();
+		out.print(request.getParameter("age"));
+		out.print(" = ");
+		out.println(pt.convertLessThanOneThousand(age));
+	%>
+	
+</body>
+</html>
+
+PerformTask.java
+-----------------
+package com.cts;
+
+public class PerformTask {
+	private static final String[] tensNames = {
+	    "",
+	    " ten",
+	    " twenty",
+	    " thirty",
+	    " forty",
+	    " fifty",
+	    " sixty",
+	    " seventy",
+	    " eighty",
+	    " ninety"
+	  };
+
+		  private static final String[] numNames = {
+		    "",
+		    " one",
+		    " two",
+		    " three",
+		    " four",
+		    " five",
+		    " six",
+		    " seven",
+		    " eight",
+		    " nine",
+		    " ten",
+		    " eleven",
+		    " twelve",
+		    " thirteen",
+		    " fourteen",
+		    " fifteen",
+		    " sixteen",
+		    " seventeen",
+		    " eighteen",
+		    " nineteen"
+		  };
+
+	public String convertLessThanOneThousand(int number) {
+		 String soFar;
+
+		    if (number % 100 < 20){
+		      soFar = numNames[number % 100];
+		      number /= 100;
+		    }
+		    else {
+		      soFar = numNames[number % 10];
+		      number /= 10;
+
+		      soFar = tensNames[number % 10] + soFar;
+		      number /= 10;
+		    }
+		    if (number == 0) return soFar;
+		    return numNames[number] + " hundred" + soFar;
+	}
+}
+
+
+8. Problem Statement:
+
+Car selling application has the logo and the organization’s name in the top of the page.
+It is common for all the JSPs used in the application. Provide a suitable solution for it.
+
+Deliverables Expected:
+
+A web application that has two or more JSPs
+
+Tips:
+
+Use JSP XML include directive
+
+
+Solution(#8)
+--------------
+
+Problem8a.jsp
+--------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<% request.setAttribute("logoURL","https://lenskills.com"); %><br/>
+	<% request.setAttribute("organizationName","LenSkills"); %><br/>
+	<jsp:include page="Problem8b.jsp"></jsp:include>
+	<jsp:include page="Problem8c.jsp"></jsp:include>
+</body>
+</html>
+
+Problem8b.jsp
+-------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%= request.getAttribute("logoURL") %>
+	<%= request.getAttribute("organizationName") %>
+</body>
+</html>
+
+
+Problem8c.jsp
+-------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%= request.getAttribute("logoURL") %>
+	<%= request.getAttribute("organizationName") %>
+</body>
+</html>
+
+
+9.Problem Statement:
+
+A photo gallery application needs to track the number of hits on a particular page (say “wonders.JSP”).
+Other parts of the application need access to the number of hits. A hits counter view page should be able to print the number
+of hits to the wonder.JSP page.
+
+
+Deliverables Expected:
+
+A Web application with two JSPs and one Java class (not a servlet)
+
+
+Tips:
+
+Use JSP XML page directive to import a Java class that has a static counter method.
+
+
+Solution(#9)
+--------------
+
+wonders.jsp
+-------------
+
+Counter.java
+------------
+
+
+counterview.jsp
+----------------
+
+
+
+
+10. Problem Statement:
+
+A Web application has an index page, which asks the users for “user name”. 
+Once it is submitted it calls another JSP which has to print that “user name”
+
+
+
+Deliverables Expected:
+
+A Web application with two JSPs
+
+
+
+Tips:
+
+Use JSP XML Expressions
+
+Solution(#10)
+--------------
+
+Problem10a.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/Problem10b.jsp">
+		Name: <input type="text" name="username"> <br/>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
+
+
+Problem10b.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%= request.getParameter("username") %><br/>
+</body>
+</html>
+
+
+11. Problem Statement:
+
+A Web application has an index page, which asks the users for “user name”.
+Once it is submitted it calls another JSP, which connects to a database and
+fetches the age of the user from the table and displays it in the same.
+
+
+Deliverables Expected:
+
+A Web application with two JSPs
+
+Tips:
+
+Use JSP XML Expressions
+
+Solution(#11)
+----------
+
+Problem11a.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/Problem11b.jsp">
+		Name: <input type="text" name="username"> <br/>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
+
+web.xml  (i am using in place of database)
+--------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>MyFirstEEProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+	<context-param>
+		<param-name>
+			PK
+		</param-name>
+		<param-value>
+			23
+		</param-value>
+	</context-param>
+
+</web-app>
+
+Problem11b.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<% String name = request.getParameter("username");
+	 if(name.equals("PK")){
+	%>
+	<%= application.getInitParameter("PK") %>
+	<% } %>
+	</body>
+</html>
+
+
+
+12. Problem Statement:
+
+A Web application needs to retrieve the contact email configured as an init param for whole of the application.
+
+Deliverables Expected:
+
+A Web application with one or more JSP page.
+
+Tips:
+
+Use JSP Implicit Object – application.
+
+Solution(#12)
+-----------
+
+Problem12.jsp
+--------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%= application.getInitParameter("email") %>
+</body>
+</html>
+
+
+Web.xml
+--------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>MyFirstEEProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+	<context-param>
+		<param-name>
+			email
+		</param-name>
+		<param-value>
+			pksingh15007@gmail.com
+		</param-value>
+	</context-param>
+
+</web-app>
+
+
+13. Problem Statement:
+
+A Web application needs to retrieve the department name configured as an init param for that JSP alone.
+
+
+Deliverables Expected:
+
+A Web application that has one or more JSPs.
+
+Tips:
+
+Use JSP Implicit Object - Config
+
+Solution(#13)
+----------------
+
+Problem13.jsp
+--------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%= config.getInitParameter("department") %><br/>
+</body>
+</html>
+
+
+web.xml
+----------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>MyFirstEEProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+	
+	<servlet>
+		<servlet-name>Problem13</servlet-name>
+		<jsp-file>/Problem13.jsp</jsp-file>
+		<init-param>
+			<param-name>
+				department
+			</param-name>
+			<param-value>
+				CSE
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+	
+	   <servlet-name>Problem13</servlet-name>
+	   <url-pattern>/Problem13.jsp</url-pattern>
+	
+	</servlet-mapping>
+</web-app>
+
+
+14.Problem Statement:
+
+A Photo gallery application has an index page, which is designed just to throw a checked exception. 
+The error should be captured in another JSP and the message has to be printed in the JSP that captures the exception.
+
+
+Deliverables Expected:
+
+A Web application with two or more JSPs.
+
+
+Tips:
+
+Use JSP Implicit Object – Exception, page directive.
+
+Solution($14)
+-----------------
+
+Problem14a.jsp
+--------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" errorPage="Problem14b.jsp"  %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%! int i=10; %>
+	<% int j=i/0; %>
+</body>
+</html>
+
+Problem14b.jsp
+--------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" isErrorPage="true" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%= exception %> <br/>
+
+<%= exception.getMessage() %>
+
+</body>
+</html>
+
+
+
+15.Problem Statement:
+
+A Web application has an index page, which takes username from the user.
+If submitted, it has to call a servlet, which then calls another JSP.
+This JSP has to print the username attached with the request.
+
+Deliverables Expected:
+
+A Web application with two JSP page and a Servlet.
+
+
+Tips:
+
+Use JSP Implicit Object – request.
+
+Solution(#15)
+----------------
+
+Problem15a.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/Problem15">
+		Name: <input type="text" name="username"> <br/>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
+
+Problem15.java
+---------------
+package com.cts;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Problem15
+ */
+@WebServlet("/Problem15")
+public class Problem15 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Problem15() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+
+        PrintWriter pw=response.getWriter();
+
+        //String name=request.getParameter("username");
+        
+        RequestDispatcher rd = request.getRequestDispatcher("Problem15b.jsp");
+		rd.forward(request,response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+}
+
+
+Problem15b.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	User Name: <%=  request.getParameter("username") %><br/>
+</body>
+</html>

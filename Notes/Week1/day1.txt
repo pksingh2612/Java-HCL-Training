@@ -815,7 +815,6 @@ Two types of classes
 
      - It is accessed by creating the object in main class
 
- 
 
 2. Main class
 

@@ -1,0 +1,1069 @@
+Java Server Pages
+
+     - used to develop dynamic web pages
+
+     - made up of Java(write business logic)+HTML (design the web page)
+
+     - .jsp file created in Webcontent
+
+     - no need to configure JSP file in web.xml, but if JSP file takes initialization parameter
+       then it is configured in web.xml using <jsp-file>
+
+     - http://localhost:8080/projectname/sample.jsp
+
+
+
+Life cycle of JSP
+
+1. Creation  - creating jsp file with .jsp extension
+
+2. Deployment - Jsp file deployed inside webcontent folder
+
+3. Translation and Compilation
+
+         - At the time of running JSP program, u have 7 stage
+
+   a. Page Translation - we are going to check syntax of JSP page
+
+   b. Page Compilation - Once syntax is correct, it will create a separate program
+      called programname_jsp.java which is nothing but HttpServlet prg
+
+   c. load the class
+
+   d. create instance of particular class
+
+   e. Call jspInit() of javax.servlet.jsp.JspPage interface, used for initialization and invoked first and only once in life cycle of program. It can be overriddern
+
+   f. Call _jspService() of java.servlet.jsp.HttpJspPage interface which extends JspPage interface. It is invoked every time a new request comes to JSP page. It cannot be overridden
+
+  g. Call jspDestroy() of javax.servlet.jsp.JspPage interface and used for deallocation. It can be overridden
+
+
+JSP Elements - 3 types
+
+1. Directive element
+
+        -- used to give information about JSP page to the JSP container
+
+        -- 3 types
+
+a. page directive element
+
+       -- used to give information about JSP page to the JSP container
+
+Syntax:
+
+     <%@ page attributes %>
+
+XML syntax:
+
+      <jsp:directive.page attributes>
+
+      </jsp:directive.page>
+
+
+13 attributes
+
+1. language - extra scripting language used in JSP, default is Java
+
+2. extends - if you want to inherit some class
+
+3. import - import predefined class in JSP page
+
+4. info - any arbitary string which gives info abt the page
+
+5. autoflush - used to automatically flush the memory, default is true, it throws Exception if autoflush=false
+
+6. buffer - size of the buffer, defualt is 8kb
+
+7. session - all jsp prg by default participate in session,default is true
+
+8. isThreadSafe - if u want to make jsp prg to accept multiple request, default is true by default all jsp accept multiple request
+
+9. errorPage - in particular jsp page we get any errors it is redirected
+                to an error page
+
+10. isErrorPage - indicate that page is an error page or not, default is false
+
+11. contentType - defines the content type,default is text/html
+
+12. pageEncoding - defines chararcter encoding
+
+13. isELIgnored - enables expression language,by default it is true
+
+
+<%@ page language="java"
+
+                     extends="packagename.classname"
+
+                     import="java.util.*,java.io.*,java.lang.*" -- important
+
+                     info="User registration page" -- important
+
+                     autoflush="true/false"
+
+                     buffer="10kb"
+
+                     session="true/false"
+
+                     isThreadSafe="true/false"
+
+                     errorPage="url of error page" -- important
+
+                     isErrorPage="true/false"
+
+                     contentType="text/html"
+
+                     pageEncoding = "ISO-8859-1"
+
+                     isELIgnored="true/false" %>
+
+
+
+b. include directive element
+
+          -- used to include output of any static html page in current page
+
+Syntax:
+
+    <%@ include file="address.html" %>
+
+XML syntax:
+
+     <jsp:directive.include file="address.html">
+
+     </jsp:directive.include>
+
+
+
+c. taglib directive element
+
+       -- we can create user defined tags in JSP page, if a jsp page contains user defined tag, 
+          then the info abt the jsp page is given to the JSP container
+
+Syntax:
+
+   <%@ taglib uri="tld path" prefix="prefix of custom tag" %>
+
+XML Syntax:
+
+    <jsp:root xmlns:prefix="tldpath"/>
+
+
+
+2. Scripting element
+
+        -- used to write java codings in JSP
+
+        --3 types
+
+1. Declaration
+
+       -- used to declare and initialize the variable, to create an object for a class
+
+Syntax:
+
+      <%! declaration %>
+
+XML Syntax:
+
+       <jsp:declaration>
+
+              int i=10;
+
+         </jsp:declaration>
+
+eg:
+
+      <%! int a=10; %>
+
+      <%! int b;
+
+               b=5;%>
+
+      <%! List<String> l=new ArrayList<>(); %>
+
+ 
+
+b. Scriptlet
+
+          -- contains pure java processing
+
+Syntax:
+
+    <% Scriptlet %>
+
+XML Syntax:
+
+     <jsp:scriptlet>
+
+      </jsp:scriptle>
+
+eg:
+
+      <% int a=19; %>
+
+ 
+
+c. Expression
+
+       -- used to print jsp output on browser
+
+       -- Expression cannot  be used inside scriptlet
+
+Syntax:
+
+     <%= expression %>
+
+XML Syntax:
+
+     <jsp:expression>
+
+     </jsp:expression>
+
+eg: <%! int a=10; %>
+
+         <%= a %>
+
+         <%! List<String> l=new ArrayList<>(); %>
+
+        <%= l.size() %>
+
+ 
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%for(int i=1;i<=6;i++){
+
+%>
+
+<h<%=i %>>hello world</h<%=i %>>
+
+<%} %>
+
+<br/><br/>
+
+<%! int a=10; %>
+
+<%= ++a %>
+
+<br/><br/>
+
+<% int b=10; %>
+
+<%= ++b %>
+
+<br/><br/>
+
+<%for(int i=0;i<5;i++)
+
+{%>
+
+out.println(i);
+
+<% } %>
+
+<br/><br/>
+
+<% int x=5; %>
+
+<%  x=3; %>
+
+<%! int x=7; %>
+
+<%= x %> <%= this.x %>
+
+</body>
+
+</html>
+
+ 
+
+3. Action element
+
+       -- standard or predefined tags
+
+ 
+
+1.<jsp:useBean> 
+
+         -- Jsp is made java+html, with the help of java we can write business logic, with html we can design the web page
+
+        -- It is always a good pratcise to separate business logic from presentation logic, so we have to write all logic in separate java program called java bean program
+
+       -- Bean program is a java prg used to change the properties of the web page at runtime with 3 condition
+
+      1. class should be public and implements Serializable interface and supports encapsulation
+
+      2. it should only default constructor
+
+      3. it should contain getters and setters method depending upon properties of webpage
+
+     -- Now we created java bean prg and link with JSP program using <jsp:useBean>
+
+Syntax:
+
+      <jsp:useBean attributes>
+
+     </jsp:useBean>
+
+ 
+
+Attributes
+
+1. id - unique id of bean (any arbitary string)
+
+2. class- fully qualified path of bean class
+
+3. scope - life time of bean object (page(default)/request/session/application)
+
+4. beanName - serialized object of bean
+
+5. type - name of the bean
+
+ 
+
+4 combination of attributes
+
+1. id,class,scope
+
+2. id,type,scope
+
+3. id,class,type, scope
+
+4. id,type,beanName,scope
+
+ 
+
+2. <jsp:setProperty>
+
+          -- After linking bean prg with JSP prg, we want to set the value to the bean property
+
+          -- whenever we call <jsp:setProperty> tag it invokes setter method of bean class
+
+Syntax:
+
+      <jsp:setProperty attributes />
+
+Attributes
+
+1. name - id of the bean
+
+2. property - name of the property
+
+3. value-value of the property
+
+3. param - name of the textbox for that property
+
+
+Note: u have to use either value/param
+
+
+1.<jsp:setProperty name="hello"  property="username" value="sam"/>
+
+         -- to provide some default value to the property
+
+2.<jsp:setProperty name="hello" property="username" param="n1"/>
+
+3. <jsp:setProperty name="hello" property="*"/>
+
+           -- we are going to automatically set the value for the property given in related textbox
+
+          -- name of the property should equal name of textbox
+
+
+3.<jsp:getProperty>
+
+         -- used to get the value for the property
+
+         --<jsp:getProperty> internally calls getter method of bean class
+
+Syntax:
+
+     <jsp:getProperty attributes />
+
+Attributes
+
+1. name - id of the bean
+
+2. property - name of the property
+
+ 
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<form action="http://localhost:8086/J2EEProject/reg.jsp">
+
+Name: <input type="text" name="name">
+
+Age: <input type="text" name="age">
+
+<input type="submit">
+
+</form>
+
+</body>
+
+</html>
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import java.io.Serializable;
+
+ 
+
+public class User implements Serializable {
+
+    private String name;
+
+    private int age;
+
+                public String getName() {
+
+                                return name;
+
+                }
+
+                public void setName(String name) {
+
+                                this.name = name;
+
+                }
+
+                public int getAge() {
+
+                                return age;
+
+                }
+
+                public void setAge(int age) {
+
+                                this.age = age;
+
+                }
+
+   
+
+}
+
+ 
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<jsp:useBean id="hello" class="com.pack.User">
+
+   <jsp:setProperty name="hello" property="*"/>
+
+</jsp:useBean>
+
+The user with name <jsp:getProperty name="hello" property="name"/>has
+
+an age <jsp:getProperty name="hello" property="age"/>
+
+<br/>
+
+<br/>
+
+The user with name <%= hello.getName() %> has an age
+
+<%=hello.getAge() %>
+
+ 
+
+</body>
+
+</html>nn
+
+4.<jsp:forward>
+
+      -- it used to forward the request to both static(only html) and dynamic page
+
+      -- it will forward to the page and does not return back to calling page
+
+Syntax:
+
+    1. static page
+
+          <jsp:forward page="address.html"/>
+
+     2. dynamic page
+
+           <jsp:forward page="address.jsp">
+
+                <jsp:param name="age" value="22"/>
+
+           </jsp:forward>
+
+ 
+
+5. <jsp:include>
+
+         -- it include output of both static and dynamic web page
+
+         -- it will include the output of page and return back to calling page
+
+Syntax:
+
+    1. static page
+
+          <jsp:include page="address.html" flush="true/false"/>
+
+     2. dynamic page
+
+           <jsp:include page="address.jsp" flush="true/false">
+
+                <jsp:param name="age" value="22"/>
+
+           </jsp:include>
+
+ 
+
+JSP Implicit objects
+
+        - JSP is similar to servlets, whatever we studied in servlets can be accessed inside JSP using implicit object
+
+   -- 9 types
+
+ 
+
+1. request
+
+       -- request is an implicit object of HttpServletRequest interface
+
+      -- whatever we studied in HttpServletRequest interface, all those methods are accessed in JSP using request implicit object
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" import="java.util.*"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%=request.getParameter("name") %> <br/>
+
+<%=request.getParameter("age") %> <br/>
+
+<%String temp[]=request.getParameterValues("hobby");
+
+  for(String hob:temp){
+
+%>
+
+   <%= hob %>
+
+   <%} %>
+
+<br/>
+
+<% Enumeration e =request.getParameterNames();
+
+while(e.hasMoreElements()){
+
+                String s1=(String)e.nextElement();
+
+                String s2=request.getParameter(s1);
+
+ 
+
+%>
+
+<%= s1 %> <%= s2 %>
+
+<%} %>
+
+<br/>
+
+<%=request.getProtocol() %> <br/>
+
+<%=request.getScheme() %> <br/>
+
+<%=request.getServerName() %> <br/>
+
+<%=request.getServerPort() %> <br/>
+
+<%=request.getContextPath() %> <br/>
+
+<%=request.getServletPath() %> <br/>
+
+<%=request.getQueryString() %> <br/>
+
+<%=request.getRequestURI() %> <br/>
+
+<%=request.getHeader("accept-language") %> <br/>
+
+<%=request.getHeader("host") %> <br/>
+
+<% request.setAttribute("myName","raju"); %>
+
+<jsp:include page="req1.jsp"/>
+
+</body>
+
+</html>
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%=request.getAttribute("myName") %>
+
+</body>
+
+</html>
+
+ 
+
+2.response
+
+        -- response is an implicit object of HttpServletResponse interface
+
+      -- whatever we studied in HttpServletResponse interface, all those methods are accessed in JSP using response implicit object
+
+ 
+
+3. session
+
+      -- session is an implicit object of HttpSession interface
+
+      -- whatever we studied in HttpSession interface, all those methods are accessed in JSP using session implicit object
+
+ 
+
+4. out
+
+     -- out is an implicit object of JspWriter class
+
+     -- used to print output from scriptlet
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%= session.getId() %><br/>
+
+<%= session.getCreationTime() %><br/>
+
+<%= session.getLastAccessedTime() %><br/>
+
+<%= session.isNew() %><br/>
+
+<% session.setAttribute("myMark",64); %>
+
+<a href="/J2EEProject/sess1.jsp">Click</a>
+
+</body>
+
+</html>
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<% Integer a=(Integer)session.getAttribute("myMark");
+
+out.println(a);
+
+%>
+
+</body>
+
+</html>
+
+
+
+5. config
+
+       -- config is an implicit object of ServletConfig interface, used to access initialization parameter in jsp file
+
+       -- no need to configure jsp in web.xml, but if jsp takes init param then it is configured in web.xml using <jsp-file>
+
+<web-app>
+
+<servlet>
+
+     <servlet-name>config</servlet-name>
+
+     <jsp-file>/config.jsp</jsp-file>
+
+     <init-param>
+
+       <param-name>country</param-name>
+
+       <param-value>India</param-value>
+
+     </init-param>
+
+  </servlet>
+
+  <servlet-mapping>
+
+       <servlet-name>config</servlet-name>
+
+       <url-pattern>/config.jsp</url-pattern>
+
+  </servlet-mapping>
+
+</web-app>
+
+ 
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%= config.getInitParameter("country") %>
+
+</body>
+
+</html>
+
+ 
+
+6. application
+
+         -- It is an implicit object of ServletContext interface, used to access application parameter configured in web.xml using <context-param>
+
+<web-app>
+
+<context-param>
+
+     <param-name>zipcode</param-name>
+
+     <param-value>600116</param-value>
+
+  </context-param>
+
+</web-app>
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%= config.getInitParameter("country") %>
+
+<%= application.getInitParameter("zipcode") %>
+
+</body>
+
+</html>
+
+ 
+
+7. exception
+
+          -- exception is an implicit object of Throwable class
+
+          -- used to print exception info in error page
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" errorPage="error.jsp"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%! int i=10; %>
+
+<% int j=i/0; %>
+
+</body>
+
+</html>
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" isErrorPage="true"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%= exception %> <br/>
+
+<%= exception.getMessage() %>
+
+</body>
+
+</html>
+
+ 
+
+8. page
+
+       -- it is an implicit object of java.lang.Object class
+
+       -- used to access info abt the generated servlet
+
+       -- page object cannot be used directly, instead we have to use "this" or type cast by Servlet object
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%= this.getServletInfo() %>
+
+</body>
+
+</html>
+
+ 
+
+9. pageContext
+
+         -- it is an implicit object of javax.servlet.jsp.PageContext class
+
+         -- used to get and set attributes in different scopes
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%request.setAttribute("name","raj"); %>
+
+<%= request.getAttribute("name") %>
+
+<br/>
+
+<%pageContext.setAttribute("name1","ram",pageContext.REQUEST_SCOPE); %>
+
+<%= pageContext.getAttribute("name1",pageContext.REQUEST_SCOPE) %>
+
+<BR/>
+
+<%application.setAttribute("name2","sam"); %>
+
+<%= application.getAttribute("name2") %>
+
+<br/>
+
+<%pageContext.setAttribute("name3","ramu",pageContext.APPLICATION_SCOPE); %>
+
+<%= pageContext.getAttribute("name3",pageContext.APPLICATION_SCOPE) %>
+
+<BR/>
+
+</body>
+
+</html>
+
+ 
+
+ 
+
+ 
+
+Scopes
+
+   -- life time of object
+
+1. page (default)-- if I set as page scope, the object will be available only within the same page
+
+2. request -- if I set as request scope, the object will be available to which we are sending the request
+
+3. session -- if I set as session scope, the object will be available to which page participating the session
+
+4. application -- if I set as application scope, the object will be available throughot the application
