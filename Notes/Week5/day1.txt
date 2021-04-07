@@ -32,14 +32,26 @@ Life cycle of JSP
 
    d. create instance of particular class
 
-   e. Call jspInit() of javax.servlet.jsp.JspPage interface, used for initialization and invoked first and only once in life cycle of program. It can be overriddern
+   e. Call jspInit() of javax.servlet.jsp.JspPage interface, used for initialization and invoked first and only once in life cycle of program.
+      It can be overriddern
 
-   f. Call _jspService() of java.servlet.jsp.HttpJspPage interface which extends JspPage interface. It is invoked every time a new request comes to JSP page. It cannot be overridden
+   f. Call _jspService() of java.servlet.jsp.HttpJspPage interface which extends JspPage interface.
+      It is invoked every time a new request comes to JSP page. It cannot be overridden
 
   g. Call jspDestroy() of javax.servlet.jsp.JspPage interface and used for deallocation. It can be overridden
 
 
 JSP Elements - 3 types
+
+1. Directive element
+    a. page directive element
+    b. include directive element
+    c. taglib directive element
+
+2. Scripting element
+    a. Declaration
+    b. Scriptlet
+    c. Expression
 
 1. Directive element
 
@@ -307,7 +319,8 @@ out.println(i);
 
          -- Jsp is made java+html, with the help of java we can write business logic, with html we can design the web page
 
-        -- It is always a good pratcise to separate business logic from presentation logic, so we have to write all logic in separate java program called java bean program
+        -- It is always a good pratcise to separate business logic from presentation logic, 
+           so we have to write all logic in separate java program called java bean program
 
        -- Bean program is a java prg used to change the properties of the web page at runtime with 3 condition
 
@@ -577,8 +590,15 @@ JSP Implicit objects
         - JSP is similar to servlets, whatever we studied in servlets can be accessed inside JSP using implicit object
 
    -- 9 types
-
- 
+1. request
+2.response
+3. session
+4. out
+5. config
+6. application
+7. exception
+8. page
+9. pageContext
 
 1. request
 

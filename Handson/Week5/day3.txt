@@ -1,0 +1,57 @@
+23. Exercise 4.2 (Required)
+
+(10 Marks)
+
+Create a JSP called EmployeeSearch.jsp that accepts the Employee ID and
+
+connects to the database, provided to you, to display the details of that person.
+
+The table structure will be as follows:
+
+Field Name DataType
+
+EmpId Numeric
+
+Name String
+
+Age Numeric
+
+ 
+
+Gender String
+
+Deptname String
+
+Basic Numeric
+
+Grade String
+
+You should have at least 5 records in that table.
+
+If the queried row is not available, then forward the control to a JSP page, which
+
+displays an appropriate error message.
+
+If the row is available, then dispatch the request to another JSP called
+
+RegisteredUser.jsp by including all the messages/details in the
+
+EmployeeSearch.jsp and also display the details of the employee in
+
+RegisteredUser.jsp in a tabular format.
+
+ 
+
+20. Problem Statement:
+
+Create a Java Bean Class com.cts.Employee with int code, String name and float ‘salary’ as accessor methods. Create index.JSP containg three text boxes labeled as ‘Name’, ‘Employee Code’, and ‘Salary’. Index.JSP should also contain a submit button.
+
+ 
+
+On submitting the inputs through the text areas of index.JSP the control should pass to another JSP file ‘result.JSP’. Result.JSP file should display the values entered in the previous page as ‘Name’, ‘Employee Code’ and ‘Salary’.
+
+ 
+
+Tips:
+
+Use <JSP:useBean>,<JSP:getProperty>, and < JSP:setProperty >

@@ -1,0 +1,595 @@
+Expression Language (EL)
+
+     --  without using expression and scriptlet if we want to print in that case we can go for EL
+
+ 
+
+Enabling EL:
+
+1. using page directive element - EL will be enabled only in that particular page
+
+        <%@ page isELIgnored="false" %>
+
+2. using web.xml - EL will be enabled for all JSP page
+
+<web-app>
+
+       <jsp-config>
+
+            <jsp-property-group>
+
+                  <url-pattern>*.jsp</url-pattern>
+
+                  <el-ignored>false</el-ignored>
+
+            </jsp-property-group>
+
+       </jsp-config>
+
+</web-app>
+
+ 
+
+EL Syntax:
+
+   ${expression}
+
+ 
+
+EL operators
+
+1. +,-,*,/,div,%,mod
+
+2. == (eq), !=(ne),<(lt),>(gt),<=(le),>=(ge)
+
+3. &&(and), ||(or)
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+${4+6} <br/>
+
+${ 10 mod 5 }<br/>
+
+${ 6>7 } <br/>
+
+${ 6 gt 7 } <br/>
+
+${ 7 eq 8 } <br/>
+
+${ 8 != 6 } <br/>
+
+</body>
+
+</html>
+
+ 
+
+EL Implicit object
+
+1.pageScope
+
+2. requestScope
+
+3. sessionScope
+
+4. applicationScope
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<% request.setAttribute("mark1",79); %>
+
+<%= request.getAttribute("mark1") %> <br/>
+
+${requestScope.mark1} <br/>
+
+<% session.setAttribute("mark2",87); %>
+
+${sessionScope.mark2} <br/>
+
+<% pageContext.setAttribute("mark3",77); %>
+
+${pageScope.mark3}
+
+</body>
+
+</html>
+
+ 
+
+5. cookie - used to retrieve info in EL
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<h1>Welcome to JSP</h1>
+
+<% Cookie c=new Cookie("myCookie","Ramu");
+
+response.addCookie(c);
+
+%>
+
+<br/>
+
+<a href="/J2EEProject/fetch.jsp">Click cookie info</a>
+
+</body>
+
+</html>
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+Hello ${cookie.myCookie.value}
+
+</body>
+
+</html>
+
+ 
+
+6. param
+
+     -- retrieves single parameter value from html to jsp
+
+7. paramValues
+
+     -- retrieve multiple parameter values
+
+8. header
+
+      -- prints a single header value
+
+9. headerValues
+
+     --retrieve multiple header values
+
+ 
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<form action="/J2EEProject/param.jsp">
+
+Name: <input  type="text" name="n1"><br/>
+
+Age: <input  type="text" name="n2"><br/>
+
+Salary: <input  type="text" name="n3"><br/>
+
+Hobbies:
+
+<input type="checkbox" name="hobby" value="dance">Dancing
+
+<input type="checkbox" name="hobby" value="sing">Singing
+
+<input type="checkbox" name="hobby" value="play">Playing
+
+<input type="checkbox" name="hobby" value="swim">Swimming
+
+<input type="submit">
+
+</form>
+
+</body>
+
+</html>
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<%= request.getParameter("n1") %> <br/>
+
+${param.n2} <br/>
+
+${param.n3} <br/>
+
+${paramValues.hobby["0"]} <br/>
+
+${paramValues.hobby["1"]} <br/>
+
+${header["accept-language"]} <br/>
+
+${header["host"]} <br/>
+
+${headerValues.accept["0"]}
+
+</body>
+
+</html>
+
+ 
+
+10. initParam - used to access only application param
+
+ 
+
+11. pageContext - used to access JSP page implicit object
+
+ 
+
+JSTL Framework- JSP Standard Tag Library
+
+    - If we want to develop entire webpage only with the help of tags
+
+    - Tomcat server knows only what is JSP, servlet. It dosent know JSTL, we r going to download jar files related to JSTL and put inside lib folder. Since we put external jar files it is called as framework
+
+ 
+
+Installation
+
+1. Download jstl.jar and put into lib folder
+
+ 
+
+4 types of JSTL tags
+
+1. core tags - used for declaraing a variable, initialization, printing, iteration,conditional checking, exception
+
+2. sql tags -- used for database processing
+
+3. xml tags -- used for xml processing
+
+4. formatting tags - used for formatting date and number in different format
+
+ 
+
+Core Tags
+
+    used for declaraing a variable, initialization, printing, iteration,conditional checking, exception handling
+
+   -- For tomcat those core tags are considered as user defined tags
+
+   -- we give the infor abt jsp contains user defined tag is given to jsp container using taglib directive elt
+
+ 
+
+1. <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+ 
+
+ 
+
+1. <c:set> - used to set the value to variable in different scope
+
+2. <c:out> - used for printing purpose
+
+3.<c:remove> - removes the variable from different scope
+
+ 
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<c:set var="salary" value="${2000*4}" scope="session"/>
+
+My Salary is <c:out value="${salary}"/>
+
+<br/>
+
+${sessionScope.salary}
+
+<br/>
+
+<c:remove var="salary"/>
+
+After removing my salary is <c:out value="${salary}"/>
+
+ 
+
+</body>
+
+</html>
+
+ 
+
+ 
+
+4.<c:if> - used to check single condition
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<c:set var="salary" value="${2000*4}" scope="session"/>
+
+<c:if test="${salary > 5000}">
+
+   My Salary is <c:out value="${salary}"/>
+
+</c:if>
+
+ 
+
+</body>
+
+</html>
+
+ 
+
+5. <c:choose>
+
+    <c:when>
+
+   <c:otherwise>
+
+       -- used to check multiple condition
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<c:set var="salary" value="${2000*4}" scope="session"/>
+
+My Salary is <c:out value="${salary}"/>
+
+<c:choose>
+
+   <c:when test="${salary>5000}">
+
+      Salary is good
+
+   </c:when>
+
+   <c:when test="${salary<3000}">
+
+      Salary is less
+
+   </c:when>
+
+   <c:otherwise>
+
+       No comments about salary
+
+   </c:otherwise>
+
+</c:choose>
+
+ 
+
+</body>
+
+</html>
+
+ 
+
+6.<c:forEach> - used for iteration
+
+7. <c:forTokens> - used for splitting the items based on delimiters
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<c:forEach var="i" begin="1" end="15" step="3">
+
+  Item <c:out value="${i}"/>
+
+</c:forEach>
+
+<br/>
+
+<c:forTokens items="apple,grapes,banana,oranges" delims="," var="fruit">
+
+    <c:out value="${fruit}"/>
+
+</c:forTokens>
+
+</body>
+
+</html>
+
+ 
+
+8.<c:catch> - used for exception handling
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
+    pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>Insert title here</title>
+
+</head>
+
+<body>
+
+<c:catch var="e">
+
+   <%int i=10/0; %>
+
+</c:catch>
+
+<c:if test="${e!=null}">
+
+  The exception is ${e}
+
+</c:if>
+
+</body>
+
+</html>
+
+ 
+
+9.<c:redirect> - used to redirect to another page
+
+ 

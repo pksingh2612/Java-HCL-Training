@@ -511,8 +511,8 @@ Problem8c.jsp
 9.Problem Statement:
 
 A photo gallery application needs to track the number of hits on a particular page (say “wonders.JSP”).
-Other parts of the application need access to the number of hits. A hits counter view page should be able to print the number
-of hits to the wonder.JSP page.
+Other parts of the application need access to the number of hits.
+A hits counter view page should be able to print the number of hits to the wonder.JSP page.
 
 
 Deliverables Expected:
@@ -530,20 +530,25 @@ Solution(#9)
 
 wonders.jsp
 -------------
-
-Counter.java
-------------
-
-
-counterview.jsp
-----------------
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%! int j=0; %>
+	Number of Hits: <%= ++j %>
+</body>
+</html>
 
 
 
 10. Problem Statement:
 
-A Web application has an index page, which asks the users for “user name”. 
+A Web application has an index page, which asks the users for “user name”.
 Once it is submitted it calls another JSP which has to print that “user name”
 
 
@@ -622,60 +627,258 @@ Problem11a.jsp
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Index Page</title>
 </head>
 <body>
-	<form action="http://localhost:8086/MyFirstEEProject/Problem11b.jsp">
+	<form action="http://localhost:8086/MyFirstEEProject/Problem11Servlet" method="post" >
 		Name: <input type="text" name="username"> <br/>
 		<input type="submit" value="Submit">
 	</form>
 </body>
 </html>
 
-web.xml  (i am using in place of database)
---------------------------------------------------------
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>MyFirstEEProject</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+Problem11Servlet.java
+----------------------
+package com.handsonWeek5Day1;
 
-	<context-param>
-		<param-name>
-			PK
-		</param-name>
-		<param-value>
-			23
-		</param-value>
-	</context-param>
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-</web-app>
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Problem11Servlet
+ */
+@WebServlet("/Problem11Servlet")
+public class Problem11Servlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Problem11Servlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter pw= response.getWriter();
+		String name=request.getParameter("username");
+		
+		Connection con=null;
+		try {
+			con=ConnectionUtil.getConnection();
+			Statement st=con.createStatement();
+			String sqlQuery = "SELECT age FROM user WHERE name='"+name+"'";
+			ResultSet rs=st.executeQuery(sqlQuery);
+			List<User> l = new ArrayList<>();
+			while(rs.next()) {
+				User user = new User();
+//				user.setUserid(rs.getInt(1));
+//				user.setName(rs.getString(2));
+//				user.setAge(rs.getInt(3));
+				user.setAge(rs.getInt(1));
+				l.add(user);
+			}
+			if(l!=null)
+			{
+				request.setAttribute("userList", l);
+				RequestDispatcher rd= request.getRequestDispatcher("/Problem11b.jsp");
+				rd.forward(request, response);
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		finally {
+			if(con!=null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
+}
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| handson            |
+| information_schema |
+| jdbc               |
+| journal            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use handson;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_handson |
++-------------------+
+| books             |
+| customer          |
+| items             |
+| orders            |
+| programmer        |
+| supplier          |
+| worldcity         |
++-------------------+
+7 rows in set (0.01 sec)
+
+mysql> create table user(userid int primary key, name varchar(20), age int);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> decribe handson.user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decribe handson.user' at line 1
+mysql> decribe handson.user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decribe handson.user' at line 1
+mysql> describe handson.user;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| userid | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into user values(1,Prabhakar Singh,23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Singh,23)' at line 1
+mysql> insert into user values (1,Prabhakar Singh,23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Singh,23)' at line 1
+mysql> insert into user values (1,'Prabhakar Singh',23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from user;
++--------+-----------------+------+
+| userid | name            | age  |
++--------+-----------------+------+
+|      1 | Prabhakar Singh |   23 |
++--------+-----------------+------+
+1 row in set (0.00 sec)
+
+
+
+ConnectionUtil.java
+---------------------
+package com.handsonWeek5Day1;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ConnectionUtil {
+	public static Connection getConnection() {
+		Connection con=null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/handson","root","1234");
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return con;
+	}
+}
+
+User.java
+---------
+package com.handsonWeek5Day1;
+
+public class User {
+	   private int userid;
+	   private String name;
+	   private int age;
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public User(int userid, String name, int age) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.age = age;
+	}
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+   
+}
+
 
 Problem11b.jsp
 ---------------
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>User Details</title>
 </head>
 <body>
-	<% String name = request.getParameter("username");
-	 if(name.equals("PK")){
-	%>
-	<%= application.getInitParameter("PK") %>
-	<% } %>
-	</body>
+	<table border="1">
+	<tr>
+		<th>User Age</th>
+	</tr>
+	<c:forEach items="${userList}" var="user">
+		<tr>
+			<td>${user.age}</td>
+		</tr>
+	</c:forEach>
+	</table>
+</body>
 </html>
-
 
 
 12. Problem Statement:
