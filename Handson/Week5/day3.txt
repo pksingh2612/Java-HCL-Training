@@ -16,8 +16,6 @@ Name String
 
 Age Numeric
 
- 
-
 Gender String
 
 Deptname String
@@ -40,18 +38,500 @@ EmployeeSearch.jsp and also display the details of the employee in
 
 RegisteredUser.jsp in a tabular format.
 
+
+
+Solution
+---------
+
+ConnectionUtil.java
+--------------------
+package com.handsonWeek5Day3;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ConnectionUtil {
+	public static Connection getConnection() {
+		Connection con=null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/handson","root","1234");
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		return con;
+	}
+}
+
+
+Employee1.java
+---------------
+package com.handsonWeek5Day3;
+
+public class Employee1 {
+ private int empId;
+ private String name;
+ private int age;
+ private String gender;
+ private String deptname;
+ private int basic;
+ private String grade;
+public Employee1() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Employee1(int empId, String name, int age, String gender, String deptname, int basic, String grade) {
+	super();
+	this.empId = empId;
+	this.name = name;
+	this.age = age;
+	this.gender = gender;
+	this.deptname = deptname;
+	this.basic = basic;
+	this.grade = grade;
+}
+public int getEmpId() {
+	return empId;
+}
+public void setEmpId(int empId) {
+	this.empId = empId;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public int getAge() {
+	return age;
+}
+public void setAge(int age) {
+	this.age = age;
+}
+public String getGender() {
+	return gender;
+}
+public void setGender(String gender) {
+	this.gender = gender;
+}
+public String getDeptname() {
+	return deptname;
+}
+public void setDeptname(String deptname) {
+	this.deptname = deptname;
+}
+public int getBasic() {
+	return basic;
+}
+public void setBasic(int basic) {
+	this.basic = basic;
+}
+public String getGrade() {
+	return grade;
+}
+public void setGrade(String grade) {
+	this.grade = grade;
+}
  
+}
+
+
+EmpServlet.java
+----------------
+package com.handsonWeek5Day3;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Week5_Day3.Employee;
+import com.handsonWeek5Day1.ConnectionUtil;
+
+/**
+ * Servlet implementation class EmpServlet
+ */
+@WebServlet("/EmpServlet")
+public class EmpServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public EmpServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter pw= response.getWriter();
+		int empId=Integer.parseInt(request.getParameter("empId"));
+		
+		Connection con=null;
+		try {
+			con=ConnectionUtil.getConnection();
+			Statement st=con.createStatement();
+			String sqlQuery = "SELECT * FROM employee WHERE EmpId="+empId;
+			ResultSet rs=st.executeQuery(sqlQuery);
+			System.out.println(rs);
+			List<Employee1> l = new ArrayList<>();
+			while(rs.next()) {
+				Employee1 emp = new Employee1();
+				emp.setEmpId(rs.getInt(1));
+				emp.setName(rs.getString(2));
+				emp.setAge(rs.getInt(3));
+				emp.setGender(rs.getString(4));
+				emp.setDeptname(rs.getString(5));
+				emp.setBasic(rs.getInt(6));
+				emp.setGrade(rs.getString(7));
+				l.add(emp);
+			}
+			//System.out.println(l);
+			if(l.isEmpty())
+			{
+				RequestDispatcher rd= request.getRequestDispatcher("/EmployeeErrorPage.jsp");
+				 rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("empList", l);
+				RequestDispatcher rd= request.getRequestDispatcher("/RegisteredUser.jsp");
+				rd.forward(request, response); 
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		finally {
+			if(con!=null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+}
+
+
+EmployeeSearch.jsp
+--------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title> Employee Search </title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/EmpServlet" method="post" >
+		Employee ID: <input type="number" name="empId"> <br/>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
+
+RegisteredUser.jsp
+--------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registered Employee Details</title>
+</head>
+<body>
+	<table border="1">
+	<tr>
+		<th>Employee Id</th>
+		<th>Employee Name</th>
+		<th>Employee Age</th>
+		<th>Employee Gender</th>
+		<th>Employee Department</th>
+		<th>Employee Basic</th>
+		<th>Employee Grade</th>
+	</tr>
+	<c:forEach items="${empList}" var="empl">
+		<tr>
+			<td>${empl.empId}</td>
+			<td>${empl.name}</td>
+			<td>${empl.age}</td>
+			<td>${empl.gender}</td>
+			<td>${empl.deptname}</td>
+			<td>${empl.basic}</td>
+			<td>${empl.grade}</td>
+		</tr>
+	</c:forEach>
+	</table>
+</body>
+</html>
+
+
+EmployeeErrorPage.jsp
+------------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Error Page</title>
+</head>
+<body>
+	<h3> No result founded !</h3>
+</body>
+</html>
+
+DB ResultSet
+----------------
+
+mysql> use handson;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_handson |
++-------------------+
+| books             |
+| customer          |
+| items             |
+| orders            |
+| programmer        |
+| supplier          |
+| worldcity         |
++-------------------+
+7 rows in set (0.01 sec)
+
+mysql> create table user(userid int primary key, name varchar(20), age int);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> decribe handson.user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decribe handson.user' at line 1
+mysql> decribe handson.user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decribe handson.user' at line 1
+mysql> describe handson.user;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| userid | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into user values(1,Prabhakar Singh,23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Singh,23)' at line 1
+mysql> insert into user values (1,Prabhakar Singh,23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Singh,23)' at line 1
+mysql> insert into user values (1,'Prabhakar Singh',23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from user;
++--------+-----------------+------+
+| userid | name            | age  |
++--------+-----------------+------+
+|      1 | Prabhakar Singh |   23 |
++--------+-----------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM user WHERE name="Prabhakar Singh";
++--------+-----------------+------+
+| userid | name            | age  |
++--------+-----------------+------+
+|      1 | Prabhakar Singh |   23 |
++--------+-----------------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT age FROM user WHERE name="Prabhakar Singh";
++------+
+| age  |
++------+
+|   23 |
++------+
+1 row in set (0.00 sec)
+
+mysql> use handson;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_handson |
++-------------------+
+| books             |
+| customer          |
+| items             |
+| orders            |
+| programmer        |
+| supplier          |
+| user              |
+| worldcity         |
++-------------------+
+8 rows in set (0.00 sec)
+
+mysql> create table employee(EmpId Numeric, Name String, Age Numeric, Gender varchar(20),Deptname varchar(30), Basic Numeric, Grade varchar(3));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'String, Age Numeric, Gender varchar(20),Deptname varchar(30), Basic Numeric, Gra' at line 1
+mysql> create table employee(EmpId Numeric PRIMARY KEY, Name String, Age Numeric, Gender varchar(20),Deptname varchar(30), Basic Numeric, Grade varchar(3));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'String, Age Numeric, Gender varchar(20),Deptname varchar(30), Basic Numeric, Gra' at line 1
+mysql> create table employee(EmpId Numeric PRIMARY KEY, Name varchar(35), Age Numeric, Gender varchar(20),Deptname varchar(30), Basic Numeric, Grade varchar(3));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> describe handson.employee;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| EmpId    | decimal(10,0) | NO   | PRI | NULL    |       |
+| Name     | varchar(35)   | YES  |     | NULL    |       |
+| Age      | decimal(10,0) | YES  |     | NULL    |       |
+| Gender   | varchar(20)   | YES  |     | NULL    |       |
+| Deptname | varchar(30)   | YES  |     | NULL    |       |
+| Basic    | decimal(10,0) | YES  |     | NULL    |       |
+| Grade    | varchar(3)    | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> insert into employee values (1,Prabhakar,23,Male,CSE,2,A);
+ERROR 1054 (42S22): Unknown column 'Prabhakar' in 'field list'
+mysql> insert into employee values (1,"Prabhakar",23,"Male","CSE",2,"A");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (2,"Amish",23,"Male","ME",2,"B");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (3,"Suraj",25,"Male","BT",2,"C");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values (4,"Amit",23,"Male","Civil",2,"B");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values (5,"Ankit",22,"Male","ME",2,"A");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+-----------+------+--------+----------+-------+-------+
+| EmpId | Name      | Age  | Gender | Deptname | Basic | Grade |
++-------+-----------+------+--------+----------+-------+-------+
+|     1 | Prabhakar |   23 | Male   | CSE      |     2 | A     |
+|     2 | Amish     |   23 | Male   | ME       |     2 | B     |
+|     3 | Suraj     |   25 | Male   | BT       |     2 | C     |
+|     4 | Amit      |   23 | Male   | Civil    |     2 | B     |
+|     5 | Ankit     |   22 | Male   | ME       |     2 | A     |
++-------+-----------+------+--------+----------+-------+-------+
+5 rows in set (0.00 sec)
+
 
 20. Problem Statement:
 
-Create a Java Bean Class com.cts.Employee with int code, String name and float ‘salary’ as accessor methods. Create index.JSP containg three text boxes labeled as ‘Name’, ‘Employee Code’, and ‘Salary’. Index.JSP should also contain a submit button.
+Create a Java Bean Class com.cts.Employee with int code, String name and float ‘salary’ as accessor methods. 
+Create index.JSP containg three text boxes labeled as ‘Name’, ‘Employee Code’, and ‘Salary’. 
+Index.JSP should also contain a submit button.
+On submitting the inputs through the text areas of index.JSP the control should pass to another JSP file ‘result.JSP’. 
+Result.JSP file should display the values entered in the previous page as ‘Name’, ‘Employee Code’ and ‘Salary’.
 
- 
-
-On submitting the inputs through the text areas of index.JSP the control should pass to another JSP file ‘result.JSP’. Result.JSP file should display the values entered in the previous page as ‘Name’, ‘Employee Code’ and ‘Salary’.
-
- 
 
 Tips:
 
 Use <JSP:useBean>,<JSP:getProperty>, and < JSP:setProperty >
+
+Solution
+-----------
+
+Index.jsp
+----------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Index Page</title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/Result.jsp">
+		Name: <input type="text" name="Name"> <br/>
+		Id: <input type="number" name="empCode"> <br/>
+		Salary: <input type="number" name="Salary"> <br/>
+	    <input type="submit" value="submit">
+	</form>
+</body>
+</html>
+
+
+Employee.java
+--------------
+package com.cts;
+
+import java.io.Serializable;
+
+public class Employee implements Serializable{
+	private String Name;
+	private int empCode;
+	private double Salary;
+	public String getName() {
+		return Name;
+	}
+	public void setName(String name) {
+		Name = name;
+	}
+	public int getEmpCode() {
+		return empCode;
+	}
+	public void setEmpCode(int empCode) {
+		this.empCode = empCode;
+	}
+	public double getSalary() {
+		return Salary;
+	}
+	public void setSalary(double salary) {
+		Salary = salary;
+	}
+	
+}
+Result.jsp
+----------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Result Page</title>
+</head>
+<body>
+	    <jsp:useBean id="hello" class="com.cts.Employee">
+			<jsp:setProperty name="hello" property="*"/>
+		</jsp:useBean>
+		Employee Name <jsp:getProperty property="Name" name="hello"/>
+		Employee Id <jsp:getProperty property="empCode" name="hello"/>
+	    Employee Age <jsp:getProperty property="Salary" name="hello"/>
+	<br/>
+	    
+</body>
+</html>
