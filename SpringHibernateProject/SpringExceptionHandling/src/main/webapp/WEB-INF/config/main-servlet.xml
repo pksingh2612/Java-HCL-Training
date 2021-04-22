@@ -56,5 +56,16 @@
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
 
+	  <mvc:annotation-driven />
 
+    <beans:bean
+        id="simpleMappingExceptionResolver"
+        class="com.pack.controller.MySimpleExceptionResolver">
+        <beans:property name="exceptionMappings">
+        	<beans:map>
+        		<beans:entry key="Exception" value="generic_error"></beans:entry>
+        	</beans:map>
+        </beans:property>
+         <beans:property name="defaultErrorView" value="generic_error"></beans:property>
+    </beans:bean>
 </beans:beans>

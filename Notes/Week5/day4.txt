@@ -22,17 +22,17 @@ J2EE Components
 Drawback of J2EE
 
 J2EE applications tend to contain excessive amounts of "plumbing" code -> Thers would always be a high proportion of code that doesn't do anything: JNDI lookup code,
-Transfer Objects, try/catch blocks to acquire and release JDBC resources. Writing and maintaining such plumbing code proves a major drain on resources that should be 
+Transfer Objects, try/catch blocks to acquire and release JDBC resources. Writing and maintaining such plumbing code proves a major drain on resources that should be
 focused on the application's business domain.
 
  
 
-J2EE applications are hard to unit test -> The J2EE APIs, especially, the EJB component model, does not take into account ease of unit testing. 
+J2EE applications are hard to unit test -> The J2EE APIs, especially, the EJB component model, does not take into account ease of unit testing.
 It is very difficult to test applications based on EJB and many other J2EE APIs outside an application server.
 
  
 
-Certain J2EE technologies have failed in performance. EJB 2.x, for instance -> The main offender here is entity beans, which have proven little short of 
+Certain J2EE technologies have failed in performance. EJB 2.x, for instance -> The main offender here is entity beans, which have proven little short of
 disastrous for productivity.
 
  
@@ -118,7 +118,7 @@ Spring offers integration points with several other frameworks. So, you do not h
 
 2. Spring Context module
 
-            - provides dependency injection + it provides internationalization, lifecycle events, integrating with EJB, remoting, scheduling,email, JNDI access and 
+            - provides dependency injection + it provides internationalization, lifecycle events, integrating with EJB, remoting, scheduling,email, JNDI access and
               integrating with Velocity, freemarker frameworks
 
        ApplicationContext interface makes Spring as a framework

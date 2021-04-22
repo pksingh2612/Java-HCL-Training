@@ -287,7 +287,7 @@ public class Job {
 
     public String getName() {
 
-                                return name;
+                    return name;
 
                 }
 
@@ -343,7 +343,7 @@ public class Person {
 
     public String getName() {
 
-                                return name;
+                    return name;
 
                 }
 
@@ -351,7 +351,7 @@ public class Person {
 
                 public Job getJob() {
 
-                                return job;
+                    return job;
 
                 }
 
