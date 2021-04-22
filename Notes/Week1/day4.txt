@@ -628,13 +628,11 @@ public class Example7 {
 
                                 System.out.println(s13.length());
 
-                               
 
                                 String s14="hello";
 
                                 System.out.println(s14.replace('e','i'));
 
-                               
 
                                 String s15=" hello world ";
 
@@ -648,7 +646,6 @@ public class Example7 {
 
                                 System.out.println(s16.length()); //11
 
-                               
 
                                 String s17="Now is the time for all goodmen to"+
 
@@ -670,7 +667,7 @@ public class Example7 {
 
                                 System.out.println(s17.lastIndexOf("the"));
 
-                               
+
 
                                 String s18="one-two-three";
 
@@ -680,7 +677,6 @@ public class Example7 {
 
                                                 System.out.println(a);
 
-                               
 
                                 String s19="one.two.three.four.five";
 
@@ -690,7 +686,6 @@ public class Example7 {
 
                                                 System.out.println(a1);
 
-                               
 
                                 String s20="A*bunch*of*stars";
 
@@ -700,7 +695,6 @@ public class Example7 {
 
                                                 System.out.println(a2);
 
-                               
 
                                 String s21="10 home world of 20";
 
@@ -718,7 +712,6 @@ public class Example7 {
 
                                                 System.out.println(a4);
 
-                               
 
                                 String s22="No concession, no concillation,"+
 
@@ -736,7 +729,6 @@ public class Example7 {
 
                                                 System.out.println(a5);
 
-                               
 
                                 String s23="Welcome to Java program";
 
@@ -746,7 +738,6 @@ public class Example7 {
 
                                 System.out.println(s23.matches("Welcome (.*)"));
 
-                               
 
                                 String s24="ABC Windows test";
 

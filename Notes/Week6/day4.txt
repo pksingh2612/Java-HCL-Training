@@ -1,0 +1,391 @@
+Hibernate
+
+
+1. It is persistence framework - mainly used to process anything inside database - To interact java appl with database
+
+2. open source, lightweigt tool
+
+3. uses ORM technique - Object Relational Mapping - we are going to map plain old java object(POJO) to the column of the database table
+
+
+
+Advantage
+
+1. open source and lightweight
+
+2. Fast performance - uses cache mechansim
+
+3. database query independent
+
+      SQL query communicate with database, we have to write sql query based on particular database
+
+     HQL - Hibernate query language - database independent query
+
+4. Automatic table creation - no need to touch the database part
+
+5. complex joins
+
+6. get db info and query info
+
+ 
+
+Hibernate architecture
+
+1. Java layer - our java program
+
+2. Hibernate layer - mapping file and congiuration file
+
+3. backend layer
+
+4. database layer
+
+ 
+
+Hibernate application - 4 programs
+
+1. Hibernate configuration file
+
+         - contains info abt the database and hibernate properties
+
+         - it is saved as hibernate.cfg.xml inside src folder
+
+<hibernate-configuration>
+
+     <session-factory>
+
+            <property name="connection.url">jdbc:mysql://localhost:3306/Hibernate</property> -- defines connection url
+
+         <property name="connection.driver_class">com.mysql.jdbc.Driver</property> --- defines jdbc driver
+
+         <property name="connection.username">root</property> -- define username of db
+
+        <property name="connection.password">root</property> -- defines password of database
+
+         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+      -- we wont write any sql queries,  we use some methods to do processing in database hibernate internally will generate sql queries related to that particular method based on particular database
+
+             <property name="show_sql">true</property> -- used to display generated sql query in console
+
+               <property name="format_sql">true</property> -- used to format the generated sql query
+
+                <property name="use_sql_comments">true</property> -- used to define comments for the generated sql query
+
+                 <property name="hbm2ddl.auto">create/update/create-drop/validate</property>
+
+                -- will automatically create table in database - 4 values
+
+    1. create - each time it will create new table
+
+    2. update - it will create the table first time and next time it will update(append the data) the table
+
+    3. create-drop - it drop the entire database and create a new table
+
+   4. validate - it dosent do any thing but it checks/validate the syntax of existing table
+
+         <mapping resource=""></mapping> -- used to configure the mapping xml file
+
+         <mapping class=""></mapping> -- used to configure the mapping file generated using annotation
+
+    </session-factory>
+
+</hibernate-configuration>
+
+ 
+
+Note:
+
+-- create separate cfg for different database
+
+ 
+
+2. Hibernate mapping file
+
+     -- contains mapping of plain old java object to column of database table
+
+    -- it is saved as persistentclassname.hbm.xml inside src folder
+
+<hibernate-mapping>
+
+<class> - map persistent class with table
+
+<id> -- map primary key
+
+<generator> - used to generate value for primary key automatically
+
+  assigned(we have to give value for PK),increment,identity,sequence,seqhilo,hilo,foreign,native,uuid,guid
+
+<property> - configures normal property
+
+</hibernate-mapping>
+
+    -- this mapping file is configured inside cfg file using <mapping>
+
+ 
+
+3. Entity class/persistent class
+
+         -- class contains getters and setters methods depending on columns of the db table.
+
+ 
+
+ 
+
+4. Main class
+
+       - we are going to interact java appl with database using HIbernate
+
+      -- org.hibernate.* package
+
+4 steps
+
+1. Configuration class
+
+        -- used to read the database info from hibernate.cfg.xml file automatically
+
+        -- You can give any name for configuration file, in that case we have pass the cfg file as argument to configuration class
+
+ 
+
+2. SessionFactory interface - it is immutable and thread safe object used to create Session interface
+
+ 
+
+3. Session interface - is the main interface which acts as a layer between java appl and database
+
+    -- whenever we use session interface it uses first level cache
+
+3 objects
+
+1. transient object - never persisted (ie) not stored inside the database, we have just created an object
+
+2. persistent object - object is associated with db (ie) obejct is stored into database
+
+3. detached object - previously persistent, now we removed from database
+
+ 
+
+Methods
+
+1. Serializable save(Object o) - used to insert into database and return the latest insert primary key value
+
+2. void persist(Object o) - used to insert into database but dosent return anything
+
+3. void saveOrUpdate(Object o)
+
+    -- used for insert into the table if primary key dosent exist or it will perform update if primary key alreasy exist
+
+4. Object get(Class c, Serializable id(pk))
+
+       -- used to return single object each time by hitting the database- internally generate select query
+
+      --if primary key dosent exist it returns null
+
+5. Object load(Class c, Serializable id(pk))
+
+      -- used to return single proxy object -- internally generate select query
+
+      --if primary key dosent exist it throw an exception called EntityNotFoundException
+
+6. void update(Object obj)
+
+        -- used to perform updating - internally generates update query
+
+7. void delete(Object obj)
+
+       -- used to perform delete op -  internally generates delete query
+
+8. void clear() - clear all session object
+
+9. void evict(Object obj) - remove the instance from session cache
+
+10. void merge(Object obj)
+
+10. Transaction beginTransaction()
+
+11. Query createQuery(String query)
+
+12. Criteria createCriteria(Class c)
+
+13. SQLQuery createSQLQuery(String query)
+
+ 
+
+ 
+
+4. Transaction interface
+
+        -- we have create transaction
+
+1. void commit()
+
+2. void rollback()
+
+ 
+
+ 
+
+1. create maven project with jar packaging
+
+2. configure dependency in pom.xml
+
+3. mvn clean install
+
+4. update the project
+
+
+Hibernate using annotation
+
+1. Hibernate.cfg.cml
+
+2. Persistence class
+
+    -- Instead of mapping file we can use annotation inside persistent class
+
+    -- annotation present javax.persistence.* (JPA)
+
+@Entity - indicate that class is a entity class
+
+@Table(name="stud1001") - optional annotation used to map entity class with table
+
+then it creates table in the name entity class
+
+public class Student{
+
+    @Id -- indicates it is primary key
+
+    @GeneratedValue(strategy=GenerationType.AUTO/IDENTITY/SEQUENCE/TABLE)
+
+    @Column(name="sid",length=20,nullable=true/false,unique="true/false",insertable="true/false",updateable="true/false",scale=7,precision=2) 
+
+    private int studid;
+
+    @Column(name="stu_name")
+
+    private String sname;
+
+    private int sage;
+
+    private int smark;
+
+    @Temporal(TemporalType.DATE/TIME/TIMESTAMP)
+
+    private Date dob;
+
+    @Enumerated(EnumType.STRING/ORDINAL)
+
+    private Gender gender;
+
+    @Lob
+
+    @Column(name="photo",columnDefination="BLOB")
+
+   private byte[] image;
+
+   @Transient - used to ignore this field at time of persisting
+
+    private int flag;
+
+ 
+
+    //getters and setters
+
+}
+
+ 
+
+public enum Gender {MALE,FEMALE,OTHER}
+
+ 
+
+hibernate.cfg.xml
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+
+<hibernate-configuration>
+
+
+    <session-factory>
+
+        <property name="hbm2ddl.auto">update</property>
+
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <property name="connection.url">jdbc:mysql://localhost:3306/Hibernate</property>
+
+        <property name="connection.username">root</property>
+
+        <property name="connection.password">root</property>
+
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <property name="show_sql">true</property>
+
+        <property name="format_sql">true</property>
+
+        <property name="use_sql_comments">true</property>
+
+        <mapping resource="Student.hbm.xml"/>
+
+        
+
+    </session-factory>
+
+
+</hibernate-configuration>
+
+ 
+
+ 
+
+ 
+
+Hbm.xml
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+
+</hibernate-mapping>
+
+
+
+Adv. of using below lines:
+@DynamicInsert(value=true)
+@DynamicUpdate(value=true)
+
+----------------------------
+
+So after almost 2 month's wait I was finally able to derive this conclusion proposed as an answer to my own question with the help from various sources:
+
+1.) When using dynamic-update, Hibernate has to generate the corresponding SQL string each time and there is thus a performance cost on the Hibernate side. In other words, there is a trade-off between overhead on the database side and on the Hibernate side.
+
+2.) Hibernate caches the actual SELECT, INSERT and UPDATE SQL strings for each entity. This results in not having to re-create these statements every time you want to find, persist or update an entity.However, when using dynamic-update, Hibernate has to generate the corresponding SQL strings each time. This results in a performance cost on the Hibernate side.
+
+3.) Useful when applied to a very small & simple table as there is a significant performance gain using this annotation. A more realistic scenario, on wider tables using a remote database, performance increases may be more pronounced. Of course, the mileage you get out of this will vary most of the columns need to be updated.
+
+4.) The @DynamicUpdate annotation/ dynamic-update=true is used to specify that the UPDATE SQL statement should be generated whenever an entity is modified. By default, Hibernate uses a cached UPDATE statement that sets all table columns. When the entity is annotated with the @DynamicUpdate annotation, the PreparedStatement is going to include only the columns whose values have been changed.
+
+Overall could be summarized as:
+
+Runtime SQL generation overhead.
+No PreparedStatement(caching) used anymore.
+Performance overhead.

@@ -1,0 +1,2388 @@
+Wiring
+
+      -- associating the properties in separate xml files
+
+Autowiring
+
+      -- only instead of using ref attribute, we can go for autowiring
+
+5 types
+
+1. autowire=none -- default, where we have to do wiring using ref attribute
+
+2. autowire=byName - name of the property = id of the bean class in xml file, then it will do autowire by name
+
+
+package com.pack;
+
+
+public class Address {
+
+                private String city;
+
+                private String state;
+
+                public String getCity() {
+
+                                return city;
+
+                }
+
+                public void setCity(String city) {
+
+                                this.city = city;
+
+                }
+
+                public String getState() {
+
+                                return state;
+
+                }
+
+                public void setState(String state) {
+
+                                this.state = state;
+
+                }
+
+}
+
+package com.pack;
+
+
+public class Employee {
+
+                private String empName;
+
+                private Address address;  //Composition(has-a)
+
+                public Employee() {
+
+                                super();
+
+                                // TODO Auto-generated constructor stub
+
+                }
+
+                public Employee (Address address, String empName) {
+
+                                this.address = address;
+
+                                this.empName = empName;
+
+                }
+
+                public String getEmpName() {
+
+                                return empName;
+
+                }
+
+                public void setEmpName(String empName) {
+
+                                this.empName = empName;
+
+                }
+
+                public Address getAddress() {
+
+                                return address;
+
+                }
+
+                public void setAddress(Address address) {
+
+                                this.address = address;
+
+                }
+
+}
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+  <bean id="address" class="com.pack.Address">
+
+     <property name="city" value="Chennai"></property>
+
+     <property name="state" value="Tamilnadu"></property>
+
+  </bean>
+
+  <bean id="emp" class="com.pack.Employee" autowire="byName">
+
+      <property name="empName" value="sam"></property>
+
+      <!-- <constructor-arg index="1" value="Sam" type="java.lang.String"></constructor-arg> -->
+
+  </bean>
+
+   
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                ApplicationContext context=new ClassPathXmlApplicationContext("abc.xml");
+
+                      Employee e=(Employee) context.getBean("emp");
+
+                      System.out.println(e.getEmpName());
+
+                      System.out.println(e.getAddress().getCity());
+
+                      System.out.println(e.getAddress().getState());
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+3. autowire=byType - it is going to do autowiring for the property type must be present in xml file
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+   <bean id="addr" class="com.pack.Address">
+
+     <property name="city" value="Chennai"></property>
+
+     <property name="state" value="Tamilnadu"></property>
+
+  </bean>
+
+  <bean id="emp" class="com.pack.Employee" autowire="byType">
+
+      <property name="empName" value="ram"></property>
+
+      <!-- <constructor-arg index="1" value="Sam" type="java.lang.String"></constructor-arg> -->
+
+  </bean>
+
+   
+
+</beans>
+
+ 
+
+4.autowire=constructor
+
+       -- it is going to do wiring like byType but through constructor
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+   <bean id="addr" class="com.pack.Address">
+
+     <property name="city" value="Chennai"></property>
+
+     <property name="state" value="Tamilnadu"></property>
+
+  </bean>
+
+  <bean id="emp" class="com.pack.Employee" autowire="constructor">
+
+     <!--  <property name="empName" value="ram"></property> -->
+
+     <constructor-arg index="1" value="Sam" type="java.lang.String"></constructor-arg>
+
+  </bean>
+</beans>
+
+
+5. autowire=autodetect
+
+       -- it is going to do wiring through constructor or through bytype
+
+
+autowire-candidate=true/false
+
+     -- If same bean is configured multiple times in xml file, which bean class has to be invoked it is defined using autowire-candidate
+
+
+package com.pack;
+
+
+public class Job {
+
+
+    private String name;
+
+    public void setName(String name) {
+
+        this.name = name;
+
+    }
+
+    public String getName() {
+
+                                return name;
+
+                }
+
+                @Override
+
+    public String toString() {
+
+        return "Job{" +
+
+                "name='" + name + '\'' +
+
+                '}';
+
+    }
+
+}
+
+ 
+
+package com.pack;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+ 
+
+public class Person {
+
+ 
+
+    private String name;
+
+    private Job job;
+
+ 
+
+    public void setName(String name) {
+
+        this.name = name;
+
+    }
+
+ 
+
+   // @Autowired
+
+    public void setJob(Job job) {
+
+        this.job = job;
+
+    }
+
+ 
+
+    public String getName() {
+
+                                return name;
+
+                }
+
+ 
+
+                public Job getJob() {
+
+                                return job;
+
+                }
+
+ 
+
+                @Override
+
+    public String toString() {
+
+        return "Person{" +
+
+                "name='" + name + '\'' +
+
+                ", job=" + job +
+
+                '}';
+
+    }
+
+}
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+                           http://www.springframework.org/schema/context
+
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+ 
+
+    <context:annotation-config/>
+
+ 
+
+    <bean  class="com.pack.Job" >
+
+        <property name="name" value="Java Developer"/>
+
+    </bean>
+
+<bean class="com.pack.Job" >
+
+        <property name="name" value="UI Developer"/>
+
+    </bean>
+
+    <bean class="com.pack.Person" autowire="byType" >
+
+        <property name="name" value="John Doe"/>
+
+      
+
+    </bean>
+
+ 
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main {
+
+                  public static void main(String... args) {
+
+                        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+                        Person person = context.getBean(Person.class);
+
+                        System.out.println(person.getJob().getName());
+
+                    }
+
+}
+
+ 
+
+ 
+
+primary="true/false"
+
+ 
+
+package com.pack;
+
+ 
+
+public class Job {
+
+ 
+
+    private String name;
+
+ 
+
+    public Job(String name) {
+
+        this.name = name;
+
+    }
+
+ 
+
+    @Override
+
+    public String toString() {
+
+        return "Job{" +
+
+                "name='" + name + '\'' +
+
+                '}';
+
+    }
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+ 
+
+public class Person {
+
+ 
+
+    //@Autowired
+
+    private Job job;
+
+ 
+
+    public Job getJob() {
+
+                                return job;
+
+                }
+
+ 
+
+                public void setJob(Job job) {
+
+                                this.job = job;
+
+                }
+
+ 
+
+                @Override
+
+    public String toString() {
+
+        return "Person{" +
+
+                "job=" + job +
+
+                '}';
+
+    }
+
+}
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+                           http://www.springframework.org/schema/context
+
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+ 
+
+    <context:annotation-config/>
+
+ 
+
+    <bean class="com.pack.Person" autowire="byType"/>
+
+  
+
+ 
+
+ 
+
+    <bean class="com.pack.Job" primary="true" >
+
+        <constructor-arg name="name" value="Java Developer"/>
+
+    </bean>
+
+ 
+
+    <bean class="com.pack.Job" >
+
+        <constructor-arg name="name" value="Front End Developer"/>
+
+    </bean>
+
+ 
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main {
+
+ 
+
+    public static void main(String... args) {
+
+        ApplicationContext xmlContext = new ClassPathXmlApplicationContext("app-config.xml");
+
+                //ApplicationContext xmlContext = new AnnotationConfigApplicationContext(Config.class);
+
+        Person person = xmlContext.getBean(Person.class);
+
+        System.out.println(person);
+
+    }
+
+}
+
+ 
+
+Spring Annotation
+
+   - Spring bean has to be configured in xml file or we can use annotation
+
+ 
+
+package com.pack1;
+
+ 
+
+public class Example {
+
+   private String message;
+
+ 
+
+public String getMessage() {
+
+                return message;
+
+}
+
+ 
+
+public void setMessage(String message) {
+
+                this.message = message;
+
+}
+
+  
+
+}
+
+ 
+
+ 
+
+package com.pack1;
+
+ 
+
+public class HelloWorld {
+
+   private String msg;
+
+ 
+
+public String getMsg() {
+
+                return msg;
+
+}
+
+ 
+
+public void setMsg(String msg) {
+
+                this.msg = msg;
+
+}
+
+  
+
+}
+
+ 
+
+ 
+
+package com.pack1;
+
+ 
+
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.context.annotation.Configuration;
+
+ 
+
+@Configuration //configuration file where u configure all bean classes
+
+public class ExampleConfig {
+
+                @Bean //it is a bean class
+
+                public Example example(){
+
+                                return new Example();
+
+                }
+
+ 
+
+                @Bean
+
+                public HelloWorld hello(){
+
+                                return new HelloWorld();
+
+                }
+
+}
+
+ 
+
+ 
+
+package com.pack1;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+ 
+
+public class Main {
+
+ 
+
+                public static void main(String[] args) {
+
+                                ApplicationContext context=new AnnotationConfigApplicationContext(ExampleConfig.class);
+
+                    Example e=(Example)context.getBean(Example.class);
+
+                    e.setMessage("Spring Annotation");
+
+                    System.out.println(e.getMessage());
+
+                   
+
+                    HelloWorld h=(HelloWorld)context.getBean(HelloWorld.class);
+
+                    h.setMsg("Spring based Annotation");
+
+                    System.out.println(h.getMsg());
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Life cycle of Spring bean
+
+1. InitializingBean and DisposableBean callback interface
+
+    public void afterPropertiesSet()
+
+    public void destroy()
+
+ConfigurableApplicationContext interface
+
+abstract class AbstractApplicationContext implements ConfigurableApplicationContext interface
+
+     - void registerShutDownHook() - destroy the bean
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.beans.factory.DisposableBean;
+
+import org.springframework.beans.factory.InitializingBean;
+
+ 
+
+public class Book implements InitializingBean, DisposableBean {
+
+ 
+
+    private String name;
+
+ 
+
+  
+
+    public void afterPropertiesSet() throws Exception {
+
+        System.out.println("- - - initializing Book bean using initializingBean");
+
+        System.out.println("name: " + name);
+
+    }
+
+ 
+
+   
+
+    public void destroy() throws Exception {
+
+        System.out.println("- - - destroying Book bean using DisposableBean");
+
+    }
+
+ 
+
+    public String getName() {
+
+        return name;
+
+    }
+
+ 
+
+    public void setName(String name) {
+
+        this.name = name;
+
+    }
+
+}
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ 
+
+    <bean class="com.pack.Book">
+
+        <property name="name" value="Brand New Bookstore"/>
+
+    </bean>
+
+ 
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.support.AbstractApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main3 {
+
+ 
+
+    public static void main(String... args) throws InterruptedException {
+
+      // ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+
+                 AbstractApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+
+                Book b=context.getBean(Book.class);
+
+       System.out.println(b.getName());
+
+        context.registerShutdownHook();
+
+    }
+
+}
+
+2. Aware interface
+
+3. custom init() and destroy()
+
+init-method="init"   destroy-method="destroy"
+
+registerShutdownHook() - it is going to shutdown the ApplicationContext whenever JVM is shutting down
+
+close() - it is going to shutdown the ApplicationContext at the time it is invoked
+
+ 
+
+package com.pack;
+
+ 
+
+public class Example1 {
+
+ 
+
+    private String name;
+
+ 
+
+    public Example1(String name) {
+
+        this.name = name;
+
+    }
+
+ 
+
+    public void init(){
+
+        System.out.println("- - - initializing register bean using init-method");
+
+        System.out.println("Register name: " + name);
+
+    }
+
+ 
+
+    public void destroy(){
+
+        System.out.println("- - - destroying register bean using destroy-method");
+
+    }
+
+}
+
+ 
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ 
+
+    <bean class="com.pack.Example1"
+
+          init-method="init"
+
+          destroy-method="destroy">
+
+        <constructor-arg name="name" value="Cache Register"/>
+
+    </bean>
+
+ 
+
+</beans>
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ConfigurableApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main4 {
+
+ 
+
+    public static void main(String... args) throws InterruptedException {
+
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("beans3.xml");
+
+            Example1 e=context.getBean(Example1.class);
+
+       
+
+       // context.registerShutdownHook();
+
+ 
+
+      
+
+        context.close();
+
+    }
+
+}
+
+ 
+
+default-init-method="init" default-destroy-method="destroy" in beans tag it is for all bean class
+
+ 
+
+package com.pack;
+
+ 
+
+public class Course {
+
+ 
+
+    private String name;
+
+ 
+
+    public void init(){
+
+        System.out.println("- - - initializing course bean using default-init-method");
+
+        System.out.println("name: " + name);
+
+    }
+
+ 
+
+    public void destroy(){
+
+        System.out.println("- - - destroying course bean using default-destroy-method");
+
+    }
+
+ 
+
+    public void setName(String name) {
+
+        this.name = name;
+
+    }
+
+ 
+
+                public String getName() {
+
+                                return name;
+
+                }
+
+   
+
+}
+
+ 
+
+package com.pack;
+
+ 
+
+public class Course1 {
+
+               
+
+ 
+
+                    private String name;
+
+ 
+
+                    public void init(){
+
+                        System.out.println("Course1 initializing course bean using default-init-method");
+
+                        System.out.println("name: " + name);
+
+                    }
+
+ 
+
+                    public void destroy(){
+
+                        System.out.println("Course1 destroying course bean using default-destroy-method");
+
+                    }
+
+ 
+
+                    public void setName(String name) {
+
+                        this.name = name;
+
+                    }
+
+ 
+
+                                public String getName() {
+
+                                                return name;
+
+                                }
+
+                   
+
+                
+
+}
+
+ 
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd"
+
+       default-init-method="init"  >
+
+ 
+
+    <bean class="com.pack.Course" >
+
+        <property name="name" value="default init and destroy methods" />
+
+    </bean>
+
+<bean class="com.pack.Course1" >
+
+        <property name="name" value="course1 default init and destroy methods" />
+
+    </bean>
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.ConfigurableApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main1 {
+
+ 
+
+    public static void main(String... args) throws InterruptedException {
+
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+       Course c= context.getBean(Course.class);
+
+       System.out.println(c.getName());
+
+       //context.registerShutdownHook();
+
+       ConfigurableApplicationContext context1 = new ClassPathXmlApplicationContext("beans.xml");
+
+       Course1 c1= context1.getBean(Course1.class);
+
+       System.out.println(c1.getName());
+
+        context.close();
+
+        context1.close();
+
+    }
+
+}
+
+ 
+
+4. @PostConstruct and @PreDestroy
+
+package com.pack;
+
+ 
+
+import javax.annotation.PostConstruct;
+
+import javax.annotation.PreDestroy;
+
+ 
+
+import org.springframework.context.annotation.Scope;
+
+ 
+
+//@Scope("prototype")
+
+public class Example {
+
+ 
+
+    private int timeout;
+
+ 
+
+    public Example(int timeout) {
+
+        this.timeout = timeout;
+
+    }
+
+ 
+
+    @PostConstruct
+
+    public void init() throws Exception {
+
+        System.out.println("- - - initializing monitor bean using @PostConstruct");
+
+        System.out.println("timeout: " + timeout);
+
+    }
+
+ 
+
+    @PreDestroy
+
+    public void destroy() throws Exception {
+
+        System.out.println("- - - destroying monitor bean using @PreDestroy");
+
+    }
+
+ 
+
+                @Override
+
+                public String toString() {
+
+                                return "Example [timeout=" + timeout + "]";
+
+                }
+
+   
+
+}
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+                           http://www.springframework.org/schema/context
+
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+ 
+
+    <context:annotation-config/>
+
+ 
+
+    <bean class="com.pack.Example">
+
+        <constructor-arg name="timeout" value="1000"/>
+
+    </bean>
+
+ 
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ConfigurableApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main2 {
+
+ 
+
+    public static void main(String... args) throws InterruptedException {
+
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("beans1.xml");
+
+        Example e=context.getBean(Example.class);
+
+        System.out.println(e);
+
+        context.registerShutdownHook();
+
+    }
+
+}
+
+ 
+
+Autowired Annotation
+
+1. @Autowired on setter methods - it is going to work like byType
+
+ 
+
+package com.pack;
+
+ 
+
+public class Course {
+
+   private int courseid;
+
+   private String cname;
+
+public int getCourseid() {
+
+                return courseid;
+
+}
+
+public void setCourseid(int courseid) {
+
+                this.courseid = courseid;
+
+}
+
+public String getCname() {
+
+                return cname;
+
+}
+
+public void setCname(String cname) {
+
+                this.cname = cname;
+
+}
+
+  
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+ 
+
+public class Student {
+
+    private int stuid;
+
+    private String sname;
+
+    private Course course;
+
+                public int getStuid() {
+
+                                return stuid;
+
+                }
+
+                public void setStuid(int stuid) {
+
+                                this.stuid = stuid;
+
+                }
+
+                public String getSname() {
+
+                                return sname;
+
+                }
+
+                public void setSname(String sname) {
+
+                                this.sname = sname;
+
+                }
+
+                public Course getCourse() {
+
+                                return course;
+
+                }
+
+                @Autowired
+
+                public void setCourse(Course course) {
+
+                                this.course = course;
+
+                }
+
+   
+
+}
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+<context:annotation-config/>
+
+<bean id="course" class="com.pack.Course">
+
+   <property name="courseid" value="100"></property>
+
+   <property name="cname" value="Java for beginners"></property>
+
+</bean>
+
+<bean id="stud" class="com.pack.Student">
+
+   <property name="stuid" value="1000"></property>
+
+   <property name="sname" value="Ramu"></property>
+
+</bean>
+
+ 
+
+   
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main3 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                ApplicationContext context=new ClassPathXmlApplicationContext("xyz.xml");
+
+                                    Student st=(Student) context.getBean("stud");
+
+                                    System.out.println(st.getStuid());
+
+                                    System.out.println(st.getSname());
+
+                                    System.out.println(st.getCourse().getCourseid());
+
+                                    System.out.println(st.getCourse().getCname());
+
+                }
+
+
+}
+
+
+2. @Autowired on properties
+
+
+package com.pack;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+public class Student {
+
+    private int stuid;
+
+    private String sname;
+
+    @Autowired
+
+    private Course course;
+
+                public int getStuid() {
+
+                                return stuid;
+
+                }
+
+                public void setStuid(int stuid) {
+
+                                this.stuid = stuid;
+
+                }
+
+                public String getSname() {
+
+                                return sname;
+
+                }
+
+                public void setSname(String sname) {
+
+                                this.sname = sname;
+
+                }
+
+                public Course getCourse() {
+
+                                return course;
+
+                }
+
+
+}
+
+
+3. @Autowired on constructors
+
+package com.pack;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+public class Student {
+
+    private int stuid;
+
+    private String sname;
+
+    @Autowired
+
+    private Course course;
+
+                public int getStuid() {
+
+                                return stuid;
+
+                }
+
+                public void setStuid(int stuid) {
+
+                                this.stuid = stuid;
+
+                }
+
+                public String getSname() {
+
+                                return sname;
+
+                }
+
+                public void setSname(String sname) {
+
+                                this.sname = sname;
+
+                }
+
+                @Autowired
+
+                public Student(int stuid, String sname, Course course) {
+
+                                super();
+
+                                this.stuid = stuid;
+
+                                this.sname = sname;
+
+                                this.course = course;
+
+                }
+
+                public Course getCourse() {
+
+                                return course;
+
+                }
+
+                public void setCourse(Course course) {
+
+                                this.course = course;
+
+                }
+
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+<context:annotation-config/>
+
+<bean id="course" class="com.pack.Course">
+
+   <property name="courseid" value="100"></property>
+
+   <property name="cname" value="Java for beginners"></property>
+
+</bean>
+
+<bean id="stud" class="com.pack.Student">
+
+   <constructor-arg index="0" value="101" type="int"></constructor-arg>
+
+   <constructor-arg index="1" value="Somu" type="java.lang.String"></constructor-arg>
+
+</bean>
+
+
+</beans>
+
+
+@Qualifier - used along with @Autowired to remove confusion by specifying which bean will be wired
+
+* It is only applied on properties and setter methods not constructor.
+
+
+package com.pack;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
+
+
+public class Student {
+
+    private int stuid;
+
+    private String sname;
+
+    @Autowired
+
+    private Course course;
+
+                public int getStuid() {
+
+                                return stuid;
+
+                }
+
+                public void setStuid(int stuid) {
+
+                                this.stuid = stuid;
+
+                }
+
+                public String getSname() {
+
+                                return sname;
+
+                }
+
+                public void setSname(String sname) {
+
+                                this.sname = sname;
+
+                }
+
+
+                public Student(int stuid, String sname, Course course) {
+
+                                super();
+
+                                this.stuid = stuid;
+
+                                this.sname = sname;
+
+                                this.course = course;
+
+                }
+
+                public Course getCourse() {
+
+                                return course;
+
+                }
+
+                public Student() {
+
+                                super();
+
+                                // TODO Auto-generated constructor stub
+
+                }
+
+                @Autowired
+
+                @Qualifier("course1")
+
+                public void setCourse(Course course) {
+
+                                this.course = course;
+
+                }
+
+
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+<context:annotation-config/>
+
+<bean id="course" class="com.pack.Course">
+
+   <property name="courseid" value="100"></property>
+
+   <property name="cname" value="Java for beginners"></property>
+
+</bean>
+
+  <bean id="course1" class="com.pack.Course">
+
+   <property name="courseid" value="102"></property>
+
+   <property name="cname" value="J2EE"></property>
+
+</bean>
+
+<bean id="stud" class="com.pack.Student">
+
+  <!--  <constructor-arg index="0" value="101" type="int"></constructor-arg>
+
+   <constructor-arg index="1" value="Somu" type="java.lang.String"></constructor-arg> -->
+
+   <property name="stuid" value="103"></property>
+
+   <property name="sname" value="Rajesh"></property>
+
+</bean>
+
+
+</beans>
+
+
+@Required - can be applied bean property setter method, and it indicates that the bean property must be initialized otherwise it throws BeanInitializationException
+
+
+package com.pack;
+
+
+import org.springframework.beans.factory.annotation.Required;
+
+
+public class Course {
+
+   private int courseid;
+
+   private String cname;
+
+public int getCourseid() {
+
+                return courseid;
+
+}
+
+@Required
+
+public void setCourseid(int courseid) {
+
+                this.courseid = courseid;
+
+}
+
+public String getCname() {
+
+                return cname;
+
+}
+
+public void setCname(String cname) {
+
+                this.cname = cname;
+
+}
+
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+<context:annotation-config/>
+
+<bean id="course" class="com.pack.Course">
+
+   <property name="courseid" value="100"></property>
+
+  <property name="cname" value="Java for beginners"></property>
+
+</bean>
+
+  <bean id="course1" class="com.pack.Course">
+
+   <!-- <property name="courseid" value="102"></property> -->
+
+   <property name="cname" value="J2EE"></property>
+
+</bean>
+
+<bean id="stud" class="com.pack.Student">
+
+  <!--  <constructor-arg index="0" value="101" type="int"></constructor-arg>
+
+   <constructor-arg index="1" value="Somu" type="java.lang.String"></constructor-arg> -->
+
+   <property name="stuid" value="103"></property>
+
+   <property name="sname" value="Rajesh"></property>
+
+</bean>
+
+
+</beans>
+
+@Primary - it is used instead of primary=true in xml
+
+ 
+
+package com.pack;
+
+ 
+
+public class Job {
+
+ 
+
+    private String name;
+
+ 
+
+    public Job(String name) {
+
+        this.name = name;
+
+    }
+
+ 
+
+    @Override
+
+    public String toString() {
+
+        return "Job{" +
+
+                "name='" + name + '\'' +
+
+                '}';
+
+    }
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+ 
+
+public class Person {
+
+ 
+
+    //@Autowired
+
+    private Job job;
+
+ 
+
+    public Job getJob() {
+
+                                return job;
+
+                }
+
+ 
+
+                public void setJob(Job job) {
+
+                                this.job = job;
+
+                }
+
+ 
+
+                @Override
+
+    public String toString() {
+
+        return "Person{" +
+
+                "job=" + job +
+
+                '}';
+
+    }
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.context.annotation.ComponentScan;
+
+import org.springframework.context.annotation.Configuration;
+
+import org.springframework.context.annotation.Primary;
+
+ 
+
+@Configuration
+
+//@ComponentScan(basePackages = "com.pack")
+
+public class Config {
+
+
+    @Bean
+
+    public Person person(){
+
+        return new Person();
+
+    }
+
+
+    @Bean
+
+    @Primary
+
+    public Job javaDeveloper(){
+
+        return new Job("Java Developer");
+
+    }
+
+
+    @Bean
+
+   // @Primary
+
+    public Job frontEndDeveloper(){
+
+        return new Job("Front end Developer");
+
+    }
+
+}
+
+
+package com.pack;
+
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class Main {
+
+
+    public static void main(String... args) {
+
+       // ApplicationContext xmlContext = new ClassPathXmlApplicationContext("app-config.xml");
+
+                ApplicationContext xmlContext = new AnnotationConfigApplicationContext(Config.class);
+
+        Person person = xmlContext.getBean(Person.class);
+
+        System.out.println(person);
+
+    }
+
+}
+
+
+
+BeanFactory is lazy loading - it creates the bean only when getBean() is called
+
+
+
+ApplicationContext is eager loading - preloads all the beans at the time of startup using lazy-init="false"
+
+
+
+package com.pack;
+
+ 
+
+public class Holiday {
+
+ 
+
+    public Holiday() {
+
+        System.out.println("Holiday initialized");
+
+    }
+
+ 
+
+}
+
+ 
+
+package com.pack;
+
+ 
+
+public class Workday {
+
+       private Holiday holiday;
+
+      
+
+    public Holiday getHoliday() {
+
+                                return holiday;
+
+                }
+
+ 
+
+                public void setHoliday(Holiday holiday) {
+
+                                this.holiday = holiday;
+
+                }
+
+ 
+
+                public Workday() {
+
+        System.out.println("Workday initialized");
+
+    }
+
+}
+
+ 
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ 
+
+    <bean class="com.pack.Workday" lazy-init="false">
+
+    <property name="holiday" ref="h"/>
+
+   </bean>
+
+    <bean id="h" class="com.pack.Holiday"  />
+
+ 
+
+</beans>
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                // TODO Auto-generated method stub
+
+                                ApplicationContext context = new ClassPathXmlApplicationContext("beans1.xml");
+
+                                //Resource res=new ClassPathResource("beans1.xml");
+
+                                //BeanFactory context=new XmlBeanFactory(res);
+
+        System.out.println("Application context loaded");
+
+       // Holiday holiday = context.getBean(Holiday.class);
+
+        Workday workday = context.getBean(Workday.class);
+
+ 
+
+                }
+
+ 
+
+}
+
+ 
+
+<context:annotation-config> - indicate we use annotation + we have to do autowiring
+
+ 
+
+<context:component-scan> - autodiscover - identify the bean + autowiring
+
+ 
+
+@Lazy
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.annotation.Lazy;
+
+import org.springframework.stereotype.Component;
+
+ 
+
+@Lazy
+
+@Component
+
+public class Address {
+
+ 
+
+    public Address() {
+
+        System.out.println("Address initialized");
+
+    }
+
+ 
+
+    @Override
+
+    public String toString() {
+
+        return "Address{}";
+
+    }
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.context.annotation.Lazy;
+
+import org.springframework.stereotype.Component;
+
+ 
+
+@Component
+
+public class Person {
+
+ 
+
+    private @Autowired @Lazy Address address;
+
+ 
+
+    public Person() {
+
+        System.out.println("Person initialized");
+
+  }
+
+ 
+
+    public Address getAddress() {
+
+        return address;
+
+    }
+
+}
+
+ 
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+                           http://www.springframework.org/schema/context
+
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+ 
+
+    <context:component-scan base-package="com.pack"/>
+
+ 
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+ 
+
+public class Main {
+
+ 
+
+    public static void main(String... args) throws InterruptedException {
+
+       ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+        System.out.println("Application context loaded");
+
+        System.out.println("Getting Person Bean");
+
+        Person person = context.getBean(Person.class);
+
+ 
+
+        System.out.println("Waiting...");
+
+        Thread.sleep(1000);
+
+ 
+
+        System.out.println("Getting the address");
+
+        Address address = person.getAddress();
+
+        System.out.println(address + ".toString()");
+
+    }
+
+}

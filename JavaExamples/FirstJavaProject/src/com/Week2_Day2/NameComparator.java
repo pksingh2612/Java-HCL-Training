@@ -10,7 +10,6 @@ public class NameComparator implements Comparator<Employee>{
 			return 0;
 		else
 			return -1;
-		
 	}
 
 }

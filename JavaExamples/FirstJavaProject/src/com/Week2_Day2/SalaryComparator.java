@@ -10,5 +10,4 @@ public class SalaryComparator implements Comparator<Employee>{
 		else
 			return -1;
 	}
-
 }

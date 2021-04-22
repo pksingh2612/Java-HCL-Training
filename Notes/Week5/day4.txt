@@ -1,0 +1,1033 @@
+Spring Framework
+
+   The Spring Framework is an open source application framework for the Java platform.
+
+
+J2EE Components
+
+1. Servlets
+
+2. JSP
+
+3. Java Beans
+
+4. Enterprise Java Bean(EJB) - 3 Types
+
+        1. Session Bean - used to write business logic
+
+        2. Entity bean - used to persist data inside db
+
+        3. Message Driven Bean - used to send messages
+
+Drawback of J2EE
+
+J2EE applications tend to contain excessive amounts of "plumbing" code -> Thers would always be a high proportion of code that doesn't do anything: JNDI lookup code,
+Transfer Objects, try/catch blocks to acquire and release JDBC resources. Writing and maintaining such plumbing code proves a major drain on resources that should be 
+focused on the application's business domain.
+
+ 
+
+J2EE applications are hard to unit test -> The J2EE APIs, especially, the EJB component model, does not take into account ease of unit testing. 
+It is very difficult to test applications based on EJB and many other J2EE APIs outside an application server.
+
+ 
+
+Certain J2EE technologies have failed in performance. EJB 2.x, for instance -> The main offender here is entity beans, which have proven little short of 
+disastrous for productivity.
+
+ 
+
+ 
+
+POJO - contains getters and setters methods, can also contain parameterized constructor
+
+ 
+
+Frameworks
+
+There are many frameworks which claim to resolve the issues mentioned earlier. For instance, Struts.
+
+ 
+
+Struts is a web framework which works on the web tier and helps us achieve MVC and is doing pretty well in the market.
+However Spring takes over struts in that it is not just a web framework but an application framework.
+
+ 
+
+Unlike single-tier frameworks such as Struts or Hibernate, Spring aims to help structure whole applications in a consistent, productive manner. 
+It has modules that offer services for use throughout an application.
+
+ 
+
+The essence of Spring is in providing enterprise services to Plain Old Java Objects (POJOs). This is valuable in a J2EE environment.
+
+ 
+
+ 
+
+Advantage of Spring framework
+
+ 
+
+Reduce glue code/plumbing work
+
+Spring Framework takes lot of load off the programmer by providing dependencies when required and by using AOP.
+
+ 
+
+Externalize dependencies
+
+Dependencies are described in a separate file (xml) rather than mixing it with the business logic code itself. This gives a better control over the application.
+
+ 
+
+Manage dependencies at a single place
+
+Dependencies can be managed better due to this.
+
+ 
+
+Improve testability
+
+Actual code can easily be replaced by a stub for testing purposes.
+
+ 
+
+Foster good application design
+
+Since the actual implementation sits behind the interfaces, it fosters good application design.
+
+ 
+
+Flexibility
+
+Spring offers integration points with several other frameworks. So, you do not have to write them yourself.
+
+
+7 modules
+
+
+1. Spring Core module
+
+               supports IOC(inversion of control) - giving the values separately - ties the software component loosely coupling
+
+               DI(Dependency Injection) -- objects are given their dependencies at runtime by external xml file
+
+        BeanFactory interface makes Spring as a container
+
+
+2. Spring Context module
+
+            - provides dependency injection + it provides internationalization, lifecycle events, integrating with EJB, remoting, scheduling,email, JNDI access and 
+              integrating with Velocity, freemarker frameworks
+
+       ApplicationContext interface makes Spring as a framework
+
+
+3. Spring AOP (Aspect Oriented Programming)
+
+          -- creating common functionality within the application in a single place
+
+          -- eg: Security, logging, transaction management
+
+ 
+
+4. Spring DAO(Data access object) module
+
+         -- We want to develop database processing using Spring itself
+
+ 
+
+5. Spring ORM(Object Relational Mapping) module
+
+       -- we integrate Spring with Hibernate,JDO, ibatis framework
+
+ 
+
+6. Spring Webflow
+
+      -- we want to integrate Spring with Struts to develop MVC architecture
+
+ 
+
+7. Spring MVC
+
+      -- But we want to develop MVC architecture using Spring itself
+
+ 
+
+Spring Programs - 3 programs
+
+1. POJO class - properties that contains getters and setters method
+
+2. XML file - used to perform dependency injection
+
+3. main class
+
+ 
+
+IOC - Inversion of Control
+
+Dependency Injection
+
+      -- objects are given their dependencies at runtime in separate XML file
+
+3 types of DI
+
+1. Setter Injection - Spring
+
+      -- dependencies are configured through beans setter method for their properties using <property>
+
+2. Constructor Injection - Spring
+
+      -- dependencies are configured through beans constructor for their properties using <constructor-arg>
+
+3. Interface Injection - Avalon
+
+     -- dependencies are configured through interface for their properties
+
+ 
+
+Spring Container - 2 types - we perform DI
+
+1. BeanFactory interface
+
+        -- org.springframework.beans.factory.*
+
+        -- It is a lazy loading
+
+        -- Create and destroy the bean
+
+        -- Uses XmlBeanFactory class - load the bean defined in xml file
+
+        -- Object getBean(String id) - used to instantiation the bean and performs DI to the value of the properties
+
+ 
+
+2. ApplicationContext Interface
+
+        -- org.springframework.context.*
+
+        -- it is eager loading
+
+        -- Create and destroy the bean and perform DI
+
+        -- 3 classes
+
+              1. ClasspathXmlApplicationContext - loads xml file from classpath(inside src/main/resource)
+
+              2.FileSystemXmlApplicationContext - loads xml file from file system
+
+             3. WebXmlApplicationContext - loads xml file from project
+
+ 
+
+Apache Maven
+
+       -  It is project development tool
+
+      - maven contains 2 types of repository
+
+           1. local repoistory - internally in our machine we create a repository called .m2
+
+           2. remote respository - contains all jar files remotely present in internet
+
+      - configure pom.xml -project object model
+
+                 -- contains the maven dependency for the files
+
+ 
+
+Installation
+
+1. Extracted apache maven
+
+2. Configure in environmental variable
+
+    1.M2_HOME   C:\Softwares\apache-maven-3.5.4-bin\apache-maven-3.5.4
+
+    2.Path         C:\Softwares\apache-maven-3.5.4-bin\apache-maven-3.5.4\bin
+
+3. open cmd prompt
+
+            >mvn -version
+
+4. >mvn clean
+
+5. goto c:/users/urnamefolder/.m2
+
+ 
+
+ 
+
+Spring project
+
+1. create maven project
+
+2. select  - create a simple project
+
+3. Group id: com.pack
+
+    Artifact id: projectname
+
+   Name: projectname
+
+   Packaging: jar
+
+4. configured the pom.xml with dependency
+
+5. copy path right click pom.xml - properties- copy path from location
+
+6. Go to cmd prmopt
+
+         > cd "projectpath"
+
+         > mvn clean install
+
+   -- it will get all jar files and downloaded to .m2 folder
+
+7. Rightclick project -- Maven -- Update Project - Check the Force update - click ok
+
+7. create pojo class in src/main/java
+
+8. create xml file in any name inside src or project
+
+    -- used to configure the bean to perform DI
+
+9. create main class
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+   <bean id="helo" class="com.pack.Student">
+
+      <property name="stuid" value="100"></property>
+
+      <property name="name" value="ram"></property>
+
+      <property name="city" value="chennai"></property>
+
+   </bean>
+
+ 
+
+   <bean id="emp" class="com.pack.Employee">
+
+      <constructor-arg index="0" value="102" type="int"></constructor-arg>
+
+      <constructor-arg index="1" value="Sam" type="java.lang.String"></constructor-arg>
+
+      <constructor-arg index="2" value="25000.0" type="double"></constructor-arg>
+
+   </bean>
+
+   
+
+</beans>
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+ 
+
+public class Main1 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                /*Resource res=new FileSystemResource("hello.xml");
+
+        BeanFactory fact=new XmlBeanFactory(res);
+
+        Employee e=(Employee) fact.getBean("emp");
+
+        System.out.println(e);*/
+
+                               
+
+                                //ApplicationContext context = new ClassPathXmlApplicationContext("hello.xml");
+
+                                ApplicationContext context = new FileSystemXmlApplicationContext("hello.xml");
+
+                          Employee e1=(Employee)context.getBean("emp");
+
+                          System.out.println(e1);
+
+                }
+
+ 
+
+}
+
+ 
+
+Scope
+
+   - life time of object - 5 types
+
+1. Singleton (default) - we can have only one object for spring bean
+
+2. prototype -- we can multiple object for bean
+
+3. request
+
+4. session
+
+5. global-session
+
+ 
+
+ref attribute - used to refer one bean class into another bean class
+
+   ref="id of the bean"
+
+ 
+
+package com.pack;
+
+ 
+
+public class Job {
+
+   private int jobid;
+
+   private String jobType;
+
+  
+
+public Job() {
+
+                System.out.println("Job class initialized");
+
+}
+
+public int getJobid() {
+
+                return jobid;
+
+}
+
+public void setJobid(int jobid) {
+
+                this.jobid = jobid;
+
+}
+
+public String getJobType() {
+
+                return jobType;
+
+}
+
+public void setJobType(String jobType) {
+
+                this.jobType = jobType;
+
+}
+
+@Override
+
+public String toString() {
+
+                return "Job [jobid=" + jobid + ", jobType=" + jobType + "]";
+
+}
+
+  
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+public class Person {
+
+   private int pid;
+
+   private String pname;
+
+   private Job job;
+
+  
+
+   
+
+public Person() {
+
+                System.out.println("Person class initialized");
+
+}
+
+public int getPid() {
+
+                return pid;
+
+}
+
+public void setPid(int pid) {
+
+                this.pid = pid;
+
+}
+
+public String getPname() {
+
+                return pname;
+
+}
+
+public void setPname(String pname) {
+
+                this.pname = pname;
+
+}
+
+public Job getJob() {
+
+                return job;
+
+}
+
+public void setJob(Job job) {
+
+                this.job = job;
+
+}
+
+@Override
+
+public String toString() {
+
+                return "Person [pid=" + pid + ", pname=" + pname + ", job=" + job + "]";
+
+}
+
+  
+
+}
+
+ 
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+<bean id="j" class="com.pack.Job">
+
+    <property name="jobid" value="1000"></property>
+
+    <property name="jobType" value="Manager"></property>
+
+</bean>
+
+ 
+
+    <bean id="person" class="com.pack.Person">
+
+      <property name="pid" value="100"></property>
+
+      <property  name="pname" value="Raj"></property>
+
+      <property name="job" ref="j"></property>
+
+     </bean>
+
+</beans>
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+ 
+
+public class Main2 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                ApplicationContext context=new FileSystemXmlApplicationContext("beans.xml");
+
+                                     Person p=(Person)context.getBean("person");
+
+                       System.out.println(p.getPid());
+
+                       System.out.println(p.getPname());
+
+                      System.out.println(p.getJob().getJobid());
+
+                       System.out.println(p.getJob().getJobType());
+
+                }
+
+ 
+
+}
+
+ 
+
+ 
+
+Bean Inheritance
+
+    -- Bean class properties can be inherited using "parent" attribute
+
+ 
+
+package com.pack;
+
+ 
+
+public class Bean1 {
+
+    private String message1;
+
+    private String message2;
+
+                public String getMessage1() {
+
+                                return message1;
+
+                }
+
+                public void setMessage1(String message1) {
+
+                                this.message1 = message1;
+
+                }
+
+                public String getMessage2() {
+
+                                return message2;
+
+                }
+
+                public void setMessage2(String message2) {
+
+                                this.message2 = message2;
+
+                }
+
+   
+
+}
+
+ 
+
+ 
+
+package com.pack;
+
+ 
+
+public class Bean2 {
+
+  private String message1;
+
+  private String message2;
+
+  private String message3;
+
+public String getMessage1() {
+
+                return message1;
+
+}
+
+public void setMessage1(String message1) {
+
+                this.message1 = message1;
+
+}
+
+public String getMessage2() {
+
+                return message2;
+
+}
+
+public void setMessage2(String message2) {
+
+                this.message2 = message2;
+
+}
+
+public String getMessage3() {
+
+                return message3;
+
+}
+
+public void setMessage3(String message3) {
+
+                this.message3 = message3;
+
+}
+
+ 
+
+}
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+<bean id="b1" class="com.pack.Bean1">
+
+     <property name="message1" value="Welcome"></property>
+
+     <property name="message2" value="Goodbye"></property>
+
+  </bean>
+
+ 
+
+  <bean id="b2" class="com.pack.Bean2" parent="b1">
+
+     <property name="message1" value="Hello"></property>
+
+     <property name="message3" value="Hi"></property>
+
+  </bean>
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+ 
+
+public class Main3 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                ApplicationContext context =new FileSystemXmlApplicationContext("inherit.xml");
+
+                                    Bean1 b1=(Bean1)context.getBean("b1");
+
+             System.out.println(b1.getMessage1());
+
+             System.out.println(b1.getMessage2());
+
+            
+
+             Bean2 b2=(Bean2)context.getBean("b2");
+
+             System.out.println(b2.getMessage1());
+
+             System.out.println(b2.getMessage2());
+
+             System.out.println(b2.getMessage3());
+
+                }
+
+ 
+
+}
+
+ 
+
+Injecting Collection
+
+    - List,Set,Map,Properties can be injected in Spring
+
+ 
+
+package com.pack;
+
+ 
+
+import java.util.List;
+
+import java.util.Map;
+
+import java.util.Properties;
+
+import java.util.Set;
+
+ 
+
+public class ExampleCollection {
+
+   private List  addrList;
+
+   private Set addrSet;
+
+   private Map addrMap;
+
+   private Properties addrProp;
+
+public List getAddrList() {
+
+                return addrList;
+
+}
+
+public void setAddrList(List addrList) {
+
+                this.addrList = addrList;
+
+}
+
+public Set getAddrSet() {
+
+                return addrSet;
+
+}
+
+public void setAddrSet(Set addrSet) {
+
+                this.addrSet = addrSet;
+
+}
+
+public Map getAddrMap() {
+
+                return addrMap;
+
+}
+
+public void setAddrMap(Map addrMap) {
+
+                this.addrMap = addrMap;
+
+}
+
+public Properties getAddrProp() {
+
+                return addrProp;
+
+}
+
+public void setAddrProp(Properties addrProp) {
+
+                this.addrProp = addrProp;
+
+}
+
+  
+
+   
+
+}
+
+ 
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+    http://www.springframework.org/schema/context
+
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ 
+
+<bean id="collection" class="com.pack.ExampleCollection">
+
+   <property name="addrList">
+
+      <list>
+
+        <value>Chennai</value>
+
+        <value>Salem</value>
+
+        <value>Coimbatore</value>
+
+        <value>Tirchy</value>
+
+        <value>Chennai</value>
+
+      </list>
+
+   </property>
+
+   <property name="addrSet">
+
+      <set>
+
+        <value>Chennai</value>
+
+        <value>Salem</value>
+
+        <value>Coimbatore</value>
+
+        <value>Tirchy</value>
+
+        <value>Chennai</value>
+
+      </set>
+
+   </property>
+
+   <property name="addrMap">
+
+      <map>
+
+        <entry key="1" value="Chennai"/>
+
+        <entry key="2" value="salem"/>
+
+        <entry key="3" value="Chennai"/>
+
+        <entry key="4" value="cimbatore"/>
+
+        <entry key="5" value="ooty"/>
+
+      </map>
+
+   </property>
+
+   <property name="addrProp">
+
+      <props>
+
+        <prop key="one">Chennai</prop>
+
+        <prop key="two">salem</prop>
+
+        <prop key="three">ooty</prop>
+
+        <prop key="four">theni</prop>
+
+       
+
+      </props>
+
+   </property>
+
+</bean>
+
+ 
+
+   
+
+</beans>
+
+ 
+
+package com.pack;
+
+ 
+
+import org.springframework.context.ApplicationContext;
+
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+ 
+
+public class Main4 {
+
+ 
+
+                public static void main(String[] args) {
+
+                                ApplicationContext context=new FileSystemXmlApplicationContext("collect.xml");
+
+                                    ExampleCollection e=(ExampleCollection) context.getBean("collection");
+
+             System.out.println(e.getAddrList());
+
+             System.out.println(e.getAddrSet());
+
+             System.out.println(e.getAddrMap());
+
+             System.out.println(e.getAddrProp());
+
+                }
+
+ 
+
+}

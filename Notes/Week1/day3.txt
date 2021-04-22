@@ -702,7 +702,7 @@ Interface
    - Interface is implemented in class using implements keyword
 
    - If a class implements an interface then we have to compulsorly implement all the methods declared
-    in the interface with public access specifier, 
+     in the interface with public access specifier,
    in case if we leave one method also then the class is declared as abstract
 
    - The implemented class can also contain some normal methods

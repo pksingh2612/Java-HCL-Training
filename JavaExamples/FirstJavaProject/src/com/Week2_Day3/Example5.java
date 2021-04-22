@@ -1,28 +1,46 @@
 package com.Week2_Day3;
 
-class Newhread1 extends Thread{
+class NewThread1 extends Thread{
 	
-	NewThread1(){
-		super("Demothread");
-		System.out.println("Child Thread"+this); // Thread[DempThread,5,main]
+	NewThread1() {
+		super("DemoThread");
+		System.out.println("Child Thread"+this);//Thread [Demothread,5,main]
 		start();
+		try {
+			for(int i=5;i>0;i--) {
+				System.out.println("child thread" +i);
+				Thread.sleep(500);
+			}
+		}
+		catch(InterruptedException e) {
+			System.out.println("child thread completed");
+			
+		}
+		System.out.println("Exiting child thread");
 		
-	}
-	public void run() {
 		
+		}	
+	
 	}
-}
+	
+
 public class Example5 {
 
 	public static void main(String[] args) {
-		Newhread1 n = new Newhread1();
-		try {
-			for(int i=5;i>0;i--) {
-				System.out.println("Main Thread "+i);
-				
-			}
+		NewThread1 n=new NewThread1();
+		 try {
+	          for(int i=5;i>0;i--) {
+	              System.out.println("Main Thread "+i);
+	              Thread.sleep(1000);
+	          }
+	      }
+	      catch(InterruptedException e) {
+	          System.out.println("Main thread interrupted");
+	      }
+	      System.out.println("Main thread exiting");
+
+		
+}
 		}
 
-	}
 
-}

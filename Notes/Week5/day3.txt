@@ -2,7 +2,6 @@ Expression Language (EL)
 
      --  without using expression and scriptlet if we want to print in that case we can go for EL
 
- 
 
 Enabling EL:
 
@@ -28,13 +27,11 @@ Enabling EL:
 
 </web-app>
 
- 
 
 EL Syntax:
 
    ${expression}
 
- 
 
 EL operators
 
@@ -44,7 +41,6 @@ EL operators
 
 3. &&(and), ||(or)
 
- 
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 
@@ -80,7 +76,6 @@ ${ 8 != 6 } <br/>
 
 </html>
 
- 
 
 EL Implicit object
 
@@ -128,11 +123,10 @@ ${pageScope.mark3}
 
 </html>
 
- 
 
 5. cookie - used to retrieve info in EL
 
- 
+
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 

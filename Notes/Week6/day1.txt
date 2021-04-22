@@ -1,0 +1,254 @@
+Spring MVC
+
+     -- used to develop web application based on MVC architecture in Spring
+
+ 
+
+Architecture
+
+1. Whenever the client gives the request, first the request will go to controller called DispatcherServlet which is a HttpServlet and it is configured in web.xml
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" id="WebApp_ID" version="2.4">
+
+  <display-name>Spring Web MVC Hello World Application</display-name>
+
+  <servlet>
+
+    <servlet-name>spring</servlet-name>
+
+    <servlet-class>
+
+                                                                org.springframework.web.servlet.DispatcherServlet
+
+                                                </servlet-class>
+
+    <load-on-startup>1</load-on-startup>
+
+  </servlet>
+
+  <servlet-mapping>
+
+    <servlet-name>spring</servlet-name>
+
+    <url-pattern>/</url-pattern>
+
+  </servlet-mapping>
+
+</web-app>
+
+ 
+
+Any request that starts with / it is considered as mvc request and that request will be handler by a controller called DispatcherServlet
+
+ 
+
+2. Now my controller will consult the handlermapping which is configured in separate xml file with name <servlet-name>-servlet.xml (ie) spring-servlet.xml
+   inside WEB-INF folder
+
+      Handlermapping used to forward the request to particular controller class
+
+Types of HandlerMapping
+
+1. BeanNameUrlHandlerMapping (default)
+
+2. SimpleUrlHandlerMapping
+
+3. ControllerNameUrlHandlerMapping
+
+ 
+
+Here we are not going to configure the handlermapping inside xml instead we use annotation.
+
+  Since we are using annotation, we indicate to Spring using
+
+<context:component-scan base-package="com.pack"/>
+
+ 
+
+3. Controller is a class which contains business logic processing denoted with @Controller annotation
+
+    We write business logic inside the method, that method will return ModelAndView object which contains modeldata and viewname or String which contains only view name so in case if we want to pass model data from controller to view page then we use ModelMap or Map object
+
+ 
+
+ 
+
+4. With this modeldata and view name it again goes to xml and consult viewresolver
+
+ 
+
+ViewResolver is responsible for rendering the view page back to the client
+
+Types of ViewResolver
+
+1. InternalResourceViewResolver (default)
+
+2. XmlViewResolver - we configure all views in xml file
+
+3. ResourceBundleViewResolver - we configure all views in properties files
+
+4. VelocityViewResolver
+
+5.UrlBasedViewResolver
+
+ 
+
+5. We render the response back to the client with the model data
+
+ 
+
+1. create maven project with war packaging
+
+2. configure pom.xml
+
+3. mvn clean install
+
+4. updated the project
+
+5. create WEB-INF folder inside webapp folder
+
+6. create web.xml inside WEB-INF folder
+
+7. configured DispatcherServlet inside web.xml
+
+8. create spring-servlet.xml inside WEB-INF folder
+
+9. configured  in spring-servlet.xml that we use annotation using
+
+<context:component-scan base-package="com.pack"/>
+
+10. created HelloController inside com.pack.controller
+
+ 
+
+@Controller
+
+public class HelloController{
+
+  
+
+     public ModelAndView hello(){
+
+ 
+
+    }       
+
+ 
+
+}
+
+ 
+
+11. InternalResourceViewResovler - used to render response to the client
+
+   prefix+view name+suffix = /WEB-INF/views/success.jsp
+
+ 
+
+12. Business logic method can return ModelAndView or String
+
+ 
+
+Since we are returning String, the return value is considered as view name and if we want to define the model data then we have to use
+
+ 
+
+1. ModelMap object using addAttribute()
+
+2. Map object using put()
+
+ 
+
+ 
+
+But if we are going to create xml file in different name and in different location, then we have to configure
+
+<init-param>
+
+               <param-name>contextConfigLocation</param-name>
+
+               <param-value>/WEB-INF/spring/abc-servlet.xml</param-value>
+
+</init-param>
+
+ 
+
+ 
+
+1.Right click webapp - create new jsp called index.jsp
+
+ 
+
+<jsp:forward page="/first"></jsp:forward>
+
+ 
+
+2. In web.xml, we have a  <welcome-file-list> used to inform which page is to be executed first
+
+ 
+
+<welcome-file-list>
+
+     <welcome-file>index.jsp</welcome-file>
+
+  </welcome-file-list>
+
+ 
+
+3. Now we are going to see how to create forms in Spring
+
+ 
+
+To create form in Spring we use Spring forms tags, but tomcat consider those tags as user defined tags, so we have to configure taglib directive element
+
+ 
+
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+ 
+
+4. Whenever u create a form, then we have to create a separate model class which is equal to the form
+
+5. Now we have to bind the model class with the form using ModelMap object and commandName in the form
+
+6. @ModelAttribute is used to take value from the form to the controller class
+
+ 
+
+Validation
+
+1. javax.valiadtion.*
+
+2. org.hibernate.validator.*
+
+ 
+
+1. We are going to do validation using annotation   
+
+        <mvc:annotation-driven/> - to indicate that we use annotation for validation
+
+ 
+
+2. We do validation in model class
+
+@NotNull -- can be applied to wrapper class
+
+@NotEmpty - can be applied only to String
+
+@Min
+
+@Max
+
+@Size    
+
+ 
+
+3. In controller class, before submitting the data we want to do validation for that we use @Validated
+
+4. In order to get the validation error message, we use an interface called BindingResult interface
+
+5. If any error comes, it goes to register.jsp and we want to print the error message using  <form:errors>
+
