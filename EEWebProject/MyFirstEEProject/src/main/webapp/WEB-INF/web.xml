@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>MyFirstEEProject</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+	<servlet>
+	
+	   <servlet-name>FirstServlet</servlet-name>
+	   <servlet-class>com.Week_4_Day3.FirstServlet</servlet-class>
+	
+	</servlet>
+	
+	<servlet>
+	
+	   <servlet-name>Second</servlet-name>
+	   <servlet-class>com.Week_4_Day4.Second</servlet-class>
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>FirstServlet</servlet-name>
+	   <url-pattern>/FirstServlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	
+	   <servlet-name>Second</servlet-name>
+	   <url-pattern>/SecondServlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	<servlet>
+	
+	   <servlet-name>FourthServlet</servlet-name>
+	   <servlet-class>com.Week_4_Day4.FourthServlet</servlet-class>
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>FourthServlet</servlet-name>
+	   <url-pattern>/FourthServlet</url-pattern>
+	
+	</servlet-mapping>
+  
+  <servlet>
+	
+	   <servlet-name>SixthServlet</servlet-name>
+	   <servlet-class>com.Week_4_Day4.SixthServlet</servlet-class>
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>SixthServlet</servlet-name>
+	   <url-pattern>/SixthServlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	<servlet>
+	
+	   <servlet-name>NinthServlet</servlet-name>
+	   <servlet-class>com.Week_4_Day4.NinthServlet</servlet-class>
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>NinthServlet</servlet-name>
+	   <url-pattern>/NinthServlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	<servlet>
+	
+	   <servlet-name>EleventhServlet</servlet-name>
+	   
+	   <servlet-class>com.Week_4_Day4.EleventhServlet</servlet-class>
+	   
+	   <init-param>
+	   	<param-name>city</param-name>
+	   	<param-value>Mau</param-value>
+	   </init-param>
+	   
+	   <init-param>
+	   	<param-name>state</param-name>
+	   	<param-value>Uttar Pradesh</param-value>
+	   </init-param>
+	</servlet>
+
+	<servlet-mapping>
+	   <servlet-name>EleventhServlet</servlet-name>
+	   <url-pattern>/EleventhServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	   <servlet-name>FirstW4D5Sevlet</servlet-name>
+	   <servlet-class>com.Week_4_Day5.FirstW4D5Sevlet</servlet-class>
+
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>FirstW4D5Sevlet</servlet-name>
+	   <url-pattern>/FirstW4D5Sevlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	<context-param>
+
+		  <param-name>email</param-name>
+		
+		  <param-value>pksingh15007@gmail.com</param-value>
+		
+		  </context-param>
+		
+		  <context-param>
+		
+		  <param-name>website</param-name>
+		
+		  <param-value>lenskills.com</param-value>
+	
+	</context-param>
+	
+	<servlet>
+	
+	   <servlet-name>FourthW4D5Servlet</servlet-name>
+	   <servlet-class>com.Week_4_Day5.FourthW4D5Servlet</servlet-class>
+	   
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>FourthW4D5Servlet</servlet-name>
+	   <url-pattern>/FourthW4D5Servlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	<servlet>
+	
+	   <servlet-name>FifthW4D5Servlet</servlet-name>
+	   <servlet-class>com.Week_4_Day5.FifthW4D5Servlet</servlet-class>
+	   
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>FifthW4D5Servlet</servlet-name>
+	   <url-pattern>/FifthW4D5Servlet</url-pattern>
+	
+	</servlet-mapping>
+	
+	
+	<servlet>
+	   <servlet-name>SixthW4D5Servlet</servlet-name>
+	   <servlet-class>com.Week_4_Day5.SixthW4D5Servlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+	   <servlet-name>SixthW4D5Servlet</servlet-name>
+	   <url-pattern>/SixthW4D5Servlet</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>ExampleFilter</filter-name>
+		<filter-class>com.Week_4_Day5.ExampleFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ExampleFilter</filter-name>
+		<url-pattern>/SixthW4D5Servlet</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+	
+	   <servlet-name>SeventhW4D5Servlet</servlet-name>
+	   <servlet-class>com.Week_4_Day5.SeventhW4D5Servlet</servlet-class>
+	   
+	
+	</servlet>
+
+	<servlet-mapping>
+	
+	   <servlet-name>SeventhW4D5Servlet</servlet-name>
+	   <url-pattern>/SeventhW4D5Servlet</url-pattern>
+	
+	</servlet-mapping>
+	<listener>
+		<listener-class>
+			com.Week_4_Day5.MyFirstServletContextListerner
+		</listener-class>
+	</listener>
+	<context-param>
+		<param-name>
+			mySubject
+		</param-name>
+		<param-value>
+			English
+		</param-value>
+	</context-param>
+	
+	<servlet>
+		<servlet-name>hello</servlet-name>
+		<jsp-file>/configW5D1.jsp</jsp-file>
+		<init-param>
+			<param-name>
+				qualification
+			</param-name>
+			<param-value>
+				BE
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>
+				department
+			</param-name>
+			<param-value>
+				Software
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+	
+	   <servlet-name>hello</servlet-name>
+	   <url-pattern>/configW5D1.jsp</url-pattern>
+	
+	</servlet-mapping>
+	
+	<context-param>
+		<param-name>
+			zipcode
+		</param-name>
+		<param-value>
+			275101
+		</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>
+			department
+		</param-name>
+		<param-value>
+			CSE
+		</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>
+			email
+		</param-name>
+		<param-value>
+			pksingh15007@gmail.com
+		</param-value>
+	</context-param>
+	
+	
+	<servlet>
+		<servlet-name>Problem13</servlet-name>
+		<jsp-file>/Problem13.jsp</jsp-file>
+		<init-param>
+			<param-name>
+				department
+			</param-name>
+			<param-value>
+				CSE
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+	
+	   <servlet-name>Problem13</servlet-name>
+	   <url-pattern>/Problem13.jsp</url-pattern>
+	
+	</servlet-mapping>
+	
+	
+	
+</web-app>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert Employee Details</title>
+</head>
+<body>
+	<form action="http://localhost:8086/MyFirstEEProject/W5D3JDBCServlet" method="post">
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>
+				<td>Age:</td>
+				<td><input type="number" name="age" min="20" max="50"></td>
+			</tr>
+			<tr>
+				<td>Salary:</td>
+				<td><input type="number" name="salary"></td>
+			</tr>
+			<tr>
+				<td>Department:</td>
+				<td><input type="text" name="dept"></td>
+			</tr>
+			<tr>
+				<td>Gender:</td>
+				<td>
+					<input type="radio" name="gender" value="male">Male
+					<input type="radio" name="gender" value="female">Female
+				</td>
+			</tr>
+			<tr>
+				<td>Date of Join:</td>
+				<td><input type="date" name="doj"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit Employee Details"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

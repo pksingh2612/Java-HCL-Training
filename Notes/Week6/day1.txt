@@ -70,7 +70,8 @@ Here we are not going to configure the handlermapping inside xml instead we use 
 
 3. Controller is a class which contains business logic processing denoted with @Controller annotation
 
-    We write business logic inside the method, that method will return ModelAndView object which contains modeldata and viewname or String which contains only view name so in case if we want to pass model data from controller to view page then we use ModelMap or Map object
+    We write business logic inside the method, that method will return ModelAndView object which contains modeldata and viewname or String which contains only 
+    view name so in case if we want to pass model data from controller to view page then we use ModelMap or Map object
 
  
 
@@ -92,7 +93,7 @@ Types of ViewResolver
 
 4. VelocityViewResolver
 
-5.UrlBasedViewResolver
+5. UrlBasedViewResolver
 
  
 
